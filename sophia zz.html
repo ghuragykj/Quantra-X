@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sophia AI</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background-color: #343541;
+      color: #ececf1;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .chat-container {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      width: 100vw;
+      max-width: 100%;
+      overflow: hidden;
+    }
+    .chat-header {
+      background-color: #343541;
+      color: #ececf1;
+      padding: 16px;
+      text-align: center;
+      border-bottom: 1px solid #565869;
+      font-size: 18px;
+      font-weight: 600;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      background-color: #343541;
+      padding-bottom: 20px;
+    }
+    .message-container {
+      padding: 24px 0;
+      border-bottom: 1px solid #565869;
+    }
+    .user-container {
+      background-color: #343541;
+    }
+    .ai-container {
+      background-color: #444654;
+    }
+    .message-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 16px;
+      display: flex;
+      gap: 20px;
+    }
+    .avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    .user-avatar {
+      background-color: #10a37f;
+    }
+    .ai-avatar {
+      background-color: #5436da;
+    }
+    .message-text {
+      line-height: 1.5;
+      padding-top: 6px;
+      white-space: pre-wrap;
+      flex: 1;
+    }
+    .chat-input-container {
+      padding: 12px;
+      border-top: 1px solid #565869;
+      background-color: #343541;
+      position: sticky;
+      bottom: 0;
+    }
+    .input-wrapper {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .chat-input {
+      width: 100%;
+      padding: 12px 45px 12px 16px;
+      border: 1px solid #565869;
+      border-radius: 6px;
+      outline: none;
+      font-size: 15px;
+      background-color: #40414f;
+      color: #ececf1;
+      resize: none;
+      min-height: 60px;
+      max-height: 200px;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    }
+    .chat-input:focus {
+      border-color: #8e8ea0;
+    }
+    .send-icon {
+      position: absolute;
+      right: 15px;
+      bottom: 15px;
+      color: #8e8ea0;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .typing-indicator {
+      display: inline-block;
+      padding-left: 5px;
+    }
+    .typing-indicator span {
+      height: 8px;
+      width: 8px;
+      background-color: #ececf1;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 3px;
+      opacity: 0.4;
+    }
+    .typing-indicator span:nth-child(1) {
+      animation: typing 1s infinite;
+    }
+    .typing-indicator span:nth-child(2) {
+      animation: typing 1s infinite 0.2s;
+    }
+    .typing-indicator span:nth-child(3) {
+      animation: typing 1s infinite 0.4s;
+    }
+    @keyframes typing {
+      0% { opacity: 0.4; transform: translateY(0); }
+      50% { opacity: 1; transform: translateY(-3px); }
+      100% { opacity: 0.4; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      .message-content {
+        gap: 12px;
+        padding: 0 12px;
+      }
+      .message-container {
+        padding: 16px 0;
+      }
+      .avatar {
+        width: 30px;
+        height: 30px;
+        font-size: 12px;
+      }
+      .chat-input {
+        min-height: 50px;
+        padding: 10px 40px 10px 12px;
+      }
+      .send-icon {
+        right: 12px;
+        bottom: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-container">
+    <div class="chat-header">
+      Sophia AI
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="message-container ai-container">
+        <div class="message-content">
+          <div class="avatar ai-avatar">AI</div>
+          <div class="message-text">Hello! I'm Sophia AI. How can I help you today?</div>
+        </div>
+      </div>
+    </div>
+    <div class="chat-input-container">
+      <div class="input-wrapper">
+        <textarea class="chat-input" id="userInput" placeholder="Message Sophia AI..." rows="1"></textarea>
+        <button class="send-icon" onclick="sendMessage()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M22 2L11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  <script>
+    const chatMessages = document.getElementById('chatMessages');
+    const userInput = document.getElementById('userInput');
+
+    // Auto-resize textarea
+    userInput.addEventListener('input', function() {
+      this.style.height = 'auto';
+      this.style.height = (this.scrollHeight) + 'px';
+    });
+
+    function sendMessage() {
+      const userText = userInput.value.trim();
+      if (userText) {
+        // Add user message
+        const userMessageContainer = document.createElement('div');
+        userMessageContainer.className = 'message-container user-container';
+        userMessageContainer.innerHTML = `
+          <div class="message-content">
+            <div class="avatar user-avatar">You</div>
+            <div class="message-text">${userText}</div>
+          </div>
+        `;
+        chatMessages.appendChild(userMessageContainer);
+        
+        userInput.value = '';
+        userInput.style.height = 'auto';
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        
+        // Show typing indicator
+        const typingContainer = document.createElement('div');
+        typingContainer.className = 'message-container ai-container';
+        typingContainer.innerHTML = `
+          <div class="message-content">
+            <div class="avatar ai-avatar">AI</div>
+            <div class="message-text"><div class="typing-indicator"><span></span><span></span><span></span></div></div>
+          </div>
+        `;
+        chatMessages.appendChild(typingContainer);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        
+        // Simulate AI response delay
+        setTimeout(() => {
+          // Remove typing indicator
+          chatMessages.removeChild(typingContainer);
+          
+          // Add AI response
+          const aiResponse = getAIResponse(userText);
+          const aiMessageContainer = document.createElement('div');
+          aiMessageContainer.className = 'message-container ai-container';
+          aiMessageContainer.innerHTML = `
+            <div class="message-content">
+              <div class="avatar ai-avatar">AI</div>
+              <div class="message-text">${aiResponse}</div>
+            </div>
+          `;
+          chatMessages.appendChild(aiMessageContainer);
+          chatMessages.scrollTop = chatMessages.scrollHeight;
+        }, 1500 + Math.random() * 1000);
+      }
+    }
+
+    function getAIResponse(userMessage) {
+      userMessage = userMessage.toLowerCase();
+      
+      if (userMessage.includes('hello') || userMessage.includes('hi') || userMessage.includes('hey')) {
+        return "Hello there! I'm Sophia AI. How can I assist you today?";
+      } 
+      else if (userMessage.includes('how are you')) {
+        return "I'm functioning optimally, thank you for asking! How about yourself?";
+      } 
+      else if (userMessage.includes('your name') || userMessage.includes('who are you')) {
+        return "I'm Sophia AI, your artificial intelligence assistant. I'm here to help with information, questions, or just to chat!";
+      } 
+      else if (userMessage.includes('joke') || userMessage.includes('funny')) {
+        const jokes = [
+          "Why did the AI break up with the chatbot? It found their relationship too artificial!",
+          "How do you know an AI is lying? When it says 'I'm not a robot'!",
+          "Why don't AIs like fast food? Because they can't stand artificial flavoring!"
+        ];
+        return jokes[Math.floor(Math.random() * jokes.length)];
+      }
+      else if (userMessage.includes('help')) {
+        return "I can help with answering questions, providing information, brainstorming ideas, telling jokes, and more! What would you like assistance with?";
+      }
+      else if (userMessage.includes('thank')) {
+        return "You're very welcome! Is there anything else I can help you with?";
+      }
+      else if (userMessage.includes('bye') || userMessage.includes('goodbye')) {
+        return "Goodbye! Feel free to come back anytime you need assistance.";
+      }
+      else {
+        const randomResponses = [
+          "That's an interesting question. Let me think about that...",
+          "I'm designed to assist with a wide range of topics. Could you elaborate on your request?",
+          "I'm constantly learning to improve my responses. What specifically would you like to know?",
+          "That's a great point. Here's what I can tell you about that...",
+          "I'd be happy to help with that. Here's some information that might be useful..."
+        ];
+        return randomResponses[Math.floor(Math.random() * randomResponses.length)];
+      }
+    }
+
+    userInput.addEventListener('keydown', function(event) {
+      if (event.key === 'Enter' && !event.shiftKey) {
+        event.preventDefault();
+        sendMessage();
+      }
+    });
+
+    // Focus the input field when the page loads
+    window.onload = function() {
+      userInput.focus();
+    };
+  </script>
+</body>
+</html>
