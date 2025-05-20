@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quantra Ai</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Quantra X</title>
   <style>
     body {
       margin: 0;
@@ -43,13 +43,14 @@
     #chat-container {
       flex: 1;
       overflow-y: auto;
-      padding: 10px;
+      padding: 15px;
       display: flex;
       flex-direction: column;
+      max-height: calc(100vh - 160px);
     }
 
     .message {
-      margin-bottom: 10px;
+      margin-bottom: 15px;
       display: flex;
     }
 
@@ -80,7 +81,7 @@
 
     #chat-form {
       display: flex;
-      padding: 10px;
+      padding: 20px;
       background-color: #1e1e1e;
       border-top: 1px solid #333;
     }
@@ -94,12 +95,10 @@
       font-size: 1rem;
       background-color: #1e1e1e;
       color: white;
-      transition: border 0.3s ease;
     }
 
     #user-input:focus {
-      border: 2px solid #f4c542;
-      box-shadow: none;
+      border-color: #f4c542;
     }
 
     #send-btn {
@@ -140,14 +139,14 @@
 <body>
 
   <div class="intro-text" id="intro">
-    <h1>Hi, I'm Quantra X !</h1>
-    <p>Your virtual friend.Ready to chat? & Quanyra X AI is currently under development and and constructuion.</p>
+    <h1>Hi, I'm Quantra X!</h1>
+    <p>Your virtual friend. Ready to chat? Quantra X AI is currently under development and construction.</p>
   </div>
 
   <div id="chat-container"></div>
 
   <form id="chat-form">
-    <input type="text" id="user-input" placeholder="message Quantra X..." autocomplete="off" />
+    <input type="text" id="user-input" placeholder="Message Quantra X..." autocomplete="off" />
     <button type="submit" id="send-btn">Send</button>
   </form>
 
@@ -162,9 +161,7 @@
       const userText = input.value.trim();
       if (!userText) return;
 
-      if (intro) {
-        intro.classList.add("hide");
-      }
+      intro?.classList.add("hide");
 
       addMessage("user", userText);
       input.value = "";
@@ -193,7 +190,7 @@
     }
 
     function generateResponse(msg) {
-      msg = msg.toLowerCase().trim();
+      msg = msg.toLowerCase();
 
       if (msg.includes("hello") || msg.includes("hi") || msg.includes("hey"))
         return "Hey there! So happy to see you! How can I help today?";
@@ -205,7 +202,7 @@
         return "I'm feeling great, thanks for asking! How about you?";
 
       if (msg.includes("your name") || msg === "who are you")
-        return "I'm Quantra X Ai — your smart & friendly AI buddy!";
+        return "I'm Quantra X AI — your smart & friendly AI buddy!";
 
       if (msg.includes("time"))
         return `It's currently ${new Date().toLocaleTimeString()}.`;
@@ -234,7 +231,7 @@
       if (msg.includes("creator"))
         return "I was created with love and code by some awesome humans.";
 
-      return "Hmm, I’m not sure about that. But I'm learning! Ask me something else?";
+      return "Hmm, I’m not sure about that yet. But I'm learning! Ask me something else?";
     }
   </script>
 </body>
