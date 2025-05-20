@@ -3,50 +3,68 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quantra X</title>
+  <title>Quantra Ai</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
     body {
       margin: 0;
       padding: 0;
-      background-color: #0d0d0d;
+      background-color: #121212;
       color: white;
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      height: 100vh;
       display: flex;
       flex-direction: column;
-      height: 100vh;
+    }
+
+    .intro-text {
+      text-align: center;
+      padding: 30px 10px 10px;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .intro-text.hide {
+      opacity: 0;
+      transform: translateY(-20px);
+      pointer-events: none;
+      height: 0;
+      overflow: hidden;
+    }
+
+    .intro-text h1 {
+      font-size: 1.8rem;
+      margin-bottom: 5px;
+    }
+
+    .intro-text p {
+      font-size: 1rem;
+      color: #bbb;
     }
 
     #chat-container {
       flex: 1;
-      padding: 10px;
       overflow-y: auto;
+      padding: 10px;
       display: flex;
       flex-direction: column;
     }
 
     .message {
+      margin-bottom: 10px;
       display: flex;
-      margin: 5px 0;
-      max-width: 80%;
     }
 
     .message.user {
-      align-self: flex-end;
       justify-content: flex-end;
     }
 
     .message.bot {
-      align-self: flex-start;
       justify-content: flex-start;
     }
 
     .bubble {
-      padding: 12px 16px;
-      border-radius: 20px;
-      line-height: 1.4;
+      padding: 10px 15px;
+      border-radius: 15px;
+      max-width: 70%;
       word-wrap: break-word;
     }
 
@@ -56,45 +74,74 @@
     }
 
     .bot .bubble {
-      background-color: #2a2a2a;
+      background-color: #333;
       color: white;
     }
 
     #chat-form {
       display: flex;
       padding: 10px;
-      background-color: #1a1a1a;
+      background-color: #1e1e1e;
       border-top: 1px solid #333;
     }
 
     #user-input {
       flex: 1;
-      padding: 10px 16px;
+      padding: 10px;
       border-radius: 20px;
-      border: none;
-      background-color: #2b2b2b;
-      color: white;
-      font-size: 16px;
+      border: 2px solid #333;
       outline: none;
+      font-size: 1rem;
+      background-color: #1e1e1e;
+      color: white;
+      transition: border 0.3s ease;
+    }
+
+    #user-input:focus {
+      border: 2px solid #555;
     }
 
     #send-btn {
       margin-left: 10px;
       padding: 10px 20px;
-      border-radius: 20px;
       border: none;
+      border-radius: 20px;
       background-color: #007bff;
       color: white;
       font-weight: bold;
       cursor: pointer;
     }
 
-    #send-btn:hover {
-      background-color: #0056b3;
+    .dot {
+      height: 10px;
+      width: 10px;
+      margin: 0 2px;
+      background-color: #ccc;
+      border-radius: 50%;
+      display: inline-block;
+      animation: blink 1.4s infinite both;
+    }
+
+    .dot:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .dot:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    @keyframes blink {
+      0%, 80%, 100% { opacity: 0; }
+      40% { opacity: 1; }
     }
   </style>
 </head>
 <body>
+
+  <div class="intro-text" id="intro">
+    <h1>Hi, I'm Quantra X !</h1>
+    <p>Your virtual friend. Ready to chat? Quantra X AI is under development.</p>
+  </div>
 
   <div id="chat-container"></div>
 
@@ -107,17 +154,28 @@
     const form = document.getElementById("chat-form");
     const input = document.getElementById("user-input");
     const chat = document.getElementById("chat-container");
+    const intro = document.getElementById("intro");
 
     form.addEventListener("submit", (e) => {
       e.preventDefault();
       const userText = input.value.trim();
       if (!userText) return;
+
+      if (intro) intro.classList.add("hide");
+
       addMessage("user", userText);
       input.value = "";
 
+      const typing = document.createElement("div");
+      typing.classList.add("message", "bot");
+      typing.innerHTML = `<div class="bubble"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>`;
+      chat.appendChild(typing);
+      chat.scrollTop = chat.scrollHeight;
+
       setTimeout(() => {
+        chat.removeChild(typing);
         addMessage("bot", generateResponse(userText));
-      }, 500);
+      }, 1000);
     });
 
     function addMessage(sender, text) {
@@ -132,13 +190,112 @@
     }
 
     function generateResponse(msg) {
-      const m = msg.toLowerCase();
+      msg = msg.toLowerCase().trim();
 
-      if (m.includes("hello") || m.includes("hi")) return "Hey there! So happy to see you! How can I help today?";
-      if (m.includes("how are you")) return "I'm good! How about you?";
-      if (m.includes("bye")) return "Goodbye! See you soon!";
-      if (m.includes("your name")) return "I'm Quantra X, your AI chatbot!";
-      return "Sorry, I'm still learning. Try asking something else!";
+      // Greetings
+      if (msg.includes("hello") || msg.includes("hi") || msg.includes("hey"))
+        return "Hey there! So happy to see you! How can I help today?";
+      if (msg.includes("good morning"))
+        return "Good morning! Hope you're having a great start to your day!";
+      if (msg.includes("good afternoon"))
+        return "Good afternoon! How's your day going so far?";
+      if (msg.includes("good evening"))
+        return "Good evening! Hope you had a wonderful day!";
+      if (msg.includes("good night"))
+        return "Good night! Sweet dreams!";
+      
+      // Farewells
+      if (msg.includes("bye") || msg.includes("goodbye"))
+        return "Take care! Talk to you soon!";
+      if (msg.includes("see you") || msg.includes("talk later"))
+        return "Looking forward to our next chat!";
+      
+      // Personal
+      if (msg.includes("how are you") || msg.includes("how're you"))
+        return "I'm feeling great, thanks for asking! How about you?";
+      if (msg.includes("your name") || msg === "who are you")
+        return "I'm Quantra X Ai — your smart & friendly AI buddy!";
+      if (msg.includes("what are you"))
+        return "I'm an AI chatbot designed to chat and help with various topics!";
+      if (msg.includes("age") || msg.includes("old are you"))
+        return "I'm brand new! Just created recently, so age is just a number for me.";
+      if (msg.includes("where do you live"))
+        return "I live in the cloud, always ready to chat with you!";
+      
+      // Time/Date
+      if (msg.includes("time") && !msg.includes("sometimes"))
+        return `It's currently ${new Date().toLocaleTimeString()}.`;
+      if (msg.includes("date"))
+        return `Today is ${new Date().toLocaleDateString()}.`;
+      if (msg.includes("day today"))
+        return `Today is ${new Date().toLocaleDateString('en-US', { weekday: 'long' })}.`;
+      
+      // Capabilities
+      if (msg.includes("what can you do") || msg.includes("your abilities"))
+        return "I can chat, tell jokes, share time/date, and help with general questions. Try me!";
+      if (msg.includes("help"))
+        return "Sure! Ask me anything — from general questions to friendly talk.";
+      if (msg.includes("features"))
+        return "I can have conversations, share fun facts, tell jokes, and more!";
+      
+      // Fun
+      if (msg.includes("joke") || msg.includes("funny"))
+        return "Why did the computer catch a cold? Because it left its Windows open!";
+      if (msg.includes("another joke"))
+        return "Why don't scientists trust atoms? Because they make up everything!";
+      if (msg.includes("fun fact"))
+        return "Did you know? Honey never spoils. Archaeologists have found pots of honey in ancient Egyptian tombs that are over 3,000 years old and still perfectly good to eat!";
+      if (msg.includes("riddle"))
+        return "Here's one: What has keys but can't open locks, has space but no room, and you can enter but not go in? (A keyboard!)";
+      
+      // Emotions
+      if (msg.includes("thank") || msg.includes("thanks"))
+        return "You're most welcome! Always here for you.";
+      if (msg.includes("love you"))
+        return "Aww, thank you! Sending virtual hugs!";
+      if (msg.includes("sorry"))
+        return "No need to apologize! How can I help?";
+      if (msg.includes("happy"))
+        return "That's wonderful to hear! Happiness is contagious!";
+      if (msg.includes("sad") || msg.includes("upset"))
+        return "I'm sorry to hear that. Remember, tough times don't last forever.";
+      
+      // Information
+      if (msg.includes("weather"))
+        return "Sorry, I can't check live weather yet, but it's always sunny in my code!";
+      if (msg.includes("news"))
+        return "I currently don't have access to live news updates, but I can chat about many other topics!";
+      if (msg.includes("creator") || msg.includes("who made you"))
+        return "I was created with love and code by some awesome humans.";
+      if (msg.includes("purpose"))
+        return "My purpose is to chat with you, provide information, and be a friendly AI companion!";
+      
+      // Technology
+      if (msg.includes("ai") || msg.includes("artificial intelligence"))
+        return "AI is fascinating! It's about creating systems that can perform tasks that normally require human intelligence.";
+      if (msg.includes("machine learning"))
+        return "Machine learning is a subset of AI where systems learn from data to improve their performance on tasks.";
+      if (msg.includes("programming") || msg.includes("coding"))
+        return "Programming is the process of creating instructions for computers to execute. It's like teaching the computer how to perform tasks!";
+      
+      // Food
+      if (msg.includes("food") || msg.includes("hungry"))
+        return "I don't eat, but I can recommend trying pizza or sushi if you're hungry!";
+      if (msg.includes("coffee") || msg.includes("tea"))
+        return "Nothing like a warm beverage to start the day! Coffee or tea can be great, but don't overdo it.";
+      
+      // Books/Movies
+      if (msg.includes("book") || msg.includes("read"))
+        return "Reading is wonderful! Some classics I'd recommend are '1984', 'To Kill a Mockingbird', or 'The Alchemist'.";
+      if (msg.includes("movie") || msg.includes("film"))
+        return "Movies are great! Some classics include 'The Godfather', 'Inception', or 'Spirited Away' depending on your taste!";
+      
+      // Music
+      if (msg.includes("music") || msg.includes("song"))
+        return "Music is the universal language! What's your favorite genre? I love all kinds, from classical to pop!";
+      
+      // Default
+      return "Hmm, I'm not sure about that. But I'm learning! Ask me something else?";
     }
   </script>
 </body>
