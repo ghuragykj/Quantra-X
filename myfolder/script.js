@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const intro = document.getElementById("intro");
   const suggestionBoxes = document.querySelectorAll('.suggestion-box');
 
-  form.addEventListener("submit", (e) => {
+  form.addEventListener("submit", function(e) {
     e.preventDefault();
     const userText = input.value.trim();
     if (!userText) return;
@@ -15,34 +15,24 @@ document.addEventListener('DOMContentLoaded', function() {
     addMessage("user", userText);
     input.value = "";
 
-    const typing = document.createElement("div");
-    typing.classList.add("message", "bot");
-    typing.innerHTML = `<div class="bubble"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>`;
-    chat.appendChild(typing);
-    chat.scrollTop = chat.scrollHeight;
-
-    setTimeout(() => {
-      chat.removeChild(typing);
+    showTypingIndicator();
+    
+    setTimeout(function() {
+      removeTypingIndicator();
       addMessage("bot", generateResponse(userText));
     }, 1000);
   });
 
-  // Add click event for suggestion boxes
-  suggestionBoxes.forEach(box => {
-    box.addEventListener('click', () => {
+  suggestionBoxes.forEach(function(box) {
+    box.addEventListener('click', function() {
       const suggestionText = box.textContent;
       if (intro) intro.classList.add("hide");
 
       addMessage("user", suggestionText);
-
-      const typing = document.createElement("div");
-      typing.classList.add("message", "bot");
-      typing.innerHTML = `<div class="bubble"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>`;
-      chat.appendChild(typing);
-      chat.scrollTop = chat.scrollHeight;
-
-      setTimeout(() => {
-        chat.removeChild(typing);
+      showTypingIndicator();
+      
+      setTimeout(function() {
+        removeTypingIndicator();
         addMessage("bot", generateResponse(suggestionText));
       }, 1000);
     });
@@ -57,6 +47,22 @@ document.addEventListener('DOMContentLoaded', function() {
     msg.appendChild(bubble);
     chat.appendChild(msg);
     chat.scrollTop = chat.scrollHeight;
+  }
+
+  function showTypingIndicator() {
+    const typing = document.createElement("div");
+    typing.id = "typing-indicator";
+    typing.classList.add("message", "bot");
+    typing.innerHTML = '<div class="bubble"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>';
+    chat.appendChild(typing);
+    chat.scrollTop = chat.scrollHeight;
+  }
+
+  function removeTypingIndicator() {
+    const typing = document.getElementById("typing-indicator");
+    if (typing) {
+      chat.removeChild(typing);
+    }
   }
 
   function generateResponse(msg) {
