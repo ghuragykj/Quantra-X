@@ -150,7 +150,7 @@ body {
   flex-wrap: wrap;
   justify-content: center;
   padding: 10px;
-  margin-bottom: auto;
+  margin: 20px 0;
 }
 
 .suggestion-box {
@@ -163,6 +163,7 @@ body {
   font-size: 14px;
   cursor: pointer;
   transition: background-color 0.2s;
+  border: 1px solid #e5e5e6;
 }
 
 .suggestion-box:hover {
@@ -185,26 +186,4 @@ body {
 
 .footer a:hover {
   text-decoration: underline;
-}
-
-.attachments {
-  position: absolute;
-  bottom: 70px;
-  right: 20px;
-  display: flex;
-  gap: 10px;
-}
-
-.attachment-btn {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
