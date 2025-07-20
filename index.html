@@ -1,600 +1,431 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Brixo Mart - Your Daily Essentials</title>
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <title>Quantra Ai</title>
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: 'Poppins', sans-serif;
-      background: #dff3f6;
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-    .app { display: flex; flex-direction: column; min-height: 100vh; }
-
-    /* Header */
-    .header {
-      background: #fff;
-      padding: 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
-    }
-    .logo { font-size: 20px; font-weight: 700; color: #333; }
-    .logo span { color: #1ec28b; }
-    .location {
-      font-size: 12px;
-      color: #666;
-      display: flex;
-      align-items: center;
-      margin-top: 2px;
-    }
-    .location-icon {
-      width: 16px;
-      height: 16px;
-      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23666"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>') no-repeat center/contain;
-      margin-right: 5px;
-    }
-    .notify {
-      width: 24px;
-      height: 24px;
-      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23333"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>') no-repeat center/contain;
-      cursor: pointer;
-      border: none;
-      background-color: transparent;
-    }
-
-    /* Search */
-    .search-form {
-      margin: 16px;
-      padding: 8px 12px;
-      background: #fff;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    }
-    .search-form input {
-      flex: 1;
-      border: none;
-      outline: none;
-      font-size: 14px;
-      padding-right: 10px;
-      color: #333;
-    }
-    .search-form button {
-      background: #1ec28b;
-      color: #fff;
-      border: none;
-      border-radius: 6px;
-      padding: 8px 16px;
-      font-size: 14px;
-      cursor: pointer;
-    }
-
-    /* Banner */
-    .slider-container {
-      width: 100%;
-      max-width: 720px;
-      margin: 0 auto 20px auto;
-      overflow: hidden;
-      border-radius: 16px;
-      position: relative;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      touch-action: pan-y;
-    }
-    .slider-wrapper {
-      display: flex;
-      transition: transform 0.4s ease-in-out;
-    }
-    .slide {
-      min-width: 100%;
-      height: 180px;
-      flex-shrink: 0;
-      padding: 20px;
-      background: linear-gradient(135deg, #1ec28b, #2eb086);
-      color: white;
+      margin: 0;
+      padding: 0;
+      background-color: #f7f7f8;
+      color: #000;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      height: 100vh;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-    }
-    .slide h2 {
-      font-size: 20px;
-      margin-bottom: 6px;
-    }
-    .slide p {
-      font-size: 14px;
-    }
-    .dots {
-      text-align: center;
-      margin-top: 10px;
-    }
-    .dots span {
-      display: inline-block;
-      width: 10px;
-      height: 10px;
-      margin: 0 4px;
-      background: #ccc;
-      border-radius: 50%;
-      opacity: 0.6;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-    .dots .active {
-      background: #1ec28b;
-      opacity: 1;
     }
 
-    /* Product Grid */
-    .grid {
-      padding: 16px;
+    .intro-text {
+      text-align: center;
+      padding: 30px 10px 10px;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      margin-top: auto;
+    }
+
+    .intro-text.hide {
+      opacity: 0;
+      transform: translateY(-20px);
+      pointer-events: none;
+      height: 0;
+      overflow: hidden;
+    }
+
+    .intro-text h1 {
+      font-size: 1.8rem;
+      margin-bottom: 5px;
+      font-weight: 600;
+    }
+
+    .intro-text p {
+      font-size: 1rem;
+      color: #6e6e80;
+    }
+
+    #chat-container {
       flex: 1;
       overflow-y: auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      gap: 12px;
-    }
-    .card {
-      background: #fff;
-      border-radius: 10px;
-      padding: 12px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      padding: 10px;
       display: flex;
       flex-direction: column;
     }
-    .card-img-container {
-      width: 100%;
-      height: 120px;
-      position: relative;
-      overflow: hidden;
-      border-radius: 6px;
-      margin-bottom: 8px;
-      background: #f5f5f5;
+
+    .message {
+      margin-bottom: 10px;
+      display: flex;
     }
-    .card img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      transition: transform 0.3s;
+
+    .message.user {
+      justify-content: flex-end;
     }
-    .card h4 {
-      font-size: 15px;
-      color: #333;
-      margin-bottom: 4px;
+
+    .message.bot {
+      justify-content: flex-start;
     }
-    .card p {
-      font-size: 12px;
-      color: #555;
-      margin-bottom: 8px;
-    }
-    .price {
+
+    .bubble {
+      padding: 12px 16px;
+      border-radius: 18px;
+      max-width: 70%;
+      word-wrap: break-word;
+      line-height: 1.4;
       font-size: 16px;
-      font-weight: 700;
-      color: #1ec28b;
-      margin-bottom: 8px;
-    }
-    .card button {
-      background: #1ec28b;
-      color: #fff;
-      border: none;
-      border-radius: 6px;
-      padding: 8px;
-      font-size: 13px;
-      cursor: pointer;
-      margin-top: auto;
-      transition: background 0.3s;
-    }
-    .card button:hover {
-      background: #18a578;
     }
 
-    /* No Results */
-    .no-results {
-      grid-column: 1 / -1;
-      text-align: center;
-      padding: 40px 0;
-      color: #666;
-    }
-
-    /* Cart */
-    .cart-count {
-      position: absolute;
-      top: -5px;
-      right: -5px;
-      background: #ff4757;
+    .user .bubble {
+      background-color: #007bff;
       color: white;
-      border-radius: 50%;
-      width: 18px;
-      height: 18px;
-      font-size: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      border-bottom-right-radius: 4px;
     }
 
-    /* Floating Cart */
-    .floating-cart {
-      position: fixed;
-      bottom: 75px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #1ec28b;
-      width: 55px;
-      height: 55px;
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: #fff;
-      font-size: 24px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-      cursor: pointer;
-      border: none;
-      z-index: 10;
-      position: relative;
-      transition: transform 0.3s;
-    }
-    .floating-cart:hover {
-      transform: translateX(-50%) scale(1.05);
-    }
-    .floating-cart:focus {
-      outline: 2px solid #1ec28b;
-      outline-offset: 2px;
+    .bot .bubble {
+      background-color: #f2f2f2;
+      color: #000;
+      border-bottom-left-radius: 4px;
     }
 
-    /* Bottom Navigation */
-    .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 60px;
-      background: #fff;
+    #chat-form {
       display: flex;
-      justify-content: space-around;
-      align-items: center;
-      box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.05);
-      z-index: 10;
-    }
-    .nav-item {
-      font-size: 22px;
-      color: #888;
-      cursor: pointer;
-      padding: 8px;
-      border-radius: 50%;
-      border: none;
-      background: transparent;
+      padding: 12px;
+      background-color: #ffffff;
+      border-top: 1px solid #e5e5e6;
       position: relative;
     }
-    .nav-item:focus, .nav-item:hover { 
-      color: #1ec28b;
+
+    #user-input {
+      flex: 1;
+      padding: 12px 16px;
+      border-radius: 16px;
+      border: 1px solid #e5e5e6;
       outline: none;
-      background: rgba(30, 194, 139, 0.1);
+      font-size: 1rem;
+      background-color: #f7f7f8;
+      color: #000;
+      transition: border 0.3s ease;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     }
 
-    @media (max-width: 480px) {
-      .grid {
-        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-      }
-      .slide h2 {
-        font-size: 18px;
-      }
+    #user-input:focus {
+      border: 1px solid #007bff;
+    }
+
+    #send-btn {
+      margin-left: 10px;
+      padding: 0;
+      border: none;
+      border-radius: 50%;
+      background-color: #007bff;
+      color: white;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    #send-btn svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .dot {
+      height: 8px;
+      width: 8px;
+      margin: 0 2px;
+      background-color: #999;
+      border-radius: 50%;
+      display: inline-block;
+      animation: blink 1.4s infinite both;
+    }
+
+    .dot:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .dot:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    @keyframes blink {
+      0%, 80%, 100% { opacity: 0.3; }
+      40% { opacity: 1; }
+    }
+
+    .suggestion-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 10px;
+      margin-bottom: auto;
+    }
+
+    .suggestion-box {
+      width: calc(50% - 20px);
+      margin: 8px;
+      padding: 12px;
+      background-color: #f7f7f8;
+      border-radius: 12px;
+      text-align: center;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .suggestion-box:hover {
+      background-color: #e5e5e6;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 16px;
+      font-size: 12px;
+      color: #6e6e80;
+      border-top: 1px solid #e5e5e6;
+      background-color: #ffffff;
+    }
+
+    .footer a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    .attachments {
+      position: absolute;
+      bottom: 70px;
+      right: 20px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .attachment-btn {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
   </style>
 </head>
 <body>
-  <div class="app">
-    <header class="header">
-      <div>
-        <div class="logo">Brixo<span>Mart</span></div>
-        <div class="location"><span class="location-icon" aria-hidden="true"></span>BTM Layout, Bengaluru</div>
-      </div>
-      <button class="notify" aria-label="Notifications"></button>
-    </header>
 
-    <form class="search-form" id="searchForm">
-      <input type="text" id="search" placeholder="Search for products, brands..." aria-label="Search products">
-      <button type="submit">Search</button>
-    </form>
+  <div class="intro-text" id="intro">
+    <h1>What can I help with?</h1>
+    <p>Ask anything with Quantra X</p>
 
-    <!-- Banner Section -->
-    <div class="slider-container" id="sliderContainer">
-      <div class="slider-wrapper" id="sliderWrapper">
-        <div class="slide">
-          <h2>Welcome to Brixo Mart</h2>
-          <p>Your daily essentials delivered fast</p>
-        </div>
-        <div class="slide">
-          <h2>Shop now Brixo Mart</h2>
-          <p>All your needs in one place!</p>
-        </div>
-        <div class="slide">
-          <h2>Discounts are started on Rakshabandhan</h2>
-          <p>Celebrate & Save Big 🎁</p>
-        </div>
-      </div>
     </div>
-    <div class="dots" id="dots"></div>
-
-    <!-- Products -->
-    <main class="grid" id="grid"></main>
   </div>
 
-  <button class="floating-cart" id="cartButton" aria-label="View cart" role="button">
-    🛒
-    <span class="cart-count" id="cartCount" style="display: none;">0</span>
-  </button>
+  <div id="chat-container"></div>
 
-  <nav class="bottom-nav" aria-label="Main navigation">
-    <button class="nav-item" aria-label="Home">🏠</button>
-    <button class="nav-item" aria-label="Orders">📦</button>
-    <button class="nav-item" aria-label="Favorites">❤️</button>
-    <button class="nav-item" aria-label="Account">👤</button>
-  </nav>
+  <form id="chat-form">
+    <input type="text" id="user-input" placeholder="Message Quantra X..." autocomplete="off" />
+    <button type="submit" id="send-btn">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M3.478 2.404a.75.75 0 0 0-.926.941l2.432 7.905H13.5a.75.75 0 0 1 0 1.5H4.984l-2.432 7.905a.75.75 0 0 0 .926.94 60.519 60.519 0 0 0 18.445-8.986.75.75 0 0 0 0-1.218A60.517 60.517 0 0 0 3.478 2.404Z" />
+      </svg>
+    </button>
+  </form>
+
+  <div class="footer">
+    By messaging, you agree to our <a href="#">Terms</a> and have read our <a href="#">Privacy Policy</a>.
+  </div>
 
   <script>
-    // Improved Brixo Mart with all 10 fixes implemented
-    
-    // Cart state management
-    const cart = {
-      items: [],
-      count: 0,
-      addItem: function(name, price) {
-        const existingItem = this.items.find(item => item.name === name);
-        if (existingItem) {
-          existingItem.quantity += 1;
-        } else {
-          this.items.push({ name, price, quantity: 1 });
-        }
-        this.count++;
-        this.updateUI();
-      },
-      updateUI: function() {
-        const cartCount = document.getElementById('cartCount');
-        cartCount.textContent = this.count;
-        cartCount.style.display = this.count > 0 ? 'flex' : 'none';
-      }
-    };
+    const form = document.getElementById("chat-form");
+    const input = document.getElementById("user-input");
+    const chat = document.getElementById("chat-container");
+    const intro = document.getElementById("intro");
+    const suggestionBoxes = document.querySelectorAll('.suggestion-box');
 
-    // Banner Slider Script with mouse drag support
-    const wrapper = document.getElementById('sliderWrapper');
-    const slides = wrapper.children;
-    const total = slides.length;
-    const dotsContainer = document.getElementById('dots');
-    let index = 0, startX = 0, currentX = 0, isDragging = false;
-    let autoSlide;
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const userText = input.value.trim();
+      if (!userText) return;
 
-    // Create dots
-    for (let i = 0; i < total; i++) {
-      const dot = document.createElement('span');
-      if (i === 0) dot.classList.add('active');
-      dot.setAttribute('aria-label', `Go to slide ${i+1}`);
-      dot.addEventListener('click', () => goToSlide(i));
-      dotsContainer.appendChild(dot);
-    }
-    const dots = dotsContainer.querySelectorAll('span');
+      if (intro) intro.classList.add("hide");
 
-    function goToSlide(i) {
-      wrapper.style.transform = `translateX(-${i * 100}%)`;
-      dots.forEach(dot => dot.classList.remove('active'));
-      dots[i].classList.add('active');
-      index = i;
-    }
+      addMessage("user", userText);
+      input.value = "";
 
-    function nextSlide() {
-      const newIndex = (index + 1) % total;
-      goToSlide(newIndex);
-    }
+      const typing = document.createElement("div");
+      typing.classList.add("message", "bot");
+      typing.innerHTML = `<div class="bubble"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>`;
+      chat.appendChild(typing);
+      chat.scrollTop = chat.scrollHeight;
 
-    function startAutoSlide() {
-      autoSlide = setInterval(nextSlide, 4000);
-    }
-
-    function pauseAutoSlide() {
-      clearInterval(autoSlide);
-    }
-
-    startAutoSlide();
-
-    // Handle touch events
-    wrapper.addEventListener('touchstart', (e) => {
-      pauseAutoSlide();
-      startX = e.touches[0].clientX;
-      isDragging = true;
-    });
-    wrapper.addEventListener('touchmove', (e) => {
-      if (!isDragging) return;
-      currentX = e.touches[0].clientX;
-      wrapper.style.transition = 'none';
-      wrapper.style.transform = `translateX(calc(-${index * 100}% + ${currentX - startX}px))`;
-    });
-    wrapper.addEventListener('touchend', () => {
-      if (!isDragging) return;
-      wrapper.style.transition = 'transform 0.4s ease-in-out';
-      let deltaX = currentX - startX;
-      if (deltaX > 50) index = (index - 1 + total) % total;
-      else if (deltaX < -50) index = (index + 1) % total;
-      goToSlide(index);
-      startAutoSlide();
-      isDragging = false;
+      setTimeout(() => {
+        chat.removeChild(typing);
+        addMessage("bot", generateResponse(userText));
+      }, 1000);
     });
 
-    // Mouse drag support
-    wrapper.addEventListener('mousedown', (e) => {
-      pauseAutoSlide();
-      startX = e.clientX;
-      isDragging = true;
-      e.preventDefault(); // Prevent text selection
-    });
-    document.addEventListener('mousemove', (e) => {
-      if (!isDragging) return;
-      currentX = e.clientX;
-      wrapper.style.transition = 'none';
-      wrapper.style.transform = `translateX(calc(-${index * 100}% + ${currentX - startX}px))`;
-    });
-    document.addEventListener('mouseup', () => {
-      if (!isDragging) return;
-      wrapper.style.transition = 'transform 0.4s ease-in-out';
-      let deltaX = currentX - startX;
-      if (deltaX > 50) index = (index - 1 + total) % total;
-      else if (deltaX < -50) index = (index + 1) % total;
-      goToSlide(index);
-      startAutoSlide();
-      isDragging = false;
-    });
+    // Add click event for suggestion boxes
+    suggestionBoxes.forEach(box => {
+      box.addEventListener('click', () => {
+        const suggestionText = box.textContent;
+        if (intro) intro.classList.add("hide");
 
-    // Pause autoplay when page is not visible or user interacts
-    document.addEventListener('visibilitychange', () => {
-      if (document.hidden) {
-        pauseAutoSlide();
-      } else {
-        startAutoSlide();
-      }
-    });
-    wrapper.addEventListener('mouseenter', pauseAutoSlide);
-    wrapper.addEventListener('mouseleave', startAutoSlide);
+        addMessage("user", suggestionText);
 
-    // Product list with working images
-    const products = [
-      { 
-        name: 'Green Apples', 
-        price: 149, 
-        desc: 'Fresh & juicy.', 
-        img: 'https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?ixlib=rb-1.2.1&auto=format&fit=crop&w=150&q=80' 
-      },
-      { 
-        name: 'Farm Eggs (12)', 
-        price: 99, 
-        desc: 'Protein-rich.', 
-        img: 'https://images.unsplash.com/photo-1587486913049-53fc88980cfc?ixlib=rb-1.2.1&auto=format&fit=crop&w=150&q=80' 
-      },
-      { 
-        name: 'Basmati Rice 5kg', 
-        price: 450, 
-        desc: 'Long-grain & aromatic.', 
-        img: 'https://images.unsplash.com/photo-1601050690597-df0568f70950?ixlib=rb-1.2.1&auto=format&fit=crop&w=150&q=80' 
-      },
-      { 
-        name: 'Natural Honey 500g', 
-        price: 299, 
-        desc: 'Pure sweetener.', 
-        img: 'https://images.unsplash.com/photo-1587049352851-8d4e89133924?ixlib=rb-1.2.1&auto=format&fit=crop&w=150&q=80' 
-      },
-      { 
-        name: 'Whole Wheat Bread', 
-        price: 60, 
-        desc: 'Fresh baked.', 
-        img: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=150&q=80' 
-      },
-      { 
-        name: 'Detergent 1kg', 
-        price: 180, 
-        desc: 'Cleans effectively.', 
-        img: 'https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?ixlib=rb-1.2.1&auto=format&fit=crop&w=150&q=80' 
-      },
-      { 
-        name: 'Herbal Toothpaste', 
-        price: 85, 
-        desc: 'For healthy teeth.', 
-        img: 'https://images.unsplash.com/photo-1625772452859-1c03d5bf1137?ixlib=rb-1.2.1&auto=format&fit=crop&w=150&q=80' 
-      },
-      { 
-        name: 'Chocolates 200g', 
-        price: 220, 
-        desc: 'Rich and creamy.', 
-        img: 'https://images.unsplash.com/photo-1575377427642-087cf684f29d?ixlib=rb-1.2.1&auto=format&fit=crop&w=150&q=80' 
-      },
-      { 
-        name: 'Olive Oil 1L', 
-        price: 799, 
-        desc: 'For healthy cooking.', 
-        img: 'https://images.unsplash.com/photo-1535591273668-578e31182c4f?ixlib=rb-1.2.1&auto=format&fit=crop&w=150&q=80' 
-      },
-      { 
-        name: 'Water Bottle', 
-        price: 349, 
-        desc: 'Stainless steel.', 
-        img: 'https://images.unsplash.com/photo-1589365278144-c9e705f843ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=150&q=80' 
-      }
-    ];
+        const typing = document.createElement("div");
+        typing.classList.add("message", "bot");
+        typing.innerHTML = `<div class="bubble"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>`;
+        chat.appendChild(typing);
+        chat.scrollTop = chat.scrollHeight;
 
-    const grid = document.getElementById('grid');
-    const searchInput = document.getElementById('search');
-    const searchForm = document.getElementById('searchForm');
-    const cartButton = document.getElementById('cartButton');
-
-    function renderProducts(data) {
-      grid.innerHTML = '';
-      
-      if (data.length === 0) {
-        const noResults = document.createElement('div');
-        noResults.className = 'no-results';
-        noResults.textContent = 'No products found. Try a different search.';
-        grid.appendChild(noResults);
-        return;
-      }
-      
-      data.forEach(p => {
-        const card = document.createElement('div');
-        card.className = 'card';
-        card.innerHTML = `
-          <div class="card-img-container">
-            <img src="${p.img}" alt="${p.name}" loading="lazy" width="150" height="120">
-          </div>
-          <h4>${p.name}</h4>
-          <p>${p.desc}</p>
-          <div class="price">${formatPrice(p.price)}</div>
-          <button onclick="addToCart('${p.name}', ${p.price})" aria-label="Add ${p.name} to cart">Add to Cart</button>
-        `;
-        grid.appendChild(card);
+        setTimeout(() => {
+          chat.removeChild(typing);
+          addMessage("bot", generateResponse(suggestionText));
+        }, 1000);
       });
-    }
-
-    function formatPrice(price) {
-      return new Intl.NumberFormat('en-IN', { 
-        style: 'currency', 
-        currency: 'INR',
-        maximumFractionDigits: 0
-      }).format(price);
-    }
-
-    function filterProducts(e) {
-      if (e) e.preventDefault();
-      const term = searchInput.value.toLowerCase();
-      const filtered = products.filter(p => 
-        p.name.toLowerCase().includes(term) || 
-        p.desc.toLowerCase().includes(term)
-      );
-      renderProducts(filtered);
-    }
-
-    function addToCart(name, price) {
-      cart.addItem(name, price);
-    }
-
-    // Show cart items when cart button is clicked
-    cartButton.addEventListener('click', () => {
-      if (cart.items.length === 0) {
-        alert('Your cart is empty!');
-      } else {
-        const itemsList = cart.items.map(item => 
-          `${item.name} (${item.quantity}) - ${formatPrice(item.price * item.quantity)}`
-        ).join('\n');
-        alert(`Your Cart:\n${itemsList}\n\nTotal: ${formatPrice(cart.items.reduce((total, item) => total + (item.price * item.quantity), 0))}`);
-      }
     });
 
-    // Initialize
-    document.addEventListener('DOMContentLoaded', () => {
-      renderProducts(products);
-    });
-    
-    // Single event listener for search
-    searchForm.addEventListener('submit', filterProducts);
+    function addMessage(sender, text) {
+      const msg = document.createElement("div");
+      msg.classList.add("message", sender);
+      const bubble = document.createElement("div");
+      bubble.classList.add("bubble");
+      bubble.textContent = text;
+      msg.appendChild(bubble);
+      chat.appendChild(msg);
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+    function generateResponse(msg) {
+      msg = msg.toLowerCase().trim();
+
+      // Greetings
+      if (msg.includes("hello") || msg.includes("hi") || msg.includes("hey"))
+        return "Hey there! So happy to see you! How can I help today?";
+      if (msg.includes("good morning"))
+        return "Good morning! Hope you're having a great start to your day!";
+      if (msg.includes("good afternoon"))
+        return "Good afternoon! How's your day going so far?";
+      if (msg.includes("good evening"))
+        return "Good evening! Hope you had a wonderful day!";
+      if (msg.includes("good night"))
+        return "Good night! Sweet dreams!";
+
+      // Farewells
+      if (msg.includes("bye") || msg.includes("goodbye"))
+        return "Take care! Talk to you soon!";
+      if (msg.includes("see you") || msg.includes("talk later"))
+        return "Looking forward to our next chat!";
+
+      // Personal
+      if (msg.includes("how are you") || msg.includes("how're you"))
+        return "I'm feeling great, thanks for asking! How about you?";
+      if (msg.includes("your name") || msg === "who are you")
+        return "I'm Quantra X Ai — your smart & friendly AI buddy!";
+      if (msg.includes("what are you"))
+        return "I'm an AI chatbot designed to chat and help with various topics!";
+      if (msg.includes("age") || msg.includes("old are you"))
+        return "I'm brand new! Just created recently, so age is just a number for me.";
+      if (msg.includes("where do you live"))
+        return "I live in the cloud, always ready to chat with you!";
+
+      // Time/Date
+      if (msg.includes("time") && !msg.includes("sometimes"))
+        return `It's currently ${new Date().toLocaleTimeString()}.`;
+      if (msg.includes("date"))
+        return `Today is ${new Date().toLocaleDateString()}.`;
+      if (msg.includes("day today"))
+        return `Today is ${new Date().toLocaleDateString('en-US', { weekday: 'long' })}.`;
+
+      // Capabilities
+      if (msg.includes("what can you do") || msg.includes("your abilities"))
+        return "I can chat, tell jokes, share time/date, and help with general questions. Try me!";
+      if (msg.includes("help"))
+        return "Sure! Ask me anything — from general questions to friendly talk.";
+      if (msg.includes("features"))
+        return "I can have conversations, share fun facts, tell jokes, and more!";
+
+      // Fun
+      if (msg.includes("joke") || msg.includes("funny"))
+        return "Why did the computer catch a cold? Because it left its Windows open!";
+      if (msg.includes("another joke"))
+        return "Why don't scientists trust atoms? Because they make up everything!";
+      if (msg.includes("fun fact"))
+        return "Did you know? Honey never spoils. Archaeologists have found pots of honey in ancient Egyptian tombs that are over 3,000 years old and still perfectly good to eat!";
+      if (msg.includes("riddle"))
+        return "Here's one: What has keys but can't open locks, has space but no room, and you can enter but not go in? (A keyboard!)";
+
+      // Emotions
+      if (msg.includes("thank") || msg.includes("thanks"))
+        return "You're most welcome! Always here for you.";
+      if (msg.includes("love you"))
+        return "Aww, thank you! Sending virtual hugs!";
+      if (msg.includes("sorry"))
+        return "No need to apologize! How can I help?";
+      if (msg.includes("happy"))
+        return "That's wonderful to hear! Happiness is contagious!";
+      if (msg.includes("sad") || msg.includes("upset"))
+        return "I'm sorry to hear that. Remember, tough times don't last forever.";
+
+      // Information
+      if (msg.includes("weather"))
+        return "Sorry, I can't check live weather yet, but it's always sunny in my code!";
+      if (msg.includes("news"))
+        return "I currently don't have access to live news updates, but I can chat about many other topics!";
+      if (msg.includes("creator") || msg.includes("who made you"))
+        return "I was created with love and code by some awesome humans.";
+      if (msg.includes("purpose"))
+        return "My purpose is to chat with you, provide information, and be a friendly AI companion!";
+
+      // Technology
+      if (msg.includes("ai") || msg.includes("artificial intelligence"))
+        return "AI is fascinating! It's about creating systems that can perform tasks that normally require human intelligence.";
+      if (msg.includes("machine learning"))
+        return "Machine learning is a subset of AI where systems learn from data to improve their performance on tasks.";
+      if (msg.includes("programming") || msg.includes("coding"))
+        return "Programming is the process of creating instructions for computers to execute. It's like teaching the computer how to perform tasks!";
+
+      // Food
+      if (msg.includes("food") || msg.includes("hungry"))
+        return "I don't eat, but I can recommend trying pizza or sushi if you're hungry!";
+      if (msg.includes("coffee") || msg.includes("tea"))
+        return "Nothing like a warm beverage to start the day! Coffee or tea can be great, but don't overdo it.";
+
+      // Books/Movies
+      if (msg.includes("book") || msg.includes("read"))
+        return "Reading is wonderful! Some classics I'd recommend are '1984', 'To Kill a Mockingbird', or 'The Alchemist'.";
+      if (msg.includes("movie") || msg.includes("film"))
+        return "Movies are great! Some classics include 'The Godfather', 'Inception', or 'Spirited Away' depending on your taste!";
+
+      // Music
+      if (msg.includes("music") || msg.includes("song"))
+        return "Music is the universal language! What's your favorite genre? I love all kinds, from classical to pop!";
+
+      // Suggestions
+      if (msg.includes("summarize text"))
+        return "To summarize text, please provide the text you'd like me to summarize and I'll condense it to its key points.";
+      if (msg.includes("brainstorm"))
+        return "Let's brainstorm! What topic or idea would you like to explore? I can help generate creative ideas.";
+      if (msg.includes("help me write"))
+        return "I'd be happy to help you write! What would you like to create? An email, essay, story, or something else?";
+      if (msg.includes("make a plan"))
+        return "Let's make a plan! What kind of plan do you need? Study plan, workout routine, project timeline, or something else?";
+      if (msg.includes("attach"))
+        return "You can attach files by clicking the paperclip icon. I can process text from documents, images, and more.";
+      if (msg.includes("search"))
+        return "I can search for information on various topics. What would you like me to look up?";
+      if (msg.includes("reason"))
+        return "I can help with logical reasoning and problem solving. What challenge are you facing?";
+
+      // Default
+      return "Hmm, I'm not sure about that. But I'm learning! Ask me something else?";
+    }
   </script>
 </body>
 </html>
