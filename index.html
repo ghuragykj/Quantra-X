@@ -1,61 +1,2318 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Camera Switch (Front/Back)</title>
+  <meta charset="UTF-8">
+  <title>Brixo mart | Premium Shopping</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    body {
-      font-family: sans-serif;
-      text-align: center;
-      padding-top: 30px;
-      background: #f5f5f5;
+    :root {
+      --primary: #121212;
+      --primary-light: #1e1e1e;
+      --secondary: #d4af37;
+      --accent: #e8e8e8;
+      --text: #222;
+      --text-light: #777;
+      --bg: #f9f9f9;
+      --card-bg: #fff;
+      --shadow: 0 15px 30px rgba(0, 0, 0, 0.05);
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      --success: #28a745;
+      --danger: #dc3545;
+      --info: #17a2b8;
     }
-    video {
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    
+    .app {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Premium Header with Search */
+    .header {
+      background: var(--primary);
+      padding: 15px 5%;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: white;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+    
+    .logo-icon {
+      color: var(--secondary);
+      margin-right: 10px;
+      font-size: 28px;
+    }
+    
+    .header-actions {
+      display: flex;
+      gap: 25px;
+      align-items: center;
+    }
+    
+    .header-icon {
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
+      transition: var(--transition);
+      position: relative;
+    }
+    
+    .header-icon:hover {
+      color: var(--secondary);
+    }
+    
+    .badge {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: var(--secondary);
+      color: var(--primary);
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      font-size: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+    
+    .search-bar {
+      display: flex;
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .search-input {
+      flex: 1;
+      padding: 12px 20px;
+      border: none;
+      font-size: 14px;
+      border-radius: 4px 0 0 4px;
+    }
+    
+    .search-btn {
+      background: var(--secondary);
+      color: var(--primary);
+      border: none;
+      padding: 0 20px;
+      font-size: 16px;
+      border-radius: 0 4px 4px 0;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .search-btn:hover {
+      background: #e6c12e;
+    }
+
+    /* Categories Carousel */
+    .categories {
+      padding: 15px 5%;
+      background: white;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      position: sticky;
+      top: 80px;
+      z-index: 999;
+    }
+    
+    .category-scroll {
+      display: flex;
+      overflow-x: auto;
+      gap: 15px;
+      padding: 5px 0;
+      scrollbar-width: none;
+    }
+    
+    .category-scroll::-webkit-scrollbar {
+      display: none;
+    }
+    
+    .category-card {
+      min-width: 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      padding: 5px;
+      border-radius: 8px;
+      transition: var(--transition);
+    }
+    
+    .category-card.active {
+      background: rgba(212, 175, 55, 0.1);
+    }
+    
+    .category-card:hover {
+      transform: translateY(-3px);
+    }
+    
+    .category-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: var(--primary);
+    }
+    
+    .category-name {
+      font-size: 12px;
+      text-align: center;
+      font-weight: 500;
+    }
+
+    /* Hero Banner with Auto-Slider */
+    .hero {
+      height: 300px;
+      position: relative;
+      overflow: hidden;
+      margin: 15px 5% 25px;
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+    
+    .hero-slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+    
+    .hero-slide.active {
+      opacity: 1;
+    }
+    
+    .hero-content {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 30px;
+      background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+      color: white;
+    }
+    
+    .hero-title {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    
+    .hero-subtitle {
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+    
+    .hero-btn {
+      background: var(--secondary);
+      color: var(--primary);
+      border: none;
+      padding: 8px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .hero-btn:hover {
+      background: #e6c12e;
+      transform: translateY(-2px);
+    }
+    
+    .hero-dots {
+      position: absolute;
+      bottom: 15px;
+      right: 20px;
+      display: flex;
+      gap: 8px;
+    }
+    
+    .hero-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.5);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .hero-dot.active {
+      background: var(--secondary);
+      transform: scale(1.3);
+    }
+
+    /* Deals Section */
+    .deals-section {
+      padding: 0 5% 30px;
+    }
+    
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    
+    .section-title {
+      font-size: 20px;
+      font-weight: 600;
+      position: relative;
+      padding-left: 15px;
+    }
+    
+    .section-title::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 4px;
+      height: 18px;
+      background: var(--secondary);
+      border-radius: 2px;
+    }
+    
+    .view-all {
+      color: var(--secondary);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    
+    .deals-scroll {
+      display: flex;
+      overflow-x: auto;
+      gap: 15px;
+      padding: 10px 0;
+      scrollbar-width: none;
+    }
+    
+    .deals-scroll::-webkit-scrollbar {
+      display: none;
+    }
+    
+    .deal-card {
+      min-width: 150px;
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      position: relative;
+    }
+    
+    .deal-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    
+    .deal-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: var(--danger);
+      color: white;
+      padding: 3px 8px;
+      font-size: 10px;
+      font-weight: 600;
+      border-radius: 4px;
+    }
+    
+    .deal-image {
+      width: 100%;
+      height: 120px;
+      background: #f5f5f5;
+      position: relative;
+    }
+    
+    .deal-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 10px;
+    }
+    
+    .deal-info {
+      padding: 12px;
+    }
+    
+    .deal-price {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+    
+    .deal-original {
+      font-size: 12px;
+      color: var(--text-light);
+      text-decoration: line-through;
+      margin-left: 5px;
+    }
+    
+    .deal-discount {
+      color: var(--success);
+      font-size: 12px;
+      font-weight: 600;
+      margin-top: 3px;
+    }
+    
+    .deal-title {
+      font-size: 12px;
+      margin-top: 5px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* Premium Products Grid */
+    .products-section {
+      padding: 0 5% 30px;
+      margin-bottom: 70px;
+    }
+    
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 15px;
+    }
+    
+    .product-card {
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      position: relative;
+    }
+    
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    
+    .product-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: var(--secondary);
+      color: var(--primary);
+      padding: 3px 8px;
+      font-size: 10px;
+      font-weight: 600;
+      border-radius: 4px;
+      z-index: 2;
+    }
+    
+    .product-image {
+      width: 100%;
+      height: 160px;
+      background: #f5f5f5;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 15px;
+      transition: transform 0.5s ease;
+    }
+    
+    .product-card:hover .product-image img {
+      transform: scale(1.05);
+    }
+    
+    .product-info {
+      padding: 12px;
+    }
+    
+    .product-title {
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 8px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      min-height: 36px;
+    }
+    
+    .product-price {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+    
+    .product-original {
+      font-size: 12px;
+      color: var(--text-light);
+      text-decoration: line-through;
+      margin-left: 5px;
+    }
+    
+    .product-rating {
+      display: flex;
+      align-items: center;
+      margin-top: 5px;
+    }
+    
+    .stars {
+      color: var(--secondary);
+      font-size: 12px;
+      margin-right: 5px;
+    }
+    
+    .rating-count {
+      font-size: 11px;
+      color: var(--text-light);
+    }
+    
+    .product-actions {
+      display: flex;
+      margin-top: 10px;
+    }
+    
+    .add-to-cart {
+      flex: 1;
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 8px;
+      font-size: 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .add-to-cart:hover {
+      background: var(--primary-light);
+    }
+    
+    .wishlist-btn {
+      width: 32px;
+      height: 32px;
+      background: var(--accent);
+      border: none;
+      border-radius: 4px;
+      margin-left: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .wishlist-btn:hover {
+      color: var(--danger);
+    }
+
+    /* Quick View Modal */
+    .quick-view {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1001;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    
+    .quick-view.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+    
+    .quick-view-content {
+      background: white;
+      width: 90%;
+      max-width: 800px;
+      max-height: 90vh;
+      border-radius: 8px;
+      overflow: hidden;
+      transform: translateY(20px);
+      transition: transform 0.3s ease;
+    }
+    
+    .quick-view.active .quick-view-content {
+      transform: translateY(0);
+    }
+    
+    .quick-view-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .quick-view-title {
+      font-size: 18px;
+      font-weight: 600;
+    }
+    
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: var(--text-light);
+    }
+    
+    .quick-view-body {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      max-height: 70vh;
+    }
+    
+    .quick-view-image {
+      width: 100%;
+      height: 250px;
+      background: #f5f5f5;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .quick-view-image img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+    
+    .quick-view-details h2 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+    
+    .quick-view-price {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+    
+    .quick-view-original {
+      font-size: 16px;
+      color: var(--text-light);
+      text-decoration: line-through;
+      margin-left: 10px;
+    }
+    
+    .quick-view-discount {
+      color: var(--success);
+      font-weight: 600;
+      margin-left: 10px;
+    }
+    
+    .quick-view-rating {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    
+    .quick-view-desc {
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+    
+    .quick-view-actions {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .buy-now {
+      flex: 1;
+      background: var(--secondary);
+      color: var(--primary);
+      border: none;
+      padding: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .buy-now:hover {
+      background: #e6c12e;
+    }
+    
+    .add-to-cart-lg {
+      flex: 1;
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .add-to-cart-lg:hover {
+      background: var(--primary-light);
+    }
+
+    /* Bottom Navigation */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      background: white;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+      z-index: 1000;
+    }
+    
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: var(--text-light);
+      text-decoration: none;
+      font-size: 10px;
+      transition: var(--transition);
+    }
+    
+    .nav-item i {
+      font-size: 20px;
+      margin-bottom: 3px;
+    }
+    
+    .nav-item.active {
+      color: var(--secondary);
+      transform: translateY(-5px);
+    }
+    
+    /* Account Modal */
+    .account-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1001;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    
+    .account-modal.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+    
+    .account-content {
+      background: white;
       width: 90%;
       max-width: 400px;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      border-radius: 8px;
+      overflow: hidden;
+      transform: translateY(20px);
+      transition: transform 0.3s ease;
     }
-    button {
-      margin: 20px;
-      padding: 10px 20px;
-      font-size: 16px;
+    
+    .account-modal.active .account-content {
+      transform: translateY(0);
+    }
+    
+    .account-header {
+      padding: 15px;
+      border-bottom: 1px solid #eee;
+      text-align: center;
+      position: relative;
+    }
+    
+    .account-close {
+      position: absolute;
+      right: 15px;
+      top: 15px;
+      background: none;
+      border: none;
+      font-size: 20px;
       cursor: pointer;
+      color: var(--text-light);
+    }
+    
+    .account-body {
+      padding: 20px;
+    }
+    
+    .account-option {
+      display: flex;
+      align-items: center;
+      padding: 15px 0;
+      border-bottom: 1px solid #eee;
+      cursor: pointer;
+    }
+    
+    .account-option i {
+      width: 30px;
+      font-size: 18px;
+      color: var(--secondary);
+    }
+    
+    /* Cart Modal */
+    .cart-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1001;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    
+    .cart-modal.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+    
+    .cart-content {
+      background: white;
+      width: 90%;
+      max-width: 500px;
+      max-height: 80vh;
+      border-radius: 8px;
+      overflow: hidden;
+      transform: translateY(20px);
+      transition: transform 0.3s ease;
+    }
+    
+    .cart-modal.active .cart-content {
+      transform: translateY(0);
+    }
+    
+    .cart-header {
+      padding: 15px;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .cart-close {
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: var(--text-light);
+    }
+    
+    .cart-body {
+      padding: 15px;
+      max-height: 60vh;
+      overflow-y: auto;
+    }
+    
+    .cart-item {
+      display: flex;
+      padding: 10px 0;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .cart-item-img {
+      width: 80px;
+      height: 80px;
+      background: #f5f5f5;
+      border-radius: 4px;
+      margin-right: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .cart-item-img img {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+    }
+    
+    .cart-item-details {
+      flex: 1;
+    }
+    
+    .cart-item-title {
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 5px;
+    }
+    
+    .cart-item-price {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--primary);
+    }
+    
+    .cart-item-actions {
+      display: flex;
+      align-items: center;
+      margin-top: 10px;
+    }
+    
+    .quantity-btn {
+      width: 25px;
+      height: 25px;
+      background: var(--accent);
+      border: none;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    
+    .quantity {
+      margin: 0 10px;
+      min-width: 20px;
+      text-align: center;
+    }
+    
+    .remove-btn {
+      margin-left: 15px;
+      color: var(--danger);
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .cart-footer {
+      padding: 15px;
+      border-top: 1px solid #eee;
+    }
+    
+    .cart-total {
+      display: flex;
+      justify-content: space-between;
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+    
+    .checkout-btn {
+      width: 100%;
+      background: var(--secondary);
+      color: var(--primary);
+      border: none;
+      padding: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .checkout-btn:hover {
+      background: #e6c12e;
+    }
+    
+    /* Wishlist Modal */
+    .wishlist-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1001;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    
+    .wishlist-modal.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+    
+    .wishlist-content {
+      background: white;
+      width: 90%;
+      max-width: 500px;
+      max-height: 80vh;
+      border-radius: 8px;
+      overflow: hidden;
+      transform: translateY(20px);
+      transition: transform 0.3s ease;
+    }
+    
+    .wishlist-modal.active .wishlist-content {
+      transform: translateY(0);
+    }
+    
+    .wishlist-header {
+      padding: 15px;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .wishlist-close {
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: var(--text-light);
+    }
+    
+    .wishlist-body {
+      padding: 15px;
+      max-height: 60vh;
+      overflow-y: auto;
+    }
+    
+    .wishlist-item {
+      display: flex;
+      padding: 10px 0;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .wishlist-item-img {
+      width: 80px;
+      height: 80px;
+      background: #f5f5f5;
+      border-radius: 4px;
+      margin-right: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .wishlist-item-img img {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+    }
+    
+    .wishlist-item-details {
+      flex: 1;
+    }
+    
+    .wishlist-item-title {
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 5px;
+    }
+    
+    .wishlist-item-price {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--primary);
+    }
+    
+    .wishlist-item-actions {
+      display: flex;
+      margin-top: 10px;
+    }
+    
+    .move-to-cart {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      font-size: 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .move-to-cart:hover {
+      background: var(--primary-light);
+    }
+    
+    .remove-wishlist {
+      margin-left: 10px;
+      color: var(--danger);
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    
+    /* Empty States */
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+    }
+    
+    .empty-icon {
+      font-size: 50px;
+      color: #ccc;
+      margin-bottom: 20px;
+    }
+    
+    .empty-text {
+      color: var(--text-light);
+      margin-bottom: 20px;
+    }
+    
+    /* Search Results */
+    .search-results {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      background: white;
+      border-radius: 0 0 8px 8px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      max-height: 400px;
+      overflow-y: auto;
+      z-index: 100;
+      display: none;
+    }
+    
+    .search-results.active {
+      display: block;
+    }
+    
+    .search-item {
+      padding: 10px 15px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .search-item:hover {
+      background: #f9f9f9;
+    }
+    
+    .search-item-img {
+      width: 40px;
+      height: 40px;
+      background: #f5f5f5;
+      border-radius: 4px;
+      margin-right: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .search-item-img img {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+    }
+    
+    .search-item-title {
+      font-size: 14px;
+    }
+    
+    .search-item-price {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--primary);
+      margin-left: auto;
+    }
+    
+    /* Responsive */
+    @media (min-width: 768px) {
+      .product-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      }
+      
+      .hero {
+        height: 400px;
+      }
+      
+      .quick-view-body {
+        flex-direction: row;
+        gap: 30px;
+      }
+      
+      .quick-view-image {
+        width: 300px;
+        height: 300px;
+        margin-bottom: 0;
+      }
     }
   </style>
 </head>
 <body>
+  <div class="app" id="app">
+    <!-- Premium Header -->
+    <header class="header">
+      <div class="header-top">
+        <div class="logo" onclick="navigate('home')">
+          <i class="fas fa-crown logo-icon"></i>
+          Brixo mart
+        </div>
+        <div class="header-actions">
+          <div class="header-icon" onclick="openAccountModal()">
+            <i class="far fa-user"></i>
+          </div>
+          <div class="header-icon" onclick="openWishlistModal()">
+            <i class="far fa-heart"></i>
+            <span class="badge" id="wishlistCount">3</span>
+          </div>
+          <div class="header-icon" onclick="openCartModal()">
+            <i class="fas fa-shopping-bag"></i>
+            <span class="badge" id="cartCount">5</span>
+          </div>
+        </div>
+      </div>
+      <div class="search-bar">
+        <input type="text" class="search-input" id="searchInput" placeholder="Search for premium products..." oninput="searchProducts()">
+        <button class="search-btn">
+          <i class="fas fa-search"></i>
+        </button>
+        <div class="search-results" id="searchResults"></div>
+      </div>
+    </header>
 
-  <h2>📷 Flipkart-style Camera</h2>
-  <video id="video" autoplay playsinline></video><br>
-  <button id="switchBtn">🔄 Switch Camera</button>
+    <!-- Categories Carousel -->
+    <div class="categories">
+      <div class="category-scroll">
+        <div class="category-card active" onclick="filterProducts('all')">
+          <div class="category-icon">
+            <i class="fas fa-star"></i>
+          </div>
+          <div class="category-name">Premium</div>
+        </div>
+        <div class="category-card" onclick="filterProducts('fashion')">
+          <div class="category-icon">
+            <i class="fas fa-tshirt"></i>
+          </div>
+          <div class="category-name">Fashion</div>
+        </div>
+        <div class="category-card" onclick="filterProducts('electronics')">
+          <div class="category-icon">
+            <i class="fas fa-mobile-alt"></i>
+          </div>
+          <div class="category-name">Electronics</div>
+        </div>
+        <div class="category-card" onclick="filterProducts('home')">
+          <div class="category-icon">
+            <i class="fas fa-home"></i>
+          </div>
+          <div class="category-name">Home</div>
+        </div>
+        <div class="category-card" onclick="filterProducts('jewelry')">
+          <div class="category-icon">
+            <i class="fas fa-gem"></i>
+          </div>
+          <div class="category-name">Jewelry</div>
+        </div>
+        <div class="category-card" onclick="filterProducts('watches')">
+          <div class="category-icon">
+            <i class="fas fa-watch"></i>
+          </div>
+          <div class="category-name">Watches</div>
+        </div>
+        <div class="category-card" onclick="filterProducts('footwear')">
+          <div class="category-icon">
+            <i class="fas fa-shoe-prints"></i>
+          </div>
+          <div class="category-name">Footwear</div>
+        </div>
+        <div class="category-card" onclick="filterProducts('bags')">
+          <div class="category-icon">
+            <i class="fas fa-briefcase"></i>
+          </div>
+          <div class="category-name">Bags</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hero Banner -->
+    <div class="hero">
+      <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
+        <div class="hero-content">
+          <h2 class="hero-title">Summer Collection 2025</h2>
+          <p class="hero-subtitle">Up to 60% off on premium brands</p>
+          <button class="hero-btn" onclick="filterProducts('fashion')">SHOP NOW</button>
+        </div>
+      </div>
+      <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
+        <div class="hero-content">
+          <h2 class="hero-title">Luxury Watches</h2>
+          <p class="hero-subtitle">Limited edition timepieces</p>
+          <button class="hero-btn" onclick="filterProducts('watches')">EXPLORE</button>
+        </div>
+      </div>
+      <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
+        <div class="hero-content">
+          <h2 class="hero-title">New Arrivals</h2>
+          <p class="hero-subtitle">Fresh from the runway</p>
+          <button class="hero-btn" onclick="filterProducts('all')">DISCOVER</button>
+        </div>
+      </div>
+      <div class="hero-dots">
+        <div class="hero-dot active" onclick="showSlide(0)"></div>
+        <div class="hero-dot" onclick="showSlide(1)"></div>
+        <div class="hero-dot" onclick="showSlide(2)"></div>
+      </div>
+    </div>
+
+    <!-- Deals Section -->
+    <div class="deals-section">
+      <div class="section-header">
+        <h2 class="section-title">Today's Deals</h2>
+        <div class="view-all" onclick="filterProducts('deals')">
+          View All <i class="fas fa-chevron-right"></i>
+        </div>
+      </div>
+      <div class="deals-scroll">
+        <div class="deal-card" onclick="openQuickView('headphones')">
+          <div class="deal-badge">60% OFF</div>
+          <div class="deal-image">
+            <img src="https://m.media-amazon.com/images/I/61bK6PMOC3L._AC_UL320_.jpg" alt="Premium Headphones">
+          </div>
+          <div class="deal-info">
+            <div class="deal-price">₹12,999 <span class="deal-original">₹32,999</span></div>
+            <div class="deal-discount">60% off</div>
+            <div class="deal-title">Wireless Noise Cancelling Headphones</div>
+          </div>
+        </div>
+        <div class="deal-card" onclick="openQuickView('watch')">
+          <div class="deal-badge">55% OFF</div>
+          <div class="deal-image">
+            <img src="https://m.media-amazon.com/images/I/71WkDp--uqL._AC_UL320_.jpg" alt="Smart Watch">
+          </div>
+          <div class="deal-info">
+            <div class="deal-price">₹8,999 <span class="deal-original">₹19,999</span></div>
+            <div class="deal-discount">55% off</div>
+            <div class="deal-title">Smart Watch with Fitness Tracker</div>
+          </div>
+        </div>
+        <div class="deal-card" onclick="openQuickView('sunglasses')">
+          <div class="deal-badge">70% OFF</div>
+          <div class="deal-image">
+            <img src="https://m.media-amazon.com/images/I/61+Q6Rh5KVL._AC_UL320_.jpg" alt="Designer Sunglasses">
+          </div>
+          <div class="deal-info">
+            <div class="deal-price">₹2,499 <span class="deal-original">₹8,499</span></div>
+            <div class="deal-discount">70% off</div>
+            <div class="deal-title">Premium Aviator Sunglasses</div>
+          </div>
+        </div>
+        <div class="deal-card" onclick="openQuickView('wallet')">
+          <div class="deal-badge">50% OFF</div>
+          <div class="deal-image">
+            <img src="https://m.media-amazon.com/images/I/61D9Ny03UIL._AC_UL320_.jpg" alt="Leather Wallet">
+          </div>
+          <div class="deal-info">
+            <div class="deal-price">₹1,299 <span class="deal-original">₹2,599</span></div>
+            <div class="deal-discount">50% off</div>
+            <div class="deal-title">Genuine Leather Wallet</div>
+          </div>
+        </div>
+        <div class="deal-card" onclick="openQuickView('perfume')">
+          <div class="deal-badge">45% OFF</div>
+          <div class="deal-image">
+            <img src="https://m.media-amazon.com/images/I/71TPda7cwUL._AC_UL320_.jpg" alt="Perfume">
+          </div>
+          <div class="deal-info">
+            <div class="deal-price">₹3,299 <span class="deal-original">₹5,999</span></div>
+            <div class="deal-discount">45% off</div>
+            <div class="deal-title">Luxury Eau De Parfum</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Premium Products -->
+    <div class="products-section">
+      <div class="section-header">
+        <h2 class="section-title">Premium Collection</h2>
+        <div class="view-all" onclick="filterProducts('all')">
+          View All <i class="fas fa-chevron-right"></i>
+        </div>
+      </div>
+      <div class="product-grid" id="productGrid">
+        <div class="product-card" onclick="openQuickView('headphones')">
+          <div class="product-badge">NEW</div>
+          <div class="product-image">
+            <img src="https://m.media-amazon.com/images/I/61bK6PMOC3L._AC_UL320_.jpg" alt="Headphones">
+          </div>
+          <div class="product-info">
+            <div class="product-title">Premium Wireless Headphones with Active Noise Cancellation</div>
+            <div class="product-price">₹12,999 <span class="product-original">₹32,999</span></div>
+            <div class="product-rating">
+              <div class="stars">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+              </div>
+              <div class="rating-count">(1,234)</div>
+            </div>
+            <div class="product-actions">
+              <button class="add-to-cart" onclick="addToCart(event, 'headphones')">ADD TO CART</button>
+              <button class="wishlist-btn" onclick="toggleWishlist(event, 'headphones')">
+                <i class="far fa-heart"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="product-card" onclick="openQuickView('watch')">
+          <div class="product-badge">30% OFF</div>
+          <div class="product-image">
+            <img src="https://m.media-amazon.com/images/I/71WkDp--uqL._AC_UL320_.jpg" alt="Smart Watch">
+          </div>
+          <div class="product-info">
+            <div class="product-title">Luxury Smart Watch with AMOLED Display</div>
+            <div class="product-price">₹8,999 <span class="product-original">₹19,999</span></div>
+            <div class="product-rating">
+              <div class="stars">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+              </div>
+              <div class="rating-count">(876)</div>
+            </div>
+            <div class="product-actions">
+              <button class="add-to-cart" onclick="addToCart(event, 'watch')">ADD TO CART</button>
+              <button class="wishlist-btn" onclick="toggleWishlist(event, 'watch')">
+                <i class="far fa-heart"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="product-card" onclick="openQuickView('sunglasses')">
+          <div class="product-badge">BESTSELLER</div>
+          <div class="product-image">
+            <img src="https://m.media-amazon.com/images/I/61+Q6Rh5KVL._AC_UL320_.jpg" alt="Sunglasses">
+          </div>
+          <div class="product-info">
+            <div class="product-title">Designer Polarized Sunglasses with UV Protection</div>
+            <div class="product-price">₹2,499 <span class="product-original">₹8,499</span></div>
+            <div class="product-rating">
+              <div class="stars">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              </div>
+              <div class="rating-count">(2,543)</div>
+            </div>
+            <div class="product-actions">
+              <button class="add-to-cart" onclick="addToCart(event, 'sunglasses')">ADD TO CART</button>
+              <button class="wishlist-btn" onclick="toggleWishlist(event, 'sunglasses')">
+                <i class="far fa-heart"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="product-card" onclick="openQuickView('wallet')">
+          <div class="product-image">
+            <img src="https://m.media-amazon.com/images/I/61D9Ny03UIL._AC_UL320_.jpg" alt="Leather Wallet">
+          </div>
+          <div class="product-info">
+            <div class="product-title">Genuine Leather Wallet with RFID Protection</div>
+            <div class="product-price">₹1,299 <span class="product-original">₹2,599</span></div>
+            <div class="product-rating">
+              <div class="stars">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+              </div>
+              <div class="rating-count">(932)</div>
+            </div>
+            <div class="product-actions">
+              <button class="add-to-cart" onclick="addToCart(event, 'wallet')">ADD TO CART</button>
+              <button class="wishlist-btn" onclick="toggleWishlist(event, 'wallet')">
+                <i class="far fa-heart"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="product-card" onclick="openQuickView('perfume')">
+          <div class="product-badge">NEW</div>
+          <div class="product-image">
+            <img src="https://m.media-amazon.com/images/I/71TPda7cwUL._AC_UL320_.jpg" alt="Perfume">
+          </div>
+          <div class="product-info">
+            <div class="product-title">Luxury Eau De Parfum - 100ml</div>
+            <div class="product-price">₹3,299 <span class="product-original">₹5,999</span></div>
+            <div class="product-rating">
+              <div class="stars">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+              </div>
+              <div class="rating-count">(456)</div>
+            </div>
+            <div class="product-actions">
+              <button class="add-to-cart" onclick="addToCart(event, 'perfume')">ADD TO CART</button>
+              <button class="wishlist-btn" onclick="toggleWishlist(event, 'perfume')">
+                <i class="far fa-heart"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="product-card" onclick="openQuickView('backpack')">
+          <div class="product-badge">50% OFF</div>
+          <div class="product-image">
+            <img src="https://m.media-amazon.com/images/I/71W+rpXNfVL._AC_UL320_.jpg" alt="Backpack">
+          </div>
+          <div class="product-info">
+            <div class="product-title">Premium Leather Backpack for Professionals</div>
+            <div class="product-price">₹4,999 <span class="product-original">₹9,999</span></div>
+            <div class="product-rating">
+              <div class="stars">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+              </div>
+              <div class="rating-count">(1,087)</div>
+            </div>
+            <div class="product-actions">
+              <button class="add-to-cart" onclick="addToCart(event, 'backpack')">ADD TO CART</button>
+              <button class="wishlist-btn" onclick="toggleWishlist(event, 'backpack')">
+                <i class="far fa-heart"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick View Modal -->
+    <div class="quick-view" id="quickView">
+      <div class="quick-view-content">
+        <div class="quick-view-header">
+          <h3 class="quick-view-title">Product Details</h3>
+          <button class="close-btn" onclick="closeQuickView()">&times;</button>
+        </div>
+        <div class="quick-view-body">
+          <div class="quick-view-image">
+            <img id="quickViewImage" src="" alt="Product">
+          </div>
+          <div class="quick-view-details">
+            <h2 id="quickViewTitle">Product Title</h2>
+            <div class="quick-view-price" id="quickViewPrice">₹0 <span class="quick-view-original">₹0</span> <span class="quick-view-discount">0% off</span></div>
+            <div class="quick-view-rating">
+              <div class="stars" id="quickViewStars"></div>
+              <span style="margin-left: 10px;" id="quickViewRatingCount">0 ratings</span>
+            </div>
+            <div class="quick-view-desc" id="quickViewDesc">
+              <p>Product description will appear here.</p>
+            </div>
+            <div class="quick-view-actions">
+              <button class="buy-now" id="quickViewBuyNow">BUY NOW</button>
+              <button class="add-to-cart-lg" id="quickViewAddToCart">ADD TO CART</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Account Modal -->
+    <div class="account-modal" id="accountModal">
+      <div class="account-content">
+        <div class="account-header">
+          <h3>My Account</h3>
+          <button class="account-close" onclick="closeAccountModal()">&times;</button>
+        </div>
+        <div class="account-body">
+          <div class="account-option" onclick="navigate('profile')">
+            <i class="fas fa-user"></i>
+            <span>Profile</span>
+          </div>
+          <div class="account-option" onclick="navigate('orders')">
+            <i class="fas fa-box"></i>
+            <span>My Orders</span>
+          </div>
+          <div class="account-option" onclick="navigate('addresses')">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>Saved Addresses</span>
+          </div>
+          <div class="account-option" onclick="openWishlistModal()">
+            <i class="fas fa-heart"></i>
+            <span>Wishlist</span>
+          </div>
+          <div class="account-option" onclick="navigate('payments')">
+            <i class="fas fa-credit-card"></i>
+            <span>Payment Methods</span>
+          </div>
+          <div class="account-option" onclick="navigate('logout')">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cartModal">
+      <div class="cart-content">
+        <div class="cart-header">
+          <h3>My Cart (<span id="cartItemCount">0</span>)</h3>
+          <button class="cart-close" onclick="closeCartModal()">&times;</button>
+        </div>
+        <div class="cart-body" id="cartBody">
+          <!-- Cart items will be added here dynamically -->
+          <div class="empty-state">
+            <div class="empty-icon">
+              <i class="fas fa-shopping-cart"></i>
+            </div>
+            <h4>Your cart is empty</h4>
+            <p class="empty-text">Looks like you haven't added anything to your cart yet</p>
+            <button class="hero-btn" onclick="closeCartModal(); filterProducts('all')">SHOP NOW</button>
+          </div>
+        </div>
+        <div class="cart-footer" id="cartFooter" style="display: none;">
+          <div class="cart-total">
+            <span>Total:</span>
+            <span id="cartTotal">₹0</span>
+          </div>
+          <button class="checkout-btn">PROCEED TO CHECKOUT</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Wishlist Modal -->
+    <div class="wishlist-modal" id="wishlistModal">
+      <div class="wishlist-content">
+        <div class="wishlist-header">
+          <h3>My Wishlist (<span id="wishlistItemCount">0</span>)</h3>
+          <button class="wishlist-close" onclick="closeWishlistModal()">&times;</button>
+        </div>
+        <div class="wishlist-body" id="wishlistBody">
+          <!-- Wishlist items will be added here dynamically -->
+          <div class="empty-state">
+            <div class="empty-icon">
+              <i class="fas fa-heart"></i>
+            </div>
+            <h4>Your wishlist is empty</h4>
+            <p class="empty-text">Save your favorite items here for later</p>
+            <button class="hero-btn" onclick="closeWishlistModal(); filterProducts('all')">SHOP NOW</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+      <a href="#" class="nav-item active" onclick="navigate('home')">
+        <i class="fas fa-home"></i>
+        <span>Home</span>
+      </a>
+      <a href="#" class="nav-item" onclick="navigate('search')">
+        <i class="fas fa-search"></i>
+        <span>Search</span>
+      </a>
+      <a href="#" class="nav-item" onclick="openWishlistModal()">
+        <i class="fas fa-heart"></i>
+        <span>Wishlist</span>
+      </a>
+      <a href="#" class="nav-item" onclick="openAccountModal()">
+        <i class="fas fa-user"></i>
+        <span>Account</span>
+      </a>
+      <a href="#" class="nav-item" onclick="openCartModal()">
+        <i class="fas fa-shopping-cart"></i>
+        <span>Cart</span>
+      </a>
+    </nav>
+  </div>
 
   <script>
-    let currentFacingMode = "user"; // front
-    let stream;
-
-    async function startCamera(facingMode) {
-      if (stream) {
-        stream.getTracks().forEach(track => track.stop());
+    // Product Data
+    const products = {
+      headphones: {
+        id: 'headphones',
+        title: 'Premium Wireless Headphones with Active Noise Cancellation',
+        price: 12999,
+        originalPrice: 32999,
+        image: 'https://m.media-amazon.com/images/I/61bK6PMOC3L._AC_UL320_.jpg',
+        rating: 4.5,
+        ratingCount: 1234,
+        category: 'electronics',
+        description: 'Experience premium sound quality with these wireless headphones featuring active noise cancellation technology. Enjoy crystal-clear audio with deep bass and up to 30 hours of battery life. Includes carrying case and premium accessories.',
+        features: [
+          'Active Noise Cancellation',
+          '30-hour battery life',
+          'Bluetooth 5.0',
+          'Built-in microphone',
+          'Premium leather ear cushions'
+        ]
+      },
+      watch: {
+        id: 'watch',
+        title: 'Luxury Smart Watch with AMOLED Display',
+        price: 8999,
+        originalPrice: 19999,
+        image: 'https://m.media-amazon.com/images/I/71WkDp--uqL._AC_UL320_.jpg',
+        rating: 4,
+        ratingCount: 876,
+        category: 'electronics',
+        description: 'Stay connected with this luxury smartwatch featuring a vibrant AMOLED display, fitness tracking, and smartphone notifications. Water-resistant design with premium stainless steel case and genuine leather strap.',
+        features: [
+          '1.4" AMOLED display',
+          'Heart rate monitoring',
+          '7-day battery life',
+          'Water resistant (5ATM)',
+          'Premium stainless steel case'
+        ]
+      },
+      sunglasses: {
+        id: 'sunglasses',
+        title: 'Designer Polarized Sunglasses with UV Protection',
+        price: 2499,
+        originalPrice: 8499,
+        image: 'https://m.media-amazon.com/images/I/61+Q6Rh5KVL._AC_UL320_.jpg',
+        rating: 5,
+        ratingCount: 2543,
+        category: 'fashion',
+        description: 'Elevate your style with these designer polarized sunglasses offering 100% UV protection. Lightweight frame with scratch-resistant lenses and premium polarized coating to reduce glare.',
+        features: [
+          '100% UV protection',
+          'Polarized lenses',
+          'Lightweight frame',
+          'Scratch-resistant coating',
+          'Includes premium case'
+        ]
+      },
+      wallet: {
+        id: 'wallet',
+        title: 'Genuine Leather Wallet with RFID Protection',
+        price: 1299,
+        originalPrice: 2599,
+        image: 'https://m.media-amazon.com/images/I/61D9Ny03UIL._AC_UL320_.jpg',
+        rating: 4.5,
+        ratingCount: 932,
+        category: 'fashion',
+        description: 'Crafted from genuine leather, this slim wallet features RFID blocking technology to protect your cards from electronic theft. Multiple card slots and a discreet money compartment.',
+        features: [
+          'Genuine leather',
+          'RFID blocking technology',
+          '6 card slots',
+          'Slim design',
+          'Money compartment'
+        ]
+      },
+      perfume: {
+        id: 'perfume',
+        title: 'Luxury Eau De Parfum - 100ml',
+        price: 3299,
+        originalPrice: 5999,
+        image: 'https://m.media-amazon.com/images/I/71TPda7cwUL._AC_UL320_.jpg',
+        rating: 4,
+        ratingCount: 456,
+        category: 'fashion',
+        description: 'A sophisticated fragrance with top notes of bergamot, middle notes of jasmine, and base notes of sandalwood. Long-lasting scent in an elegant glass bottle with gold accents.',
+        features: [
+          '100ml Eau De Parfum',
+          'Long-lasting fragrance',
+          'Elegant glass bottle',
+          'Premium packaging',
+          'Unisex scent'
+        ]
+      },
+      backpack: {
+        id: 'backpack',
+        title: 'Premium Leather Backpack for Professionals',
+        price: 4999,
+        originalPrice: 9999,
+        image: 'https://m.media-amazon.com/images/I/71W+rpXNfVL._AC_UL320_.jpg',
+        rating: 4.5,
+        ratingCount: 1087,
+        category: 'bags',
+        description: 'This premium leather backpack combines style and functionality with a dedicated laptop compartment, multiple pockets, and comfortable padded straps. Perfect for work or travel.',
+        features: [
+          'Genuine leather',
+          'Fits 15" laptop',
+          'Multiple compartments',
+          'Padded shoulder straps',
+          'Water-resistant lining'
+        ]
       }
+    };
 
-      try {
-        stream = await navigator.mediaDevices.getUserMedia({
-          video: { facingMode: facingMode }
+    // App State
+    let state = {
+      cart: [],
+      wishlist: ['headphones', 'watch', 'sunglasses'],
+      currentCategory: 'all',
+      currentQuickViewProduct: null
+    };
+
+    // DOM Elements
+    const cartCountEl = document.getElementById('cartCount');
+    const wishlistCountEl = document.getElementById('wishlistCount');
+    const productGridEl = document.getElementById('productGrid');
+    const searchInputEl = document.getElementById('searchInput');
+    const searchResultsEl = document.getElementById('searchResults');
+    const cartBodyEl = document.getElementById('cartBody');
+    const cartFooterEl = document.getElementById('cartFooter');
+    const cartItemCountEl = document.getElementById('cartItemCount');
+    const cartTotalEl = document.getElementById('cartTotal');
+    const wishlistBodyEl = document.getElementById('wishlistBody');
+    const wishlistItemCountEl = document.getElementById('wishlistItemCount');
+    const quickViewTitleEl = document.getElementById('quickViewTitle');
+    const quickViewImageEl = document.getElementById('quickViewImage');
+    const quickViewPriceEl = document.getElementById('quickViewPrice');
+    const quickViewStarsEl = document.getElementById('quickViewStars');
+    const quickViewRatingCountEl = document.getElementById('quickViewRatingCount');
+    const quickViewDescEl = document.getElementById('quickViewDesc');
+    const quickViewBuyNowEl = document.getElementById('quickViewBuyNow');
+    const quickViewAddToCartEl = document.getElementById('quickViewAddToCart');
+
+    // Initialize the app
+    function init() {
+      updateCartCount();
+      updateWishlistCount();
+      renderProducts();
+      renderWishlist();
+      
+      // Set initial cart items for demo
+      state.cart = [
+        { id: 'headphones', quantity: 1 },
+        { id: 'watch', quantity: 2 },
+        { id: 'wallet', quantity: 1 }
+      ];
+      updateCart();
+    }
+
+    // Navigation functions
+    function navigate(page) {
+      // In a real app, this would navigate to different pages
+      console.log(`Navigating to ${page}`);
+      closeAllModals();
+      
+      // Update active nav item
+      document.querySelectorAll('.nav-item').forEach(item => {
+        item.classList.remove('active');
+      });
+      event.currentTarget.classList.add('active');
+    }
+
+    // Product filtering
+    function filterProducts(category) {
+      state.currentCategory = category;
+      
+      // Update active category
+      document.querySelectorAll('.category-card').forEach(card => {
+        card.classList.remove('active');
+      });
+      event.currentTarget.classList.add('active');
+      
+      renderProducts();
+    }
+
+    // Render products based on current filter
+    function renderProducts() {
+      // Clear existing products
+      productGridEl.innerHTML = '';
+      
+      // Filter products by category
+      let filteredProducts = Object.values(products);
+      if (state.currentCategory !== 'all') {
+        filteredProducts = filteredProducts.filter(
+          product => product.category === state.currentCategory
+        );
+      }
+      
+      // Render each product
+      filteredProducts.forEach(product => {
+        const isInWishlist = state.wishlist.includes(product.id);
+        
+        const discount = Math.round(
+          ((product.originalPrice - product.price) / product.originalPrice) * 100
+        );
+        
+        const productEl = document.createElement('div');
+        productEl.className = 'product-card';
+        productEl.setAttribute('onclick', `openQuickView('${product.id}')`);
+        
+        productEl.innerHTML = `
+          ${discount > 0 ? `<div class="product-badge">${discount}% OFF</div>` : ''}
+          <div class="product-image">
+            <img src="${product.image}" alt="${product.title}">
+          </div>
+          <div class="product-info">
+            <div class="product-title">${product.title}</div>
+            <div class="product-price">₹${product.price.toLocaleString('en-IN')} 
+              ${product.originalPrice > product.price ? 
+                `<span class="product-original">₹${product.originalPrice.toLocaleString('en-IN')}</span>` : ''}
+            </div>
+            <div class="product-rating">
+              <div class="stars">
+                ${renderStars(product.rating)}
+              </div>
+              <div class="rating-count">(${product.ratingCount.toLocaleString('en-IN')})</div>
+            </div>
+            <div class="product-actions">
+              <button class="add-to-cart" onclick="addToCart(event, '${product.id}')">ADD TO CART</button>
+              <button class="wishlist-btn" onclick="toggleWishlist(event, '${product.id}')">
+                <i class="${isInWishlist ? 'fas' : 'far'} fa-heart"></i>
+              </button>
+            </div>
+          </div>
+        `;
+        
+        productGridEl.appendChild(productEl);
+      });
+    }
+
+    // Render star ratings
+    function renderStars(rating) {
+      let stars = '';
+      const fullStars = Math.floor(rating);
+      const hasHalfStar = rating % 1 >= 0.5;
+      
+      for (let i = 1; i <= 5; i++) {
+        if (i <= fullStars) {
+          stars += '<i class="fas fa-star"></i>';
+        } else if (i === fullStars + 1 && hasHalfStar) {
+          stars += '<i class="fas fa-star-half-alt"></i>';
+        } else {
+          stars += '<i class="far fa-star"></i>';
+        }
+      }
+      
+      return stars;
+    }
+
+    // Search functionality
+    function searchProducts() {
+      const query = searchInputEl.value.toLowerCase();
+      
+      if (query.length < 2) {
+        searchResultsEl.classList.remove('active');
+        return;
+      }
+      
+      // Filter products by search query
+      const results = Object.values(products).filter(product => 
+        product.title.toLowerCase().includes(query)
+      );
+      
+      // Display results
+      searchResultsEl.innerHTML = '';
+      
+      if (results.length > 0) {
+        results.forEach(product => {
+          const itemEl = document.createElement('div');
+          itemEl.className = 'search-item';
+          itemEl.setAttribute('onclick', `selectSearchResult('${product.id}')`);
+          
+          itemEl.innerHTML = `
+            <div class="search-item-img">
+              <img src="${product.image}" alt="${product.title}">
+            </div>
+            <div class="search-item-title">${product.title}</div>
+            <div class="search-item-price">₹${product.price.toLocaleString('en-IN')}</div>
+          `;
+          
+          searchResultsEl.appendChild(itemEl);
         });
-        document.getElementById("video").srcObject = stream;
-      } catch (err) {
-        alert("Error: " + err.message);
+        
+        searchResultsEl.classList.add('active');
+      } else {
+        searchResultsEl.innerHTML = `
+          <div class="search-item" style="justify-content: center; color: var(--text-light);">
+            No products found
+          </div>
+        `;
+        searchResultsEl.classList.add('active');
       }
     }
 
-    document.getElementById("switchBtn").addEventListener("click", () => {
-      currentFacingMode = currentFacingMode === "user" ? "environment" : "user";
-      startCamera(currentFacingMode);
-    });
+    function selectSearchResult(productId) {
+      openQuickView(productId);
+      searchInputEl.value = '';
+      searchResultsEl.classList.remove('active');
+    }
 
-    // Start with front camera
-    startCamera(currentFacingMode);
+    // Cart functionality
+    function addToCart(event, productId) {
+      event.stopPropagation();
+      
+      const existingItem = state.cart.find(item => item.id === productId);
+      
+      if (existingItem) {
+        existingItem.quantity += 1;
+      } else {
+        state.cart.push({ id: productId, quantity: 1 });
+      }
+      
+      updateCart();
+      
+      // Show feedback
+      const button = event.target;
+      button.textContent = 'ADDED!';
+      setTimeout(() => {
+        button.textContent = 'ADD TO CART';
+      }, 2000);
+    }
+
+    function updateCart() {
+      updateCartCount();
+      renderCart();
+      
+      // Save to localStorage in a real app
+      // localStorage.setItem('cart', JSON.stringify(state.cart));
+    }
+
+    function updateCartCount() {
+      const count = state.cart.reduce((total, item) => total + item.quantity, 0);
+      cartCountEl.textContent = count;
+    }
+
+    function renderCart() {
+      if (state.cart.length === 0) {
+        cartBodyEl.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-icon">
+              <i class="fas fa-shopping-cart"></i>
+            </div>
+            <h4>Your cart is empty</h4>
+            <p class="empty-text">Looks like you haven't added anything to your cart yet</p>
+            <button class="hero-btn" onclick="closeCartModal(); filterProducts('all')">SHOP NOW</button>
+          </div>
+        `;
+        cartFooterEl.style.display = 'none';
+        return;
+      }
+      
+      cartBodyEl.innerHTML = '';
+      let total = 0;
+      
+      state.cart.forEach(item => {
+        const product = products[item.id];
+        const itemTotal = product.price * item.quantity;
+        total += itemTotal;
+        
+        const itemEl = document.createElement('div');
+        itemEl.className = 'cart-item';
+        
+        itemEl.innerHTML = `
+          <div class="cart-item-img">
+            <img src="${product.image}" alt="${product.title}">
+          </div>
+          <div class="cart-item-details">
+            <div class="cart-item-title">${product.title}</div>
+            <div class="cart-item-price">₹${product.price.toLocaleString('en-IN')}</div>
+            <div class="cart-item-actions">
+              <button class="quantity-btn minus" onclick="updateCartItemQuantity('${item.id}', -1)">-</button>
+              <div class="quantity">${item.quantity}</div>
+              <button class="quantity-btn plus" onclick="updateCartItemQuantity('${item.id}', 1)">+</button>
+              <button class="remove-btn" onclick="removeFromCart('${item.id}')">✕</button>
+            </div>
+          </div>
+        `;
+        
+        cartBodyEl.appendChild(itemEl);
+      });
+      
+      cartItemCountEl.textContent = state.cart.reduce((total, item) => total + item.quantity, 0);
+      cartTotalEl.textContent = `₹${total.toLocaleString('en-IN')}`;
+      cartFooterEl.style.display = 'block';
+    }
+
+    function updateCartItemQuantity(productId, change) {
+      const item = state.cart.find(item => item.id === productId);
+      
+      if (item) {
+        item.quantity += change;
+        
+        if (item.quantity <= 0) {
+          state.cart = state.cart.filter(item => item.id !== productId);
+        }
+        
+        updateCart();
+      }
+    }
+
+    function removeFromCart(productId) {
+      state.cart = state.cart.filter(item => item.id !== productId);
+      updateCart();
+    }
+
+    // Wishlist functionality
+    function toggleWishlist(event, productId) {
+      event.stopPropagation();
+      
+      const index = state.wishlist.indexOf(productId);
+      
+      if (index === -1) {
+        state.wishlist.push(productId);
+      } else {
+        state.wishlist.splice(index, 1);
+      }
+      
+      updateWishlist();
+      
+      // Update heart icon
+      const icon = event.currentTarget.querySelector('i');
+      icon.classList.toggle('far');
+      icon.classList.toggle('fas');
+    }
+
+    function updateWishlist() {
+      updateWishlistCount();
+      renderWishlist();
+      
+      // Save to localStorage in a real app
+      // localStorage.setItem('wishlist', JSON.stringify(state.wishlist));
+    }
+
+    function updateWishlistCount() {
+      wishlistCountEl.textContent = state.wishlist.length;
+    }
+
+    function renderWishlist() {
+      if (state.wishlist.length === 0) {
+        wishlistBodyEl.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-icon">
+              <i class="fas fa-heart"></i>
+            </div>
+            <h4>Your wishlist is empty</h4>
+            <p class="empty-text">Save your favorite items here for later</p>
+            <button class="hero-btn" onclick="closeWishlistModal(); filterProducts('all')">SHOP NOW</button>
+          </div>
+        `;
+        return;
+      }
+      
+      wishlistBodyEl.innerHTML = '';
+      wishlistItemCountEl.textContent = state.wishlist.length;
+      
+      state.wishlist.forEach(productId => {
+        const product = products[productId];
+        
+        const itemEl = document.createElement('div');
+        itemEl.className = 'wishlist-item';
+        
+        itemEl.innerHTML = `
+          <div class="wishlist-item-img">
+            <img src="${product.image}" alt="${product.title}">
+          </div>
+          <div class="wishlist-item-details">
+            <div class="wishlist-item-title">${product.title}</div>
+            <div class="wishlist-item-price">₹${product.price.toLocaleString('en-IN')}</div>
+            <div class="wishlist-item-actions">
+              <button class="move-to-cart" onclick="addToCart(event, '${productId}')">MOVE TO CART</button>
+              <button class="remove-wishlist" onclick="toggleWishlist(event, '${productId}')">REMOVE</button>
+            </div>
+          </div>
+        `;
+        
+        wishlistBodyEl.appendChild(itemEl);
+      });
+    }
+
+    // Quick View Modal
+    function openQuickView(productId) {
+      const product = products[productId];
+      state.currentQuickViewProduct = productId;
+      
+      quickViewTitleEl.textContent = product.title;
+      quickViewImageEl.src = product.image;
+      
+      const discount = Math.round(
+        ((product.originalPrice - product.price) / product.originalPrice) * 100
+      );
+      
+      quickViewPriceEl.innerHTML = `
+        ₹${product.price.toLocaleString('en-IN')} 
+        <span class="quick-view-original">₹${product.originalPrice.toLocaleString('en-IN')}</span>
+        ${discount > 0 ? `<span class="quick-view-discount">${discount}% off</span>` : ''}
+      `;
+      
+      quickViewStarsEl.innerHTML = renderStars(product.rating);
+      quickViewRatingCountEl.textContent = `${product.ratingCount.toLocaleString('en-IN')} ratings`;
+      
+      quickViewDescEl.innerHTML = `
+        <p>${product.description}</p>
+        <ul style="margin-top: 10px; padding-left: 20px;">
+          ${product.features.map(feature => `<li>${feature}</li>`).join('')}
+        </ul>
+      `;
+      
+      quickViewBuyNowEl.setAttribute('onclick', `buyNow('${productId}')`);
+      quickViewAddToCartEl.setAttribute('onclick', `addToCartFromQuickView('${productId}')`);
+      
+      document.getElementById('quickView').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeQuickView() {
+      document.getElementById('quickView').classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    function addToCartFromQuickView(productId) {
+      addToCart(event, productId);
+      closeQuickView();
+    }
+
+    function buyNow(productId) {
+      // In a real app, this would redirect to checkout
+      console.log(`Buying now: ${productId}`);
+      addToCart(event, productId);
+      closeQuickView();
+      openCartModal();
+    }
+
+    // Modal controls
+    function openAccountModal() {
+      document.getElementById('accountModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeAccountModal() {
+      document.getElementById('accountModal').classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    function openCartModal() {
+      document.getElementById('cartModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeCartModal() {
+      document.getElementById('cartModal').classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    function openWishlistModal() {
+      document.getElementById('wishlistModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeWishlistModal() {
+      document.getElementById('wishlistModal').classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    function closeAllModals() {
+      closeQuickView();
+      closeAccountModal();
+      closeCartModal();
+      closeWishlistModal();
+    }
+
+    // Hero Slider
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.hero-slide');
+    const dots = document.querySelectorAll('.hero-dot');
+    
+    function showSlide(n) {
+      slides.forEach(slide => slide.classList.remove('active'));
+      dots.forEach(dot => dot.classList.remove('active'));
+      
+      currentSlide = (n + slides.length) % slides.length;
+      slides[currentSlide].classList.add('active');
+      dots[currentSlide].classList.add('active');
+    }
+    
+    function nextSlide() {
+      showSlide(currentSlide + 1);
+    }
+    
+    // Auto slide every 5 seconds
+    setInterval(nextSlide, 5000);
+    
+    // Initialize the app
+    document.addEventListener('DOMContentLoaded', init);
+    
+    // Close modals when clicking outside
+    window.addEventListener('click', (e) => {
+      if (e.target.classList.contains('quick-view')) {
+        closeQuickView();
+      }
+      if (e.target.classList.contains('account-modal')) {
+        closeAccountModal();
+      }
+      if (e.target.classList.contains('cart-modal')) {
+        closeCartModal();
+      }
+      if (e.target.classList.contains('wishlist-modal')) {
+        closeWishlistModal();
+      }
+    });
   </script>
 </body>
 </html>
