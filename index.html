@@ -2,42 +2,60 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Camera Test</title>
+  <title>Camera Switch (Front/Back)</title>
   <style>
     body {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding-top: 40px;
       font-family: sans-serif;
+      text-align: center;
+      padding-top: 30px;
+      background: #f5f5f5;
     }
     video {
       width: 90%;
       max-width: 400px;
       border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     }
     button {
-      margin-top: 20px;
+      margin: 20px;
       padding: 10px 20px;
       font-size: 16px;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <video id="video" autoplay playsinline></video>
-  <button onclick="startCamera()">📷 Start Camera</button>
+
+  <h2>📷 Flipkart-style Camera</h2>
+  <video id="video" autoplay playsinline></video><br>
+  <button id="switchBtn">🔄 Switch Camera</button>
 
   <script>
-    async function startCamera() {
+    let currentFacingMode = "user"; // front
+    let stream;
+
+    async function startCamera(facingMode) {
+      if (stream) {
+        stream.getTracks().forEach(track => track.stop());
+      }
+
       try {
-        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-        const video = document.getElementById('video');
-        video.srcObject = stream;
+        stream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: facingMode }
+        });
+        document.getElementById("video").srcObject = stream;
       } catch (err) {
-        alert('❌ Error: ' + err.message);
+        alert("Error: " + err.message);
       }
     }
+
+    document.getElementById("switchBtn").addEventListener("click", () => {
+      currentFacingMode = currentFacingMode === "user" ? "environment" : "user";
+      startCamera(currentFacingMode);
+    });
+
+    // Start with front camera
+    startCamera(currentFacingMode);
   </script>
 </body>
 </html>
