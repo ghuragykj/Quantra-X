@@ -1759,8 +1759,9 @@
   </div>
 
   <script>
-    // Product Data
+    // Enhanced Product Data with more items for each category
     const products = {
+      // Electronics
       headphones: {
         id: 'headphones',
         title: 'Premium Wireless Headphones with Active Noise Cancellation',
@@ -1797,6 +1798,26 @@
           'Premium stainless steel case'
         ]
       },
+      laptop: {
+        id: 'laptop',
+        title: 'Ultra Thin Laptop 16GB RAM 1TB SSD',
+        price: 65990,
+        originalPrice: 89990,
+        image: 'https://m.media-amazon.com/images/I/71TPda7cwUL._AC_UL320_.jpg',
+        rating: 4.7,
+        ratingCount: 3421,
+        category: 'electronics',
+        description: 'Powerful ultra thin laptop with high performance specs including 16GB RAM, 1TB SSD storage, and Intel i7 processor. Perfect for professionals and creatives.',
+        features: [
+          '16GB DDR4 RAM',
+          '1TB NVMe SSD',
+          'Intel Core i7 processor',
+          '14" 4K display',
+          'Thunderbolt 4 ports'
+        ]
+      },
+      
+      // Fashion
       sunglasses: {
         id: 'sunglasses',
         title: 'Designer Polarized Sunglasses with UV Protection',
@@ -1815,42 +1836,160 @@
           'Includes premium case'
         ]
       },
-      wallet: {
-        id: 'wallet',
-        title: 'Genuine Leather Wallet with RFID Protection',
-        price: 1299,
-        originalPrice: 2599,
+      shirt: {
+        id: 'shirt',
+        title: 'Premium Cotton Formal Shirt',
+        price: 1499,
+        originalPrice: 2999,
         image: 'https://m.media-amazon.com/images/I/61D9Ny03UIL._AC_UL320_.jpg',
-        rating: 4.5,
-        ratingCount: 932,
+        rating: 4.3,
+        ratingCount: 8765,
         category: 'fashion',
-        description: 'Crafted from genuine leather, this slim wallet features RFID blocking technology to protect your cards from electronic theft. Multiple card slots and a discreet money compartment.',
+        description: 'High quality formal shirt made from premium cotton with a slim fit design. Perfect for office wear or formal occasions.',
         features: [
-          'Genuine leather',
-          'RFID blocking technology',
-          '6 card slots',
-          'Slim design',
-          'Money compartment'
+          '100% Premium cotton',
+          'Slim fit design',
+          'Wrinkle resistant',
+          'Button-down collar',
+          'Multiple color options'
         ]
       },
-      perfume: {
-        id: 'perfume',
-        title: 'Luxury Eau De Parfum - 100ml',
-        price: 3299,
-        originalPrice: 5999,
+      jeans: {
+        id: 'jeans',
+        title: 'Slim Fit Stretch Jeans',
+        price: 1999,
+        originalPrice: 3999,
+        image: 'https://m.media-amazon.com/images/I/71W+rpXNfVL._AC_UL320_.jpg',
+        rating: 4.2,
+        ratingCount: 5432,
+        category: 'fashion',
+        description: 'Comfortable slim fit jeans with stretch technology for all-day comfort. Available in multiple washes and sizes.',
+        features: [
+          '98% Cotton, 2% Elastane',
+          'Slim fit stretch',
+          'Mid-rise waist',
+          'Five-pocket styling',
+          'Multiple washes available'
+        ]
+      },
+      
+      // Home
+      sofa: {
+        id: 'sofa',
+        title: 'Premium Leather Sofa Set',
+        price: 45999,
+        originalPrice: 69999,
         image: 'https://m.media-amazon.com/images/I/71TPda7cwUL._AC_UL320_.jpg',
-        rating: 4,
-        ratingCount: 456,
-        category: 'fashion',
-        description: 'A sophisticated fragrance with top notes of bergamot, middle notes of jasmine, and base notes of sandalwood. Long-lasting scent in an elegant glass bottle with gold accents.',
+        rating: 4.6,
+        ratingCount: 876,
+        category: 'home',
+        description: 'Luxury leather sofa set for your living room with premium cushioning and elegant design. Includes 3-seater sofa and two armchairs.',
         features: [
-          '100ml Eau De Parfum',
-          'Long-lasting fragrance',
-          'Elegant glass bottle',
-          'Premium packaging',
-          'Unisex scent'
+          'Genuine leather upholstery',
+          'High-density foam cushions',
+          'Solid wood frame',
+          'Modern contemporary design',
+          'Easy to clean'
         ]
       },
+      lamp: {
+        id: 'lamp',
+        title: 'Modern LED Table Lamp',
+        price: 2999,
+        originalPrice: 4999,
+        image: 'https://m.media-amazon.com/images/I/61D9Ny03UIL._AC_UL320_.jpg',
+        rating: 4.1,
+        ratingCount: 1234,
+        category: 'home',
+        description: 'Stylish modern LED lamp with adjustable brightness and touch control. Perfect for bedside tables or study desks.',
+        features: [
+          'Energy-efficient LED',
+          '3-level brightness adjustment',
+          'Touch control operation',
+          'Sleek metallic finish',
+          'USB charging port'
+        ]
+      },
+      
+      // Jewelry
+      necklace: {
+        id: 'necklace',
+        title: 'Diamond Pendant Necklace',
+        price: 25999,
+        originalPrice: 45999,
+        image: 'https://m.media-amazon.com/images/I/71W+rpXNfVL._AC_UL320_.jpg',
+        rating: 4.8,
+        ratingCount: 765,
+        category: 'jewelry',
+        description: 'Elegant diamond pendant necklace in 18K gold with a delicate chain. Perfect for special occasions or as a gift.',
+        features: [
+          '18K gold',
+          '0.5ct diamond',
+          'Adjustable chain length',
+          'Secure lobster clasp',
+          'Premium gift box included'
+        ]
+      },
+      ring: {
+        id: 'ring',
+        title: 'Solitaire Diamond Ring',
+        price: 35999,
+        originalPrice: 59999,
+        image: 'https://m.media-amazon.com/images/I/71TPda7cwUL._AC_UL320_.jpg',
+        rating: 4.9,
+        ratingCount: 432,
+        category: 'jewelry',
+        description: 'Beautiful solitaire diamond engagement ring with a classic setting in platinum. The perfect symbol of your love.',
+        features: [
+          '1ct round brilliant diamond',
+          'Platinum band',
+          'Excellent cut grade',
+          'VS clarity',
+          'Luxury presentation box'
+        ]
+      },
+      
+      // Watches
+      luxurywatch: {
+        id: 'luxurywatch',
+        title: 'Swiss Luxury Chronograph Watch',
+        price: 89999,
+        originalPrice: 129999,
+        image: 'https://m.media-amazon.com/images/I/61D9Ny03UIL._AC_UL320_.jpg',
+        rating: 4.7,
+        ratingCount: 321,
+        category: 'watches',
+        description: 'Premium Swiss made chronograph watch with automatic movement and sapphire crystal glass. A timeless piece for the discerning gentleman.',
+        features: [
+          'Swiss automatic movement',
+          'Sapphire crystal glass',
+          'Stainless steel case',
+          'Water resistant to 100m',
+          'Genuine leather strap'
+        ]
+      },
+      
+      // Footwear
+      sneakers: {
+        id: 'sneakers',
+        title: 'Premium Leather Sneakers',
+        price: 4999,
+        originalPrice: 8999,
+        image: 'https://m.media-amazon.com/images/I/71W+rpXNfVL._AC_UL320_.jpg',
+        rating: 4.4,
+        ratingCount: 5432,
+        category: 'footwear',
+        description: 'High quality leather sneakers for men with cushioned soles for all-day comfort. Perfect for casual wear with a premium look.',
+        features: [
+          'Genuine leather upper',
+          'Cushioned insole',
+          'Rubber outsole',
+          'Breathable lining',
+          'Multiple color options'
+        ]
+      },
+      
+      // Bags
       backpack: {
         id: 'backpack',
         title: 'Premium Leather Backpack for Professionals',
@@ -1862,15 +2001,33 @@
         category: 'bags',
         description: 'This premium leather backpack combines style and functionality with a dedicated laptop compartment, multiple pockets, and comfortable padded straps. Perfect for work or travel.',
         features: [
-          'Genuine leather',
+          'Genuine leather construction',
           'Fits 15" laptop',
           'Multiple compartments',
           'Padded shoulder straps',
           'Water-resistant lining'
         ]
+      },
+      handbag: {
+        id: 'handbag',
+        title: 'Designer Leather Handbag',
+        price: 8999,
+        originalPrice: 15999,
+        image: 'https://m.media-amazon.com/images/I/71TPda7cwUL._AC_UL320_.jpg',
+        rating: 4.6,
+        ratingCount: 876,
+        category: 'bags',
+        description: 'Elegant designer handbag made from premium leather with gold-tone hardware. Spacious interior with multiple compartments.',
+        features: [
+          'Premium leather',
+          'Gold-tone hardware',
+          'Adjustable shoulder strap',
+          'Multiple interior pockets',
+          'Magnetic snap closure'
+        ]
       }
     };
-    
+
     const ordersData = [
       {
         id: 'BRIXO-12345',
@@ -1977,6 +2134,7 @@
         showPage('mainContent');
         bottomNavEl.style.display = 'flex';
         document.querySelector('.nav-item:nth-child(1)').classList.add('active');
+        renderProducts();
       } 
       else if (page === 'search') {
         showPage('mainContent');
@@ -2005,7 +2163,7 @@
           bottomNavEl.style.display = 'none';
           return;
         }
-        alert(`Navigating to ${page} page (placeholder)`);
+        alert(`${page.charAt(0).toUpperCase() + page.slice(1)} page under construction`);
         showPage('mainContent');
         bottomNavEl.style.display = 'flex';
       }
@@ -2142,6 +2300,20 @@
         );
       }
       
+      // Show message if no products
+      if (filteredProducts.length === 0) {
+        productGridEl.innerHTML = `
+          <div style="grid-column:1/-1; text-align:center; padding:40px;">
+            <h3>No products found in this category</h3>
+            <p>We're working on adding more products</p>
+            <button onclick="filterProducts('all')" style="margin-top:20px; padding:10px 20px; background:var(--secondary); border:none; border-radius:4px; cursor:pointer;">
+              View All Products
+            </button>
+          </div>
+        `;
+        return;
+      }
+      
       // Render each product
       filteredProducts.forEach(product => {
         const discount = Math.round((1 - product.price / product.originalPrice) * 100);
@@ -2153,7 +2325,7 @@
         productEl.innerHTML = `
           ${discount > 0 ? `<div class="product-badge">${discount}% OFF</div>` : ''}
           <div class="product-image">
-            <img src="${product.image}" alt="${product.title}">
+            <img src="${product.image}" alt="${product.title}" loading="lazy">
           </div>
           <div class="product-info">
             <div class="product-title">${product.title}</div>
@@ -2382,8 +2554,23 @@
     function renderOrdersPage() {
       ordersListEl.innerHTML = '';
       
+      // Add back button header
+      const backHeader = document.createElement('div');
+      backHeader.style.display = 'flex';
+      backHeader.style.alignItems = 'center';
+      backHeader.style.marginBottom = '20px';
+      backHeader.style.cursor = 'pointer';
+      backHeader.onclick = () => navigate('home');
+      
+      backHeader.innerHTML = `
+        <i class="fas fa-arrow-left" style="margin-right:10px;"></i>
+        <h2 class="section-title">My Orders</h2>
+      `;
+      
+      ordersListEl.appendChild(backHeader);
+      
       if (ordersData.length === 0) {
-        ordersListEl.innerHTML = `
+        ordersListEl.innerHTML += `
           <div class="empty-state">
             <div class="empty-icon">
               <i class="fas fa-box-open"></i>
@@ -2410,6 +2597,7 @@
               </div>
               <div class="order-item-details">
                 <div class="order-item-title">${product.title}</div>
+                <div class="order-item-price">₹${product.price.toLocaleString('en-IN')}</div>
                 <div class="order-item-quantity">Qty: ${item.quantity}</div>
               </div>
             </div>
