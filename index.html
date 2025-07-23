@@ -110,34 +110,46 @@
       font-weight: bold;
     }
     
+    /* Premium Search Bar Styles */
     .search-bar {
-      display: flex;
+      position: relative;
       width: 100%;
       max-width: 600px;
       margin: 0 auto;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     }
-    
+
     .search-input {
-      flex: 1;
-      padding: 12px 20px;
+      width: 100%;
+      padding: 12px 20px 12px 50px;
       border: none;
       font-size: 14px;
-      border-radius: 4px 0 0 4px;
+      border-radius: 8px;
+      background-color: transparent;
+    }
+
+    .search-input:focus {
+      outline: none;
+    }
+
+    .search-bar .fa-search {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-light);
+      pointer-events: none;
+      transition: color 0.3s ease;
+    }
+
+    .search-input:focus + .fa-search {
+      color: var(--secondary);
     }
     
     .search-btn {
-      background: var(--secondary);
-      color: var(--primary);
-      border: none;
-      padding: 0 20px;
-      font-size: 16px;
-      border-radius: 0 4px 4px 0;
-      cursor: pointer;
-      transition: var(--transition);
-    }
-    
-    .search-btn:hover {
-      background: #e6c12e;
+      display: none; /* Hide the old button */
     }
 
     /* Categories Carousel */
@@ -327,6 +339,10 @@
       gap: 5px;
     }
     
+    .view-all:hover {
+      text-decoration: underline;
+    }
+
     .deals-scroll {
       display: flex;
       overflow-x: auto;
@@ -347,6 +363,7 @@
       box-shadow: var(--shadow);
       transition: var(--transition);
       position: relative;
+      cursor: pointer;
     }
     
     .deal-card:hover {
@@ -432,6 +449,7 @@
       box-shadow: var(--shadow);
       transition: var(--transition);
       position: relative;
+      cursor: pointer;
     }
     
     .product-card:hover {
@@ -814,10 +832,18 @@
       cursor: pointer;
     }
     
+    .account-option:last-child {
+      border-bottom: none;
+    }
+    
     .account-option i {
       width: 30px;
       font-size: 18px;
       color: var(--secondary);
+    }
+    
+    .account-option:hover {
+      background-color: #f5f5f5;
     }
     
     /* Cart Modal */
@@ -980,132 +1006,6 @@
       background: #e6c12e;
     }
     
-    /* Wishlist Modal */
-    .wishlist-modal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.5);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 1001;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-    }
-    
-    .wishlist-modal.active {
-      opacity: 1;
-      pointer-events: all;
-    }
-    
-    .wishlist-content {
-      background: white;
-      width: 90%;
-      max-width: 500px;
-      max-height: 80vh;
-      border-radius: 8px;
-      overflow: hidden;
-      transform: translateY(20px);
-      transition: transform 0.3s ease;
-    }
-    
-    .wishlist-modal.active .wishlist-content {
-      transform: translateY(0);
-    }
-    
-    .wishlist-header {
-      padding: 15px;
-      border-bottom: 1px solid #eee;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    
-    .wishlist-close {
-      background: none;
-      border: none;
-      font-size: 20px;
-      cursor: pointer;
-      color: var(--text-light);
-    }
-    
-    .wishlist-body {
-      padding: 15px;
-      max-height: 60vh;
-      overflow-y: auto;
-    }
-    
-    .wishlist-item {
-      display: flex;
-      padding: 10px 0;
-      border-bottom: 1px solid #eee;
-    }
-    
-    .wishlist-item-img {
-      width: 80px;
-      height: 80px;
-      background: #f5f5f5;
-      border-radius: 4px;
-      margin-right: 15px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    .wishlist-item-img img {
-      max-width: 90%;
-      max-height: 90%;
-      object-fit: contain;
-    }
-    
-    .wishlist-item-details {
-      flex: 1;
-    }
-    
-    .wishlist-item-title {
-      font-size: 14px;
-      font-weight: 500;
-      margin-bottom: 5px;
-    }
-    
-    .wishlist-item-price {
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--primary);
-    }
-    
-    .wishlist-item-actions {
-      display: flex;
-      margin-top: 10px;
-    }
-    
-    .move-to-cart {
-      background: var(--primary);
-      color: white;
-      border: none;
-      padding: 8px 12px;
-      font-size: 12px;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: var(--transition);
-    }
-    
-    .move-to-cart:hover {
-      background: var(--primary-light);
-    }
-    
-    .remove-wishlist {
-      margin-left: 10px;
-      color: var(--danger);
-      background: none;
-      border: none;
-      cursor: pointer;
-    }
-    
     /* Empty States */
     .empty-state {
       text-align: center;
@@ -1182,6 +1082,285 @@
       margin-left: auto;
     }
     
+    /* Login Page */
+    .login-page, .orders-page {
+      padding: 5%;
+      display: none;
+      flex-grow: 1;
+    }
+    
+    .login-page.active, .orders-page.active {
+      display: block;
+    }
+
+    .login-form-container {
+      max-width: 400px;
+      margin: 50px auto;
+      background: var(--card-bg);
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .login-form-container h2 {
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 25px;
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+
+    .form-group input[type="email"],
+    .form-group input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    
+    .form-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .form-actions a {
+      color: var(--text-light);
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .login-btn {
+      width: 100%;
+      background: var(--secondary);
+      color: var(--primary);
+      border: none;
+      padding: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .login-btn:hover {
+      background: #e6c12e;
+    }
+
+    .or-separator {
+      text-align: center;
+      margin: 20px 0;
+      position: relative;
+    }
+    
+    .or-separator::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 45%;
+      height: 1px;
+      background: #ddd;
+      transform: translateY(-50%);
+    }
+    
+    .or-separator::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      right: 0;
+      width: 45%;
+      height: 1px;
+      background: #ddd;
+      transform: translateY(-50%);
+    }
+    
+    .or-separator span {
+      background: white;
+      padding: 0 10px;
+      color: var(--text-light);
+      font-size: 14px;
+    }
+    
+    .social-login button {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+      background: white;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: var(--transition);
+    }
+    
+    .social-login button:hover {
+      background: #f5f5f5;
+    }
+    
+    .social-login i {
+      font-size: 18px;
+    }
+
+    .signup-link {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 14px;
+    }
+    
+    .signup-link a {
+      color: var(--secondary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    
+    /* Orders Page */
+    .orders-page h2 {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .order-card {
+      background: var(--card-bg);
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      margin-bottom: 20px;
+      transition: var(--transition);
+    }
+    
+    .order-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .order-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 15px;
+      margin-bottom: 15px;
+    }
+
+    .order-header div {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    
+    .order-header .order-id {
+      font-size: 14px;
+      font-weight: 600;
+    }
+    
+    .order-header .order-date {
+      font-size: 12px;
+      color: var(--text-light);
+    }
+    
+    .order-header .order-total {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .order-status {
+      font-size: 12px;
+      font-weight: 600;
+      padding: 5px 10px;
+      border-radius: 4px;
+      color: white;
+      text-align: center;
+    }
+
+    .status-delivered { background: var(--success); }
+    .status-shipped { background: var(--info); }
+    .status-processing { background: var(--secondary); }
+    .status-cancelled { background: var(--danger); }
+
+    .order-items {
+      margin-bottom: 15px;
+    }
+    
+    .order-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 10px;
+    }
+    
+    .order-item-img {
+      width: 60px;
+      height: 60px;
+      background: #f5f5f5;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .order-item-img img {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+    }
+    
+    .order-item-details {
+      flex: 1;
+    }
+    
+    .order-item-title {
+      font-size: 14px;
+      font-weight: 500;
+    }
+    
+    .order-item-quantity {
+      font-size: 12px;
+      color: var(--text-light);
+    }
+
+    .order-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .order-actions button {
+      padding: 8px 15px;
+      border-radius: 4px;
+      border: none;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .view-details-btn {
+      background: var(--primary);
+      color: white;
+    }
+
+    .view-details-btn:hover {
+      background: var(--primary-light);
+    }
+    
     /* Responsive */
     @media (min-width: 768px) {
       .product-grid {
@@ -1203,11 +1382,45 @@
         margin-bottom: 0;
       }
     }
+
+    /* Cart Notification */
+    .cart-notification {
+      position: fixed;
+      bottom: 80px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: var(--primary);
+      color: white;
+      padding: 12px 20px;
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      z-index: 1100;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: transform 0.3s ease;
+    }
+    
+    .cart-notification.show {
+      transform: translateX(-50%) translateY(0);
+    }
+    
+    .cart-notification img {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+      border-radius: 4px;
+    }
+    
+    @media (max-width: 768px) {
+      .cart-notification {
+        width: 90%;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="app" id="app">
-    <!-- Premium Header -->
     <header class="header">
       <div class="header-top">
         <div class="logo" onclick="navigate('home')">
@@ -1218,9 +1431,9 @@
           <div class="header-icon" onclick="openAccountModal()">
             <i class="far fa-user"></i>
           </div>
-          <div class="header-icon" onclick="openWishlistModal()">
-            <i class="far fa-heart"></i>
-            <span class="badge" id="wishlistCount">3</span>
+          <div class="header-icon" onclick="navigate('orders')">
+            <i class="fas fa-box"></i>
+            <span class="badge" id="ordersCount">3</span>
           </div>
           <div class="header-icon" onclick="openCartModal()">
             <i class="fas fa-shopping-bag"></i>
@@ -1230,332 +1443,211 @@
       </div>
       <div class="search-bar">
         <input type="text" class="search-input" id="searchInput" placeholder="Search for premium products..." oninput="searchProducts()">
-        <button class="search-btn">
-          <i class="fas fa-search"></i>
-        </button>
+        <i class="fas fa-search"></i>
         <div class="search-results" id="searchResults"></div>
       </div>
     </header>
 
-    <!-- Categories Carousel -->
-    <div class="categories">
-      <div class="category-scroll">
-        <div class="category-card active" onclick="filterProducts('all')">
-          <div class="category-icon">
-            <i class="fas fa-star"></i>
+    <div id="mainContent">
+      <div class="categories">
+        <div class="category-scroll">
+          <div class="category-card active" onclick="filterProducts('all')">
+            <div class="category-icon">
+              <i class="fas fa-star"></i>
+            </div>
+            <div class="category-name">Premium</div>
           </div>
-          <div class="category-name">Premium</div>
+          <div class="category-card" onclick="filterProducts('fashion')">
+            <div class="category-icon">
+              <i class="fas fa-tshirt"></i>
+            </div>
+            <div class="category-name">Fashion</div>
+          </div>
+          <div class="category-card" onclick="filterProducts('electronics')">
+            <div class="category-icon">
+              <i class="fas fa-mobile-alt"></i>
+            </div>
+            <div class="category-name">Electronics</div>
+          </div>
+          <div class="category-card" onclick="filterProducts('home')">
+            <div class="category-icon">
+              <i class="fas fa-home"></i>
+            </div>
+            <div class="category-name">Home</div>
+          </div>
+          <div class="category-card" onclick="filterProducts('jewelry')">
+            <div class="category-icon">
+              <i class="fas fa-gem"></i>
+            </div>
+            <div class="category-name">Jewelry</div>
+          </div>
+          <div class="category-card" onclick="filterProducts('watches')">
+            <div class="category-icon">
+              <i class="fas fa-watch"></i>
+            </div>
+            <div class="category-name">Watches</div>
+          </div>
+          <div class="category-card" onclick="filterProducts('footwear')">
+            <div class="category-icon">
+              <i class="fas fa-shoe-prints"></i>
+            </div>
+            <div class="category-name">Footwear</div>
+          </div>
+          <div class="category-card" onclick="filterProducts('bags')">
+            <div class="category-icon">
+              <i class="fas fa-briefcase"></i>
+            </div>
+            <div class="category-name">Bags</div>
+          </div>
         </div>
-        <div class="category-card" onclick="filterProducts('fashion')">
-          <div class="category-icon">
-            <i class="fas fa-tshirt"></i>
+      </div>
+
+      <div class="hero">
+        <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
+          <div class="hero-content">
+            <h2 class="hero-title">Summer Collection 2025</h2>
+            <p class="hero-subtitle">Up to 60% off on premium brands</p>
+            <button class="hero-btn" onclick="filterProducts('fashion')">SHOP NOW</button>
           </div>
-          <div class="category-name">Fashion</div>
         </div>
-        <div class="category-card" onclick="filterProducts('electronics')">
-          <div class="category-icon">
-            <i class="fas fa-mobile-alt"></i>
+        <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
+          <div class="hero-content">
+            <h2 class="hero-title">Luxury Watches</h2>
+            <p class="hero-subtitle">Limited edition timepieces</p>
+            <button class="hero-btn" onclick="filterProducts('watches')">EXPLORE</button>
           </div>
-          <div class="category-name">Electronics</div>
         </div>
-        <div class="category-card" onclick="filterProducts('home')">
-          <div class="category-icon">
-            <i class="fas fa-home"></i>
+        <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
+          <div class="hero-content">
+            <h2 class="hero-title">New Arrivals</h2>
+            <p class="hero-subtitle">Fresh from the runway</p>
+            <button class="hero-btn" onclick="filterProducts('all')">DISCOVER</button>
           </div>
-          <div class="category-name">Home</div>
         </div>
-        <div class="category-card" onclick="filterProducts('jewelry')">
-          <div class="category-icon">
-            <i class="fas fa-gem"></i>
-          </div>
-          <div class="category-name">Jewelry</div>
+        <div class="hero-dots">
+          <div class="hero-dot active" onclick="showSlide(0)"></div>
+          <div class="hero-dot" onclick="showSlide(1)"></div>
+          <div class="hero-dot" onclick="showSlide(2)"></div>
         </div>
-        <div class="category-card" onclick="filterProducts('watches')">
-          <div class="category-icon">
-            <i class="fas fa-watch"></i>
+      </div>
+
+      <div class="deals-section">
+        <div class="section-header">
+          <h2 class="section-title">Today's Deals</h2>
+          <div class="view-all" onclick="filterProducts('deals')">
+            View All <i class="fas fa-chevron-right"></i>
           </div>
-          <div class="category-name">Watches</div>
         </div>
-        <div class="category-card" onclick="filterProducts('footwear')">
-          <div class="category-icon">
-            <i class="fas fa-shoe-prints"></i>
+        <div class="deals-scroll">
+          <div class="deal-card" onclick="openQuickView('headphones')">
+            <div class="deal-badge">60% OFF</div>
+            <div class="deal-image">
+              <img src="https://m.media-amazon.com/images/I/61bK6PMOC3L._AC_UL320_.jpg" alt="Premium Headphones">
+            </div>
+            <div class="deal-info">
+              <div class="deal-price">₹12,999 <span class="deal-original">₹32,999</span></div>
+              <div class="deal-discount">60% off</div>
+              <div class="deal-title">Wireless Noise Cancelling Headphones</div>
+            </div>
           </div>
-          <div class="category-name">Footwear</div>
+          <div class="deal-card" onclick="openQuickView('watch')">
+            <div class="deal-badge">55% OFF</div>
+            <div class="deal-image">
+              <img src="https://m.media-amazon.com/images/I/71WkDp--uqL._AC_UL320_.jpg" alt="Smart Watch">
+            </div>
+            <div class="deal-info">
+              <div class="deal-price">₹8,999 <span class="deal-original">₹19,999</span></div>
+              <div class="deal-discount">55% off</div>
+              <div class="deal-title">Smart Watch with Fitness Tracker</div>
+            </div>
+          </div>
+          <div class="deal-card" onclick="openQuickView('sunglasses')">
+            <div class="deal-badge">70% OFF</div>
+            <div class="deal-image">
+              <img src="https://m.media-amazon.com/images/I/61+Q6Rh5KVL._AC_UL320_.jpg" alt="Designer Sunglasses">
+            </div>
+            <div class="deal-info">
+              <div class="deal-price">₹2,499 <span class="deal-original">₹8,499</span></div>
+              <div class="deal-discount">70% off</div>
+              <div class="deal-title">Premium Aviator Sunglasses</div>
+            </div>
+          </div>
+          <div class="deal-card" onclick="openQuickView('wallet')">
+            <div class="deal-badge">50% OFF</div>
+            <div class="deal-image">
+              <img src="https://m.media-amazon.com/images/I/61D9Ny03UIL._AC_UL320_.jpg" alt="Leather Wallet">
+            </div>
+            <div class="deal-info">
+              <div class="deal-price">₹1,299 <span class="deal-original">₹2,599</span></div>
+              <div class="deal-discount">50% off</div>
+              <div class="deal-title">Genuine Leather Wallet</div>
+            </div>
+          </div>
+          <div class="deal-card" onclick="openQuickView('perfume')">
+            <div class="deal-badge">45% OFF</div>
+            <div class="deal-image">
+              <img src="https://m.media-amazon.com/images/I/71TPda7cwUL._AC_UL320_.jpg" alt="Perfume">
+            </div>
+            <div class="deal-info">
+              <div class="deal-price">₹3,299 <span class="deal-original">₹5,999</span></div>
+              <div class="deal-discount">45% off</div>
+              <div class="deal-title">Luxury Eau De Parfum</div>
+            </div>
+          </div>
         </div>
-        <div class="category-card" onclick="filterProducts('bags')">
-          <div class="category-icon">
-            <i class="fas fa-briefcase"></i>
+      </div>
+
+      <div class="products-section">
+        <div class="section-header">
+          <h2 class="section-title">Premium Collection</h2>
+          <div class="view-all" onclick="filterProducts('all')">
+            View All <i class="fas fa-chevron-right"></i>
           </div>
-          <div class="category-name">Bags</div>
+        </div>
+        <div class="product-grid" id="productGrid">
+          <!-- Products will be rendered here dynamically -->
         </div>
       </div>
     </div>
-
-    <!-- Hero Banner -->
-    <div class="hero">
-      <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
-        <div class="hero-content">
-          <h2 class="hero-title">Summer Collection 2025</h2>
-          <p class="hero-subtitle">Up to 60% off on premium brands</p>
-          <button class="hero-btn" onclick="filterProducts('fashion')">SHOP NOW</button>
+    <div class="login-page" id="loginPage">
+      <div class="login-form-container">
+        <h2>Login to your account</h2>
+        <form id="loginForm" onsubmit="login(event)">
+          <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+          </div>
+          <div class="form-actions">
+            <div>
+              <input type="checkbox" id="rememberMe">
+              <label for="rememberMe">Remember me</label>
+            </div>
+            <a href="#">Forgot password?</a>
+          </div>
+          <button type="submit" class="login-btn">LOGIN</button>
+        </form>
+        <div class="or-separator"><span>OR</span></div>
+        <div class="social-login">
+          <button><i class="fab fa-google"></i> Continue with Google</button>
+          <button style="margin-top: 10px;"><i class="fab fa-apple"></i> Continue with Apple</button>
         </div>
-      </div>
-      <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
-        <div class="hero-content">
-          <h2 class="hero-title">Luxury Watches</h2>
-          <p class="hero-subtitle">Limited edition timepieces</p>
-          <button class="hero-btn" onclick="filterProducts('watches')">EXPLORE</button>
+        <div class="signup-link">
+          Don't have an account? <a href="#" onclick="alert('Sign up functionality not implemented')">Sign up now</a>
         </div>
-      </div>
-      <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
-        <div class="hero-content">
-          <h2 class="hero-title">New Arrivals</h2>
-          <p class="hero-subtitle">Fresh from the runway</p>
-          <button class="hero-btn" onclick="filterProducts('all')">DISCOVER</button>
-        </div>
-      </div>
-      <div class="hero-dots">
-        <div class="hero-dot active" onclick="showSlide(0)"></div>
-        <div class="hero-dot" onclick="showSlide(1)"></div>
-        <div class="hero-dot" onclick="showSlide(2)"></div>
       </div>
     </div>
-
-    <!-- Deals Section -->
-    <div class="deals-section">
+    <div class="orders-page" id="ordersPage">
       <div class="section-header">
-        <h2 class="section-title">Today's Deals</h2>
-        <div class="view-all" onclick="filterProducts('deals')">
-          View All <i class="fas fa-chevron-right"></i>
-        </div>
+        <h2 class="section-title">My Orders</h2>
       </div>
-      <div class="deals-scroll">
-        <div class="deal-card" onclick="openQuickView('headphones')">
-          <div class="deal-badge">60% OFF</div>
-          <div class="deal-image">
-            <img src="https://m.media-amazon.com/images/I/61bK6PMOC3L._AC_UL320_.jpg" alt="Premium Headphones">
-          </div>
-          <div class="deal-info">
-            <div class="deal-price">₹12,999 <span class="deal-original">₹32,999</span></div>
-            <div class="deal-discount">60% off</div>
-            <div class="deal-title">Wireless Noise Cancelling Headphones</div>
-          </div>
-        </div>
-        <div class="deal-card" onclick="openQuickView('watch')">
-          <div class="deal-badge">55% OFF</div>
-          <div class="deal-image">
-            <img src="https://m.media-amazon.com/images/I/71WkDp--uqL._AC_UL320_.jpg" alt="Smart Watch">
-          </div>
-          <div class="deal-info">
-            <div class="deal-price">₹8,999 <span class="deal-original">₹19,999</span></div>
-            <div class="deal-discount">55% off</div>
-            <div class="deal-title">Smart Watch with Fitness Tracker</div>
-          </div>
-        </div>
-        <div class="deal-card" onclick="openQuickView('sunglasses')">
-          <div class="deal-badge">70% OFF</div>
-          <div class="deal-image">
-            <img src="https://m.media-amazon.com/images/I/61+Q6Rh5KVL._AC_UL320_.jpg" alt="Designer Sunglasses">
-          </div>
-          <div class="deal-info">
-            <div class="deal-price">₹2,499 <span class="deal-original">₹8,499</span></div>
-            <div class="deal-discount">70% off</div>
-            <div class="deal-title">Premium Aviator Sunglasses</div>
-          </div>
-        </div>
-        <div class="deal-card" onclick="openQuickView('wallet')">
-          <div class="deal-badge">50% OFF</div>
-          <div class="deal-image">
-            <img src="https://m.media-amazon.com/images/I/61D9Ny03UIL._AC_UL320_.jpg" alt="Leather Wallet">
-          </div>
-          <div class="deal-info">
-            <div class="deal-price">₹1,299 <span class="deal-original">₹2,599</span></div>
-            <div class="deal-discount">50% off</div>
-            <div class="deal-title">Genuine Leather Wallet</div>
-          </div>
-        </div>
-        <div class="deal-card" onclick="openQuickView('perfume')">
-          <div class="deal-badge">45% OFF</div>
-          <div class="deal-image">
-            <img src="https://m.media-amazon.com/images/I/71TPda7cwUL._AC_UL320_.jpg" alt="Perfume">
-          </div>
-          <div class="deal-info">
-            <div class="deal-price">₹3,299 <span class="deal-original">₹5,999</span></div>
-            <div class="deal-discount">45% off</div>
-            <div class="deal-title">Luxury Eau De Parfum</div>
-          </div>
-        </div>
+      <div id="ordersList">
+        <!-- Orders will be rendered here dynamically -->
       </div>
     </div>
-
-    <!-- Premium Products -->
-    <div class="products-section">
-      <div class="section-header">
-        <h2 class="section-title">Premium Collection</h2>
-        <div class="view-all" onclick="filterProducts('all')">
-          View All <i class="fas fa-chevron-right"></i>
-        </div>
-      </div>
-      <div class="product-grid" id="productGrid">
-        <div class="product-card" onclick="openQuickView('headphones')">
-          <div class="product-badge">NEW</div>
-          <div class="product-image">
-            <img src="https://m.media-amazon.com/images/I/61bK6PMOC3L._AC_UL320_.jpg" alt="Headphones">
-          </div>
-          <div class="product-info">
-            <div class="product-title">Premium Wireless Headphones with Active Noise Cancellation</div>
-            <div class="product-price">₹12,999 <span class="product-original">₹32,999</span></div>
-            <div class="product-rating">
-              <div class="stars">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star-half-alt"></i>
-              </div>
-              <div class="rating-count">(1,234)</div>
-            </div>
-            <div class="product-actions">
-              <button class="add-to-cart" onclick="addToCart(event, 'headphones')">ADD TO CART</button>
-              <button class="wishlist-btn" onclick="toggleWishlist(event, 'headphones')">
-                <i class="far fa-heart"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-        <div class="product-card" onclick="openQuickView('watch')">
-          <div class="product-badge">30% OFF</div>
-          <div class="product-image">
-            <img src="https://m.media-amazon.com/images/I/71WkDp--uqL._AC_UL320_.jpg" alt="Smart Watch">
-          </div>
-          <div class="product-info">
-            <div class="product-title">Luxury Smart Watch with AMOLED Display</div>
-            <div class="product-price">₹8,999 <span class="product-original">₹19,999</span></div>
-            <div class="product-rating">
-              <div class="stars">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="far fa-star"></i>
-              </div>
-              <div class="rating-count">(876)</div>
-            </div>
-            <div class="product-actions">
-              <button class="add-to-cart" onclick="addToCart(event, 'watch')">ADD TO CART</button>
-              <button class="wishlist-btn" onclick="toggleWishlist(event, 'watch')">
-                <i class="far fa-heart"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-        <div class="product-card" onclick="openQuickView('sunglasses')">
-          <div class="product-badge">BESTSELLER</div>
-          <div class="product-image">
-            <img src="https://m.media-amazon.com/images/I/61+Q6Rh5KVL._AC_UL320_.jpg" alt="Sunglasses">
-          </div>
-          <div class="product-info">
-            <div class="product-title">Designer Polarized Sunglasses with UV Protection</div>
-            <div class="product-price">₹2,499 <span class="product-original">₹8,499</span></div>
-            <div class="product-rating">
-              <div class="stars">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-              </div>
-              <div class="rating-count">(2,543)</div>
-            </div>
-            <div class="product-actions">
-              <button class="add-to-cart" onclick="addToCart(event, 'sunglasses')">ADD TO CART</button>
-              <button class="wishlist-btn" onclick="toggleWishlist(event, 'sunglasses')">
-                <i class="far fa-heart"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-        <div class="product-card" onclick="openQuickView('wallet')">
-          <div class="product-image">
-            <img src="https://m.media-amazon.com/images/I/61D9Ny03UIL._AC_UL320_.jpg" alt="Leather Wallet">
-          </div>
-          <div class="product-info">
-            <div class="product-title">Genuine Leather Wallet with RFID Protection</div>
-            <div class="product-price">₹1,299 <span class="product-original">₹2,599</span></div>
-            <div class="product-rating">
-              <div class="stars">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star-half-alt"></i>
-              </div>
-              <div class="rating-count">(932)</div>
-            </div>
-            <div class="product-actions">
-              <button class="add-to-cart" onclick="addToCart(event, 'wallet')">ADD TO CART</button>
-              <button class="wishlist-btn" onclick="toggleWishlist(event, 'wallet')">
-                <i class="far fa-heart"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-        <div class="product-card" onclick="openQuickView('perfume')">
-          <div class="product-badge">NEW</div>
-          <div class="product-image">
-            <img src="https://m.media-amazon.com/images/I/71TPda7cwUL._AC_UL320_.jpg" alt="Perfume">
-          </div>
-          <div class="product-info">
-            <div class="product-title">Luxury Eau De Parfum - 100ml</div>
-            <div class="product-price">₹3,299 <span class="product-original">₹5,999</span></div>
-            <div class="product-rating">
-              <div class="stars">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="far fa-star"></i>
-              </div>
-              <div class="rating-count">(456)</div>
-            </div>
-            <div class="product-actions">
-              <button class="add-to-cart" onclick="addToCart(event, 'perfume')">ADD TO CART</button>
-              <button class="wishlist-btn" onclick="toggleWishlist(event, 'perfume')">
-                <i class="far fa-heart"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-        <div class="product-card" onclick="openQuickView('backpack')">
-          <div class="product-badge">50% OFF</div>
-          <div class="product-image">
-            <img src="https://m.media-amazon.com/images/I/71W+rpXNfVL._AC_UL320_.jpg" alt="Backpack">
-          </div>
-          <div class="product-info">
-            <div class="product-title">Premium Leather Backpack for Professionals</div>
-            <div class="product-price">₹4,999 <span class="product-original">₹9,999</span></div>
-            <div class="product-rating">
-              <div class="stars">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star-half-alt"></i>
-              </div>
-              <div class="rating-count">(1,087)</div>
-            </div>
-            <div class="product-actions">
-              <button class="add-to-cart" onclick="addToCart(event, 'backpack')">ADD TO CART</button>
-              <button class="wishlist-btn" onclick="toggleWishlist(event, 'backpack')">
-                <i class="far fa-heart"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Quick View Modal -->
     <div class="quick-view" id="quickView">
       <div class="quick-view-content">
         <div class="quick-view-header">
@@ -1585,7 +1677,6 @@
       </div>
     </div>
 
-    <!-- Account Modal -->
     <div class="account-modal" id="accountModal">
       <div class="account-content">
         <div class="account-header">
@@ -1605,10 +1696,6 @@
             <i class="fas fa-map-marker-alt"></i>
             <span>Saved Addresses</span>
           </div>
-          <div class="account-option" onclick="openWishlistModal()">
-            <i class="fas fa-heart"></i>
-            <span>Wishlist</span>
-          </div>
           <div class="account-option" onclick="navigate('payments')">
             <i class="fas fa-credit-card"></i>
             <span>Payment Methods</span>
@@ -1621,7 +1708,6 @@
       </div>
     </div>
 
-    <!-- Cart Modal -->
     <div class="cart-modal" id="cartModal">
       <div class="cart-content">
         <div class="cart-header">
@@ -1629,7 +1715,6 @@
           <button class="cart-close" onclick="closeCartModal()">&times;</button>
         </div>
         <div class="cart-body" id="cartBody">
-          <!-- Cart items will be added here dynamically -->
           <div class="empty-state">
             <div class="empty-icon">
               <i class="fas fa-shopping-cart"></i>
@@ -1648,29 +1733,7 @@
         </div>
       </div>
     </div>
-
-    <!-- Wishlist Modal -->
-    <div class="wishlist-modal" id="wishlistModal">
-      <div class="wishlist-content">
-        <div class="wishlist-header">
-          <h3>My Wishlist (<span id="wishlistItemCount">0</span>)</h3>
-          <button class="wishlist-close" onclick="closeWishlistModal()">&times;</button>
-        </div>
-        <div class="wishlist-body" id="wishlistBody">
-          <!-- Wishlist items will be added here dynamically -->
-          <div class="empty-state">
-            <div class="empty-icon">
-              <i class="fas fa-heart"></i>
-            </div>
-            <h4>Your wishlist is empty</h4>
-            <p class="empty-text">Save your favorite items here for later</p>
-            <button class="hero-btn" onclick="closeWishlistModal(); filterProducts('all')">SHOP NOW</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Bottom Navigation -->
+    
     <nav class="bottom-nav">
       <a href="#" class="nav-item active" onclick="navigate('home')">
         <i class="fas fa-home"></i>
@@ -1680,9 +1743,9 @@
         <i class="fas fa-search"></i>
         <span>Search</span>
       </a>
-      <a href="#" class="nav-item" onclick="openWishlistModal()">
-        <i class="fas fa-heart"></i>
-        <span>Wishlist</span>
+      <a href="#" class="nav-item" onclick="navigate('orders')">
+        <i class="fas fa-box"></i>
+        <span>Orders</span>
       </a>
       <a href="#" class="nav-item" onclick="openAccountModal()">
         <i class="fas fa-user"></i>
@@ -1807,18 +1870,54 @@
         ]
       }
     };
+    
+    const ordersData = [
+      {
+        id: 'BRIXO-12345',
+        date: 'July 20, 2025',
+        status: 'Delivered',
+        total: 21997,
+        items: [
+          { productId: 'headphones', quantity: 1 },
+          { productId: 'wallet', quantity: 1 }
+        ]
+      },
+      {
+        id: 'BRIXO-67890',
+        date: 'July 15, 2025',
+        status: 'Shipped',
+        total: 17998,
+        items: [
+          { productId: 'watch', quantity: 2 }
+        ]
+      },
+      {
+        id: 'BRIXO-11223',
+        date: 'July 10, 2025',
+        status: 'Processing',
+        total: 4999,
+        items: [
+          { productId: 'backpack', quantity: 1 }
+        ]
+      }
+    ];
 
     // App State
     let state = {
       cart: [],
-      wishlist: ['headphones', 'watch', 'sunglasses'],
       currentCategory: 'all',
-      currentQuickViewProduct: null
+      currentQuickViewProduct: null,
+      currentPage: 'home',
+      isLoggedIn: false
     };
 
     // DOM Elements
+    const mainContentEl = document.getElementById('mainContent');
+    const loginPageEl = document.getElementById('loginPage');
+    const ordersPageEl = document.getElementById('ordersPage');
+    const bottomNavEl = document.querySelector('.bottom-nav');
+    
     const cartCountEl = document.getElementById('cartCount');
-    const wishlistCountEl = document.getElementById('wishlistCount');
     const productGridEl = document.getElementById('productGrid');
     const searchInputEl = document.getElementById('searchInput');
     const searchResultsEl = document.getElementById('searchResults');
@@ -1826,8 +1925,6 @@
     const cartFooterEl = document.getElementById('cartFooter');
     const cartItemCountEl = document.getElementById('cartItemCount');
     const cartTotalEl = document.getElementById('cartTotal');
-    const wishlistBodyEl = document.getElementById('wishlistBody');
-    const wishlistItemCountEl = document.getElementById('wishlistItemCount');
     const quickViewTitleEl = document.getElementById('quickViewTitle');
     const quickViewImageEl = document.getElementById('quickViewImage');
     const quickViewPriceEl = document.getElementById('quickViewPrice');
@@ -1836,13 +1933,14 @@
     const quickViewDescEl = document.getElementById('quickViewDesc');
     const quickViewBuyNowEl = document.getElementById('quickViewBuyNow');
     const quickViewAddToCartEl = document.getElementById('quickViewAddToCart');
+    const ordersListEl = document.getElementById('ordersList');
+    const ordersCountEl = document.getElementById('ordersCount');
 
     // Initialize the app
     function init() {
       updateCartCount();
-      updateWishlistCount();
+      updateOrdersCount();
       renderProducts();
-      renderWishlist();
       
       // Set initial cart items for demo
       state.cart = [
@@ -1851,37 +1949,189 @@
         { id: 'wallet', quantity: 1 }
       ];
       updateCart();
+      
+      // Initialize hero slider
+      startHeroSlider();
+    }
+    
+    function showPage(pageId) {
+      document.querySelectorAll('#mainContent, #loginPage, #ordersPage').forEach(page => {
+        page.style.display = 'none';
+      });
+      document.getElementById(pageId).style.display = 'block';
     }
 
     // Navigation functions
-    function navigate(page) {
-      // In a real app, this would navigate to different pages
-      console.log(`Navigating to ${page}`);
+    function navigate(page, event) {
+      if (event) event.preventDefault();
+      
       closeAllModals();
+      state.currentPage = page;
       
       // Update active nav item
       document.querySelectorAll('.nav-item').forEach(item => {
         item.classList.remove('active');
       });
-      event.currentTarget.classList.add('active');
+      
+      if (page === 'home') {
+        showPage('mainContent');
+        bottomNavEl.style.display = 'flex';
+        document.querySelector('.nav-item:nth-child(1)').classList.add('active');
+      } 
+      else if (page === 'search') {
+        showPage('mainContent');
+        bottomNavEl.style.display = 'flex';
+        document.querySelector('.nav-item:nth-child(2)').classList.add('active');
+        searchInputEl.focus();
+      }
+      else if (page === 'orders') {
+        if (!state.isLoggedIn) {
+          showPage('loginPage');
+          bottomNavEl.style.display = 'none';
+          return;
+        }
+        showPage('ordersPage');
+        bottomNavEl.style.display = 'flex';
+        document.querySelector('.nav-item:nth-child(3)').classList.add('active');
+        renderOrdersPage();
+      }
+      else if (page === 'login') {
+        showPage('loginPage');
+        bottomNavEl.style.display = 'none';
+      }
+      else if (page === 'profile' || page === 'addresses' || page === 'payments') {
+        if (!state.isLoggedIn) {
+          showPage('loginPage');
+          bottomNavEl.style.display = 'none';
+          return;
+        }
+        alert(`Navigating to ${page} page (placeholder)`);
+        showPage('mainContent');
+        bottomNavEl.style.display = 'flex';
+      }
+      else if (page === 'logout') {
+        state.isLoggedIn = false;
+        alert('You have been logged out');
+        navigate('home');
+      }
+    }
+    
+    function login(event) {
+      if (event) event.preventDefault();
+      
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      
+      // Simple validation
+      if (!email || !password) {
+        alert('Please enter both email and password');
+        return;
+      }
+      
+      // In a real app, you would make an API call here
+      state.isLoggedIn = true;
+      alert('Login successful!');
+      navigate('home');
     }
 
-    // Product filtering
-    function filterProducts(category) {
+    // Open account modal
+    function openAccountModal(event) {
+      if (event) event.preventDefault();
+      document.getElementById('accountModal').classList.add('active');
+    }
+
+    // Close account modal
+    function closeAccountModal() {
+      document.getElementById('accountModal').classList.remove('active');
+    }
+
+    // Open cart modal
+    function openCartModal(event) {
+      if (event) event.preventDefault();
+      closeAllModals();
+      updateCart();
+      document.getElementById('cartModal').classList.add('active');
+    }
+
+    // Close cart modal
+    function closeCartModal() {
+      document.getElementById('cartModal').classList.remove('active');
+    }
+
+    // Open quick view modal
+    function openQuickView(productId) {
+      const product = products[productId];
+      if (!product) return;
+      
+      state.currentQuickViewProduct = productId;
+      
+      const discount = Math.round((1 - product.price / product.originalPrice) * 100);
+      
+      quickViewTitleEl.textContent = product.title;
+      quickViewImageEl.src = product.image;
+      quickViewPriceEl.innerHTML = `₹${product.price.toLocaleString('en-IN')} <span class="quick-view-original">₹${product.originalPrice.toLocaleString('en-IN')}</span> <span class="quick-view-discount">${discount}% off</span>`;
+      quickViewStarsEl.innerHTML = renderStars(product.rating);
+      quickViewRatingCountEl.textContent = `(${product.ratingCount.toLocaleString('en-IN')} ratings)`;
+      
+      // Build features list
+      let featuresHtml = '<p>' + product.description + '</p><h3 style="margin-top:15px;">Features:</h3><ul>';
+      product.features.forEach(feature => {
+        featuresHtml += `<li>${feature}</li>`;
+      });
+      featuresHtml += '</ul>';
+      quickViewDescEl.innerHTML = featuresHtml;
+      
+      // Update button actions
+      quickViewBuyNowEl.onclick = () => {
+        addToCart(productId);
+        closeQuickView();
+        openCartModal();
+        alert('Proceeding to checkout with this item');
+      };
+      
+      quickViewAddToCartEl.onclick = () => {
+        addToCart(productId);
+        closeQuickView();
+        openCartModal();
+      };
+      
+      document.getElementById('quickView').classList.add('active');
+    }
+
+    // Close quick view modal
+    function closeQuickView() {
+      document.getElementById('quickView').classList.remove('active');
+    }
+
+    // Close all modals
+    function closeAllModals() {
+      document.querySelectorAll('.quick-view, .account-modal, .cart-modal').forEach(modal => {
+        modal.classList.remove('active');
+      });
+    }
+
+    // Filter products by category
+    function filterProducts(category, event) {
+      if (event) event.stopPropagation();
+      
       state.currentCategory = category;
       
-      // Update active category
+      // Update active category in nav
       document.querySelectorAll('.category-card').forEach(card => {
         card.classList.remove('active');
       });
-      event.currentTarget.classList.add('active');
+      
+      if (event && event.currentTarget) {
+        event.currentTarget.classList.add('active');
+      } else {
+        document.querySelector(`.category-card[onclick*="${category}"]`).classList.add('active');
+      }
       
       renderProducts();
     }
 
     // Render products based on current filter
     function renderProducts() {
-      // Clear existing products
       productGridEl.innerHTML = '';
       
       // Filter products by category
@@ -1894,15 +2144,11 @@
       
       // Render each product
       filteredProducts.forEach(product => {
-        const isInWishlist = state.wishlist.includes(product.id);
-        
-        const discount = Math.round(
-          ((product.originalPrice - product.price) / product.originalPrice) * 100
-        );
+        const discount = Math.round((1 - product.price / product.originalPrice) * 100);
         
         const productEl = document.createElement('div');
         productEl.className = 'product-card';
-        productEl.setAttribute('onclick', `openQuickView('${product.id}')`);
+        productEl.onclick = () => openQuickView(product.id);
         
         productEl.innerHTML = `
           ${discount > 0 ? `<div class="product-badge">${discount}% OFF</div>` : ''}
@@ -1922,9 +2168,9 @@
               <div class="rating-count">(${product.ratingCount.toLocaleString('en-IN')})</div>
             </div>
             <div class="product-actions">
-              <button class="add-to-cart" onclick="addToCart(event, '${product.id}')">ADD TO CART</button>
-              <button class="wishlist-btn" onclick="toggleWishlist(event, '${product.id}')">
-                <i class="${isInWishlist ? 'fas' : 'far'} fa-heart"></i>
+              <button class="add-to-cart" onclick="event.stopPropagation(); addToCart('${product.id}')">ADD TO CART</button>
+              <button class="wishlist-btn" onclick="event.stopPropagation(); addToWishlist('${product.id}')">
+                <i class="far fa-heart"></i>
               </button>
             </div>
           </div>
@@ -1953,60 +2199,9 @@
       return stars;
     }
 
-    // Search functionality
-    function searchProducts() {
-      const query = searchInputEl.value.toLowerCase();
-      
-      if (query.length < 2) {
-        searchResultsEl.classList.remove('active');
-        return;
-      }
-      
-      // Filter products by search query
-      const results = Object.values(products).filter(product => 
-        product.title.toLowerCase().includes(query)
-      );
-      
-      // Display results
-      searchResultsEl.innerHTML = '';
-      
-      if (results.length > 0) {
-        results.forEach(product => {
-          const itemEl = document.createElement('div');
-          itemEl.className = 'search-item';
-          itemEl.setAttribute('onclick', `selectSearchResult('${product.id}')`);
-          
-          itemEl.innerHTML = `
-            <div class="search-item-img">
-              <img src="${product.image}" alt="${product.title}">
-            </div>
-            <div class="search-item-title">${product.title}</div>
-            <div class="search-item-price">₹${product.price.toLocaleString('en-IN')}</div>
-          `;
-          
-          searchResultsEl.appendChild(itemEl);
-        });
-        
-        searchResultsEl.classList.add('active');
-      } else {
-        searchResultsEl.innerHTML = `
-          <div class="search-item" style="justify-content: center; color: var(--text-light);">
-            No products found
-          </div>
-        `;
-        searchResultsEl.classList.add('active');
-      }
-    }
-
-    function selectSearchResult(productId) {
-      openQuickView(productId);
-      searchInputEl.value = '';
-      searchResultsEl.classList.remove('active');
-    }
-
-    // Cart functionality
-    function addToCart(event, productId) {
-      event.stopPropagation();
+    // Add item to cart
+    function addToCart(productId, event) {
+      if (event) event.stopPropagation();
       
       const existingItem = state.cart.find(item => item.id === productId);
       
@@ -2017,29 +2212,43 @@
       }
       
       updateCart();
+      showCartNotification(productId);
+    }
+
+    // Show cart notification
+    function showCartNotification(productId) {
+      const product = products[productId];
+      if (!product) return;
       
-      // Show feedback
-      const button = event.target;
-      button.textContent = 'ADDED!';
+      const notification = document.createElement('div');
+      notification.className = 'cart-notification';
+      notification.innerHTML = `
+        <img src="${product.image}" alt="${product.title}">
+        <span>Added ${product.title} to cart</span>
+      `;
+      
+      document.body.appendChild(notification);
+      
       setTimeout(() => {
-        button.textContent = 'ADD TO CART';
-      }, 2000);
-    }
-
-    function updateCart() {
-      updateCartCount();
-      renderCart();
+        notification.classList.add('show');
+      }, 10);
       
-      // Save to localStorage in a real app
-      // localStorage.setItem('cart', JSON.stringify(state.cart));
+      setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => {
+          notification.remove();
+        }, 300);
+      }, 3000);
     }
 
-    function updateCartCount() {
-      const count = state.cart.reduce((total, item) => total + item.quantity, 0);
-      cartCountEl.textContent = count;
+    // Add to wishlist
+    function addToWishlist(productId, event) {
+      if (event) event.stopPropagation();
+      alert(`Added ${products[productId].title} to your wishlist!`);
     }
 
-    function renderCart() {
+    // Update cart UI
+    function updateCart() {
       if (state.cart.length === 0) {
         cartBodyEl.innerHTML = `
           <div class="empty-state">
@@ -2052,267 +2261,262 @@
           </div>
         `;
         cartFooterEl.style.display = 'none';
+      } else {
+        cartBodyEl.innerHTML = '';
+        let total = 0;
+        
+        state.cart.forEach(item => {
+          const product = products[item.id];
+          if (!product) return;
+          
+          total += product.price * item.quantity;
+          
+          const cartItemEl = document.createElement('div');
+          cartItemEl.className = 'cart-item';
+          cartItemEl.innerHTML = `
+            <div class="cart-item-img">
+              <img src="${product.image}" alt="${product.title}">
+            </div>
+            <div class="cart-item-details">
+              <div class="cart-item-title">${product.title}</div>
+              <div class="cart-item-price">₹${product.price.toLocaleString('en-IN')}</div>
+              <div class="cart-item-actions">
+                <button class="quantity-btn" onclick="updateCartItem('${item.id}', ${item.quantity - 1}, event)">-</button>
+                <span class="quantity">${item.quantity}</span>
+                <button class="quantity-btn" onclick="updateCartItem('${item.id}', ${item.quantity + 1}, event)">+</button>
+                <button class="remove-btn" onclick="removeCartItem('${item.id}', event)">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </div>
+          `;
+          cartBodyEl.appendChild(cartItemEl);
+        });
+        
+        cartTotalEl.textContent = `₹${total.toLocaleString('en-IN')}`;
+        cartFooterEl.style.display = 'block';
+      }
+      
+      updateCartCount();
+    }
+
+    // Update cart item quantity
+    function updateCartItem(productId, newQuantity, event) {
+      if (event) event.stopPropagation();
+      
+      if (newQuantity <= 0) {
+        removeCartItem(productId);
         return;
       }
       
-      cartBodyEl.innerHTML = '';
-      let total = 0;
-      
-      state.cart.forEach(item => {
-        const product = products[item.id];
-        const itemTotal = product.price * item.quantity;
-        total += itemTotal;
-        
-        const itemEl = document.createElement('div');
-        itemEl.className = 'cart-item';
-        
-        itemEl.innerHTML = `
-          <div class="cart-item-img">
-            <img src="${product.image}" alt="${product.title}">
-          </div>
-          <div class="cart-item-details">
-            <div class="cart-item-title">${product.title}</div>
-            <div class="cart-item-price">₹${product.price.toLocaleString('en-IN')}</div>
-            <div class="cart-item-actions">
-              <button class="quantity-btn minus" onclick="updateCartItemQuantity('${item.id}', -1)">-</button>
-              <div class="quantity">${item.quantity}</div>
-              <button class="quantity-btn plus" onclick="updateCartItemQuantity('${item.id}', 1)">+</button>
-              <button class="remove-btn" onclick="removeFromCart('${item.id}')">✕</button>
-            </div>
-          </div>
-        `;
-        
-        cartBodyEl.appendChild(itemEl);
-      });
-      
-      cartItemCountEl.textContent = state.cart.reduce((total, item) => total + item.quantity, 0);
-      cartTotalEl.textContent = `₹${total.toLocaleString('en-IN')}`;
-      cartFooterEl.style.display = 'block';
-    }
-
-    function updateCartItemQuantity(productId, change) {
-      const item = state.cart.find(item => item.id === productId);
-      
-      if (item) {
-        item.quantity += change;
-        
-        if (item.quantity <= 0) {
-          state.cart = state.cart.filter(item => item.id !== productId);
-        }
-        
+      const cartItem = state.cart.find(item => item.id === productId);
+      if (cartItem) {
+        cartItem.quantity = newQuantity;
         updateCart();
       }
     }
 
-    function removeFromCart(productId) {
+    // Remove item from cart
+    function removeCartItem(productId, event) {
+      if (event) event.stopPropagation();
+      
       state.cart = state.cart.filter(item => item.id !== productId);
       updateCart();
     }
 
-    // Wishlist functionality
-    function toggleWishlist(event, productId) {
-      event.stopPropagation();
+    // Update cart count badge
+    function updateCartCount() {
+      const count = state.cart.reduce((sum, item) => sum + item.quantity, 0);
+      cartCountEl.textContent = count;
+      cartItemCountEl.textContent = count;
+    }
+
+    // Search products
+    function searchProducts() {
+      const query = searchInputEl.value.toLowerCase();
+      searchResultsEl.innerHTML = '';
       
-      const index = state.wishlist.indexOf(productId);
-      
-      if (index === -1) {
-        state.wishlist.push(productId);
-      } else {
-        state.wishlist.splice(index, 1);
+      if (query.length < 2) {
+        searchResultsEl.classList.remove('active');
+        return;
       }
       
-      updateWishlist();
+      const results = Object.values(products).filter(product => 
+        product.title.toLowerCase().includes(query) || 
+        product.category.toLowerCase().includes(query)
+      );
       
-      // Update heart icon
-      const icon = event.currentTarget.querySelector('i');
-      icon.classList.toggle('far');
-      icon.classList.toggle('fas');
+      if (results.length > 0) {
+        results.forEach(product => {
+          const resultItem = document.createElement('div');
+          resultItem.className = 'search-item';
+          resultItem.innerHTML = `
+            <div class="search-item-img">
+              <img src="${product.image}" alt="${product.title}">
+            </div>
+            <div class="search-item-title">${product.title}</div>
+            <div class="search-item-price">₹${product.price.toLocaleString('en-IN')}</div>
+          `;
+          resultItem.onclick = () => {
+            openQuickView(product.id);
+            searchInputEl.value = '';
+            searchResultsEl.classList.remove('active');
+          };
+          searchResultsEl.appendChild(resultItem);
+        });
+        searchResultsEl.classList.add('active');
+      } else {
+        searchResultsEl.innerHTML = '<div class="search-item">No products found</div>';
+        searchResultsEl.classList.add('active');
+      }
     }
 
-    function updateWishlist() {
-      updateWishlistCount();
-      renderWishlist();
+    // Close search results when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!searchInputEl.contains(e.target) && !searchResultsEl.contains(e.target)) {
+        searchResultsEl.classList.remove('active');
+      }
+    });
+
+    // Render orders page
+    function renderOrdersPage() {
+      ordersListEl.innerHTML = '';
       
-      // Save to localStorage in a real app
-      // localStorage.setItem('wishlist', JSON.stringify(state.wishlist));
-    }
-
-    function updateWishlistCount() {
-      wishlistCountEl.textContent = state.wishlist.length;
-    }
-
-    function renderWishlist() {
-      if (state.wishlist.length === 0) {
-        wishlistBodyEl.innerHTML = `
+      if (ordersData.length === 0) {
+        ordersListEl.innerHTML = `
           <div class="empty-state">
             <div class="empty-icon">
-              <i class="fas fa-heart"></i>
+              <i class="fas fa-box-open"></i>
             </div>
-            <h4>Your wishlist is empty</h4>
-            <p class="empty-text">Save your favorite items here for later</p>
-            <button class="hero-btn" onclick="closeWishlistModal(); filterProducts('all')">SHOP NOW</button>
+            <h4>No orders yet</h4>
+            <p class="empty-text">Your orders will appear here</p>
+            <button class="hero-btn" onclick="navigate('home')">SHOP NOW</button>
           </div>
         `;
         return;
       }
       
-      wishlistBodyEl.innerHTML = '';
-      wishlistItemCountEl.textContent = state.wishlist.length;
-      
-      state.wishlist.forEach(productId => {
-        const product = products[productId];
+      ordersData.forEach(order => {
+        const orderEl = document.createElement('div');
+        orderEl.className = 'order-card';
         
-        const itemEl = document.createElement('div');
-        itemEl.className = 'wishlist-item';
-        
-        itemEl.innerHTML = `
-          <div class="wishlist-item-img">
-            <img src="${product.image}" alt="${product.title}">
-          </div>
-          <div class="wishlist-item-details">
-            <div class="wishlist-item-title">${product.title}</div>
-            <div class="wishlist-item-price">₹${product.price.toLocaleString('en-IN')}</div>
-            <div class="wishlist-item-actions">
-              <button class="move-to-cart" onclick="addToCart(event, '${productId}')">MOVE TO CART</button>
-              <button class="remove-wishlist" onclick="toggleWishlist(event, '${productId}')">REMOVE</button>
+        let itemsHtml = '';
+        order.items.forEach(item => {
+          const product = products[item.productId];
+          itemsHtml += `
+            <div class="order-item">
+              <div class="order-item-img">
+                <img src="${product.image}" alt="${product.title}">
+              </div>
+              <div class="order-item-details">
+                <div class="order-item-title">${product.title}</div>
+                <div class="order-item-quantity">Qty: ${item.quantity}</div>
+              </div>
             </div>
+          `;
+        });
+        
+        const statusClass = `status-${order.status.toLowerCase()}`;
+        
+        orderEl.innerHTML = `
+          <div class="order-header">
+            <div>
+              <div class="order-id">Order #${order.id}</div>
+              <div class="order-date">${order.date}</div>
+            </div>
+            <div>
+              <div class="order-total">₹${order.total.toLocaleString('en-IN')}</div>
+              <div class="order-status ${statusClass}">${order.status}</div>
+            </div>
+          </div>
+          <div class="order-items">
+            ${itemsHtml}
+          </div>
+          <div class="order-actions">
+            <button class="view-details-btn" onclick="viewOrderDetails('${order.id}')">VIEW DETAILS</button>
           </div>
         `;
         
-        wishlistBodyEl.appendChild(itemEl);
+        ordersListEl.appendChild(orderEl);
       });
     }
 
-    // Quick View Modal
-    function openQuickView(productId) {
-      const product = products[productId];
-      state.currentQuickViewProduct = productId;
+    function viewOrderDetails(orderId) {
+      const order = ordersData.find(o => o.id === orderId);
+      if (!order) return;
       
-      quickViewTitleEl.textContent = product.title;
-      quickViewImageEl.src = product.image;
+      let itemsHtml = '';
+      order.items.forEach(item => {
+        const product = products[item.productId];
+        itemsHtml += `
+          <div class="order-item">
+            <div class="order-item-img">
+              <img src="${product.image}" alt="${product.title}">
+            </div>
+            <div class="order-item-details">
+              <div class="order-item-title">${product.title}</div>
+              <div class="order-item-price">₹${product.price.toLocaleString('en-IN')}</div>
+              <div class="order-item-quantity">Qty: ${item.quantity}</div>
+            </div>
+          </div>
+        `;
+      });
       
-      const discount = Math.round(
-        ((product.originalPrice - product.price) / product.originalPrice) * 100
-      );
+      const statusClass = `status-${order.status.toLowerCase()}`;
       
-      quickViewPriceEl.innerHTML = `
-        ₹${product.price.toLocaleString('en-IN')} 
-        <span class="quick-view-original">₹${product.originalPrice.toLocaleString('en-IN')}</span>
-        ${discount > 0 ? `<span class="quick-view-discount">${discount}% off</span>` : ''}
-      `;
-      
-      quickViewStarsEl.innerHTML = renderStars(product.rating);
-      quickViewRatingCountEl.textContent = `${product.ratingCount.toLocaleString('en-IN')} ratings`;
-      
-      quickViewDescEl.innerHTML = `
-        <p>${product.description}</p>
-        <ul style="margin-top: 10px; padding-left: 20px;">
-          ${product.features.map(feature => `<li>${feature}</li>`).join('')}
-        </ul>
-      `;
-      
-      quickViewBuyNowEl.setAttribute('onclick', `buyNow('${productId}')`);
-      quickViewAddToCartEl.setAttribute('onclick', `addToCartFromQuickView('${productId}')`);
-      
-      document.getElementById('quickView').classList.add('active');
-      document.body.style.overflow = 'hidden';
+      alert(`
+        Order Details:
+        ID: ${order.id}
+        Date: ${order.date}
+        Status: ${order.status}
+        Total: ₹${order.total.toLocaleString('en-IN')}
+        
+        Items:
+        ${order.items.map(item => {
+          const product = products[item.productId];
+          return `- ${product.title} (Qty: ${item.quantity}) - ₹${product.price.toLocaleString('en-IN')}`;
+        }).join('\n')}
+      `);
     }
 
-    function closeQuickView() {
-      document.getElementById('quickView').classList.remove('active');
-      document.body.style.overflow = 'auto';
+    // Update orders count
+    function updateOrdersCount() {
+      ordersCountEl.textContent = ordersData.length;
     }
 
-    function addToCartFromQuickView(productId) {
-      addToCart(event, productId);
-      closeQuickView();
-    }
-
-    function buyNow(productId) {
-      // In a real app, this would redirect to checkout
-      console.log(`Buying now: ${productId}`);
-      addToCart(event, productId);
-      closeQuickView();
-      openCartModal();
-    }
-
-    // Modal controls
-    function openAccountModal() {
-      document.getElementById('accountModal').classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeAccountModal() {
-      document.getElementById('accountModal').classList.remove('active');
-      document.body.style.overflow = 'auto';
-    }
-
-    function openCartModal() {
-      document.getElementById('cartModal').classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeCartModal() {
-      document.getElementById('cartModal').classList.remove('active');
-      document.body.style.overflow = 'auto';
-    }
-
-    function openWishlistModal() {
-      document.getElementById('wishlistModal').classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeWishlistModal() {
-      document.getElementById('wishlistModal').classList.remove('active');
-      document.body.style.overflow = 'auto';
-    }
-
-    function closeAllModals() {
-      closeQuickView();
-      closeAccountModal();
-      closeCartModal();
-      closeWishlistModal();
-    }
-
-    // Hero Slider
+    // Hero slider functionality
     let currentSlide = 0;
     const slides = document.querySelectorAll('.hero-slide');
     const dots = document.querySelectorAll('.hero-dot');
     
-    function showSlide(n) {
-      slides.forEach(slide => slide.classList.remove('active'));
-      dots.forEach(dot => dot.classList.remove('active'));
+    function showSlide(index) {
+      // Wrap around if at ends
+      if (index >= slides.length) index = 0;
+      if (index < 0) index = slides.length - 1;
       
-      currentSlide = (n + slides.length) % slides.length;
-      slides[currentSlide].classList.add('active');
-      dots[currentSlide].classList.add('active');
+      // Update current slide
+      currentSlide = index;
+      
+      // Update slides
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === index);
+      });
+      
+      // Update dots
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === index);
+      });
     }
     
-    function nextSlide() {
-      showSlide(currentSlide + 1);
+    function startHeroSlider() {
+      // Auto-advance slides every 5 seconds
+      setInterval(() => {
+        showSlide(currentSlide + 1);
+      }, 5000);
     }
-    
-    // Auto slide every 5 seconds
-    setInterval(nextSlide, 5000);
-    
-    // Initialize the app
+
+    // Initialize the app when DOM is loaded
     document.addEventListener('DOMContentLoaded', init);
-    
-    // Close modals when clicking outside
-    window.addEventListener('click', (e) => {
-      if (e.target.classList.contains('quick-view')) {
-        closeQuickView();
-      }
-      if (e.target.classList.contains('account-modal')) {
-        closeAccountModal();
-      }
-      if (e.target.classList.contains('cart-modal')) {
-        closeCartModal();
-      }
-      if (e.target.classList.contains('wishlist-modal')) {
-        closeWishlistModal();
-      }
-    });
   </script>
 </body>
 </html>
