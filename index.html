@@ -145,6 +145,10 @@
       color: var(--warning);
     }
 
+    .out-of-stock {
+      color: var(--danger);
+    }
+
     .add-btn {
       background-color: var(--primary);
       color: white;
@@ -158,6 +162,27 @@
 
     .add-btn:hover {
       background-color: #009944;
+    }
+
+    .buy-now-btn {
+      background-color: var(--secondary);
+      color: var(--text);
+      border: none;
+      border-radius: 4px;
+      padding: 8px 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .buy-now-btn:hover {
+      background-color: #e69500;
+    }
+
+    .product-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
     }
 
     .quantity-selector {
@@ -232,6 +257,21 @@
       right: 25%;
       background: var(--primary);
       color: white;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      font-size: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .wishlist-count {
+      position: absolute;
+      top: 0;
+      right: 25%;
+      background: var(--secondary);
+      color: var(--text);
       width: 18px;
       height: 18px;
       border-radius: 50%;
@@ -342,6 +382,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      position: relative;
     }
 
     .dark .product-image {
@@ -352,6 +393,31 @@
       max-width: 80%;
       max-height: 80%;
       object-fit: contain;
+    }
+
+    .wishlist-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(255, 255, 255, 0.8);
+      border: none;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--danger);
+      font-size: 16px;
+    }
+
+    .dark .wishlist-btn {
+      background: rgba(30, 30, 30, 0.8);
+    }
+
+    .wishlist-btn.active {
+      color: var(--danger);
     }
 
     .product-info {
@@ -603,6 +669,7 @@
       align-items: center;
       justify-content: center;
       margin-bottom: 20px;
+      position: relative;
     }
 
     .dark .product-detail-image {
@@ -657,6 +724,18 @@
       flex: 1;
       background: var(--primary);
       color: white;
+      border: none;
+      padding: 15px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .buy-now-detail-btn {
+      flex: 1;
+      background: var(--secondary);
+      color: var(--text);
       border: none;
       padding: 15px;
       border-radius: 8px;
@@ -782,6 +861,99 @@
       font-size: 16px;
       cursor: pointer;
       margin-top: 20px;
+    }
+
+    /* Wishlist page */
+    .wishlist-empty {
+      text-align: center;
+      padding: 40px 0;
+    }
+
+    /* Order history page */
+    .order-item {
+      padding: 15px;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+    }
+
+    .order-id {
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .order-date {
+      color: var(--text-light);
+      font-size: 14px;
+      margin-bottom: 5px;
+    }
+
+    .order-status {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .status-delivered {
+      background-color: var(--primary-light);
+      color: var(--primary);
+    }
+
+    .status-pending {
+      background-color: var(--warning);
+      color: #1a1a1a;
+    }
+
+    /* Loading skeletons */
+    .skeleton {
+      background-color: #e0e0e0;
+      border-radius: 4px;
+      animation: pulse 1.5s infinite ease-in-out;
+    }
+
+    .dark .skeleton {
+      background-color: #333;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.5;
+      }
+    }
+
+    /* New address form */
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 500;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background-color: var(--card-bg);
+      color: var(--text);
+    }
+
+    .save-btn {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 4px;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
     }
   </style>
 </head>
@@ -1010,6 +1182,7 @@
         
         <div class="product-detail-actions">
           <button class="add-to-cart-btn" onclick="addToCartFromDetail()">Add to Cart</button>
+          <button class="buy-now-detail-btn" onclick="buyNowFromDetail()">Buy Now</button>
         </div>
       </div>
     </div>
@@ -1098,6 +1271,19 @@
             <div>Gurgaon, 122002</div>
             <div>+91 9876543210</div>
           </div>
+          <button style="
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            background: none;
+            border: 1px dashed var(--primary);
+            color: var(--primary);
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+          " onclick="showPage('addAddress')">
+            + Add New Address
+          </button>
         </div>
         
         <div class="checkout-section">
@@ -1136,6 +1322,9 @@
         
         <div class="checkout-section">
           <h3 class="section-title-checkout">Order Summary</h3>
+          <div id="checkoutItems">
+            <!-- Order items will be inserted here -->
+          </div>
           <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
             <span>Subtotal</span>
             <span id="checkoutSubtotal">₹0</span>
@@ -1159,6 +1348,52 @@
         </div>
         
         <button class="place-order-btn" onclick="placeOrder()">Place Order</button>
+      </div>
+    </div>
+
+    <!-- Add Address Page (hidden by default) -->
+    <div id="addAddressPage" style="display: none;">
+      <div style="padding: 15px 0; display: flex; align-items: center; gap: 10px;">
+        <button class="back-btn" onclick="showPage('checkout')">
+          <i class="fas fa-arrow-left"></i>
+        </button>
+        <h1 style="font-size: 20px; font-weight: 600;">Add New Address</h1>
+      </div>
+      
+      <div style="padding: 15px 0;">
+        <div class="form-group">
+          <label class="form-label">Full Name</label>
+          <input type="text" class="form-input" placeholder="Enter your full name">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Mobile Number</label>
+          <input type="tel" class="form-input" placeholder="Enter your mobile number">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Address</label>
+          <textarea class="form-input" rows="3" placeholder="Enter your full address"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">City</label>
+          <input type="text" class="form-input" placeholder="Enter your city">
+        </div>
+        <div class="form-group">
+          <label class="form-label">State</label>
+          <input type="text" class="form-input" placeholder="Enter your state">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Pincode</label>
+          <input type="text" class="form-input" placeholder="Enter your pincode">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Address Type</label>
+          <select class="form-input">
+            <option>Home</option>
+            <option>Work</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <button class="save-btn" onclick="saveAddress()">Save Address</button>
       </div>
     </div>
 
@@ -1247,19 +1482,19 @@
             </div>
             <span>My Orders</span>
           </div>
-          <div class="account-item">
+          <div class="account-item" onclick="showPage('addresses')">
             <div class="account-icon">
               <i class="fas fa-map-marker-alt"></i>
             </div>
             <span>Saved Addresses</span>
           </div>
-          <div class="account-item">
+          <div class="account-item" onclick="showPage('wishlist')">
             <div class="account-icon">
               <i class="fas fa-heart"></i>
             </div>
             <span>Wishlist</span>
           </div>
-          <div class="account-item">
+          <div class="account-item" onclick="showPage('payments')">
             <div class="account-icon">
               <i class="fas fa-credit-card"></i>
             </div>
@@ -1272,6 +1507,167 @@
             <span>Logout</span>
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- Orders Page (hidden by default) -->
+    <div id="ordersPage" style="display: none;">
+      <div style="padding: 15px 0; display: flex; align-items: center; gap: 10px;">
+        <button class="back-btn" onclick="showPage('account')">
+          <i class="fas fa-arrow-left"></i>
+        </button>
+        <h1 style="font-size: 20px; font-weight: 600;">My Orders</h1>
+      </div>
+      
+      <div style="padding: 15px 0;">
+        <div class="order-item">
+          <div class="order-id">Order #QM12345</div>
+          <div class="order-date">Placed on 15 July 2023</div>
+          <div class="order-status status-delivered">Delivered</div>
+        </div>
+        <div class="order-item">
+          <div class="order-id">Order #QM12344</div>
+          <div class="order-date">Placed on 10 July 2023</div>
+          <div class="order-status status-delivered">Delivered</div>
+        </div>
+        <div class="order-item">
+          <div class="order-id">Order #QM12343</div>
+          <div class="order-date">Placed on 5 July 2023</div>
+          <div class="order-status status-pending">Pending</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Addresses Page (hidden by default) -->
+    <div id="addressesPage" style="display: none;">
+      <div style="padding: 15px 0; display: flex; align-items: center; gap: 10px;">
+        <button class="back-btn" onclick="showPage('account')">
+          <i class="fas fa-arrow-left"></i>
+        </button>
+        <h1 style="font-size: 20px; font-weight: 600;">Saved Addresses</h1>
+      </div>
+      
+      <div style="padding: 15px 0;">
+        <div class="address-card selected">
+          <div class="address-name">Home</div>
+          <div>123 Main Street, Apartment 4B</div>
+          <div>New Delhi, 110001</div>
+          <div>+91 9876543210</div>
+        </div>
+        <div class="address-card">
+          <div class="address-name">Work</div>
+          <div>456 Business Avenue, Floor 8</div>
+          <div>Gurgaon, 122002</div>
+          <div>+91 9876543210</div>
+        </div>
+        <button style="
+          width: 100%;
+          padding: 10px;
+          margin-top: 15px;
+          background: none;
+          border: 1px dashed var(--primary);
+          color: var(--primary);
+          border-radius: 8px;
+          font-weight: 600;
+          cursor: pointer;
+        " onclick="showPage('addAddress')">
+          + Add New Address
+        </button>
+      </div>
+    </div>
+
+    <!-- Wishlist Page (hidden by default) -->
+    <div id="wishlistPage" style="display: none;">
+      <div style="padding: 15px 0; display: flex; align-items: center; gap: 10px;">
+        <button class="back-btn" onclick="showPage('account')">
+          <i class="fas fa-arrow-left"></i>
+        </button>
+        <h1 style="font-size: 20px; font-weight: 600;">Wishlist</h1>
+      </div>
+      
+      <div class="product-grid" id="wishlistItems">
+        <!-- Wishlist items will be inserted here -->
+      </div>
+      <div id="wishlistEmpty" class="wishlist-empty">
+        <p>Your wishlist is empty</p>
+      </div>
+    </div>
+
+    <!-- Payments Page (hidden by default) -->
+    <div id="paymentsPage" style="display: none;">
+      <div style="padding: 15px 0; display: flex; align-items: center; gap: 10px;">
+        <button class="back-btn" onclick="showPage('account')">
+          <i class="fas fa-arrow-left"></i>
+        </button>
+        <h1 style="font-size: 20px; font-weight: 600;">Payment Methods</h1>
+      </div>
+      
+      <div style="padding: 15px 0;">
+        <div class="payment-method">
+          <div class="payment-icon">
+            <i class="fas fa-credit-card"></i>
+          </div>
+          <div class="payment-details">
+            <div class="payment-title">VISA **** 1234</div>
+            <div class="payment-desc">Expires 12/25</div>
+          </div>
+          <div class="payment-radio selected"></div>
+        </div>
+        <div class="payment-method">
+          <div class="payment-icon">
+            <i class="fas fa-credit-card"></i>
+          </div>
+          <div class="payment-details">
+            <div class="payment-title">Mastercard **** 5678</div>
+            <div class="payment-desc">Expires 06/24</div>
+          </div>
+          <div class="payment-radio"></div>
+        </div>
+        <button style="
+          width: 100%;
+          padding: 10px;
+          margin-top: 15px;
+          background: none;
+          border: 1px dashed var(--primary);
+          color: var(--primary);
+          border-radius: 8px;
+          font-weight: 600;
+          cursor: pointer;
+        " onclick="showPage('addPayment')">
+          + Add New Payment Method
+        </button>
+      </div>
+    </div>
+
+    <!-- Add Payment Page (hidden by default) -->
+    <div id="addPaymentPage" style="display: none;">
+      <div style="padding: 15px 0; display: flex; align-items: center; gap: 10px;">
+        <button class="back-btn" onclick="showPage('payments')">
+          <i class="fas fa-arrow-left"></i>
+        </button>
+        <h1 style="font-size: 20px; font-weight: 600;">Add Payment Method</h1>
+      </div>
+      
+      <div style="padding: 15px 0;">
+        <div class="form-group">
+          <label class="form-label">Card Number</label>
+          <input type="text" class="form-input" placeholder="Enter card number">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Cardholder Name</label>
+          <input type="text" class="form-input" placeholder="Enter name on card">
+        </div>
+        <div style="display: flex; gap: 15px;">
+          <div class="form-group" style="flex: 1;">
+            <label class="form-label">Expiry Date</label>
+            <input type="text" class="form-input" placeholder="MM/YY">
+          </div>
+          <div class="form-group" style="flex: 1;">
+            <label class="form-label">CVV</label>
+            <input type="text" class="form-input" placeholder="CVV">
+          </div>
+        </div>
+        <button class="save-btn" onclick="savePayment()">Save Card</button>
       </div>
     </div>
   </div>
@@ -1298,6 +1694,7 @@
     <a href="#" class="nav-item" onclick="showPage('account')">
       <i class="fas fa-user"></i>
       <span>Account</span>
+      <span class="wishlist-count">0</span>
     </a>
   </nav>
 
@@ -1421,13 +1818,14 @@
           { value: 100, text: '100g', price: 35 }
         ],
         unitPrice: '₹35/100g',
-        stock: 'In Stock',
+        stock: 'Out of Stock',
         deliveryTime: 'Delivery in 15 min'
       }
     ];
 
-    // Cart data
+    // App data
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
     let darkMode = localStorage.getItem('darkMode') === 'true';
     let lastPage = 'home';
     let currentCategory = 'all';
@@ -1460,8 +1858,9 @@
       renderProductSection('dailyEssentials', getDailyEssentials());
       renderProductSection('frequentlyBought', getFrequentlyBought());
       
-      // Update cart count
+      // Update counts
       updateCartCount();
+      updateWishlistCount();
       
       // Set up search functionality
       document.getElementById('searchInput').addEventListener('input', function() {
@@ -1476,6 +1875,7 @@
       
       products.forEach(product => {
         const discount = Math.round((1 - product.price / product.originalPrice) * 100);
+        const isInWishlist = wishlist.some(item => item.id === product.id);
         
         const productEl = document.createElement('div');
         productEl.className = 'product-card';
@@ -1483,6 +1883,9 @@
           <div class="express-badge">Express Delivery</div>
           <div class="product-image">
             <img src="${product.image}" alt="${product.title}" loading="lazy">
+            <button class="wishlist-btn ${isInWishlist ? 'active' : ''}" onclick="toggleWishlist('${product.id}')">
+              <i class="fas fa-heart"></i>
+            </button>
           </div>
           <div class="product-info">
             <h3 class="product-title">${product.title}</h3>
@@ -1518,13 +1921,18 @@
                 </option>
               `).join('')}
             </select>
-            <div class="stock-badge ${product.stock === 'In Stock' ? 'in-stock' : 'low-stock'}">
+            <div class="stock-badge ${product.stock === 'In Stock' ? 'in-stock' : product.stock === 'Low Stock' ? 'low-stock' : 'out-of-stock'}">
               ${product.stock}
             </div>
             <div class="delivery-time">${product.deliveryTime}</div>
-            <button class="add-btn" onclick="addToCart('${product.id}')">
-              Add
-            </button>
+            <div class="product-actions">
+              <button class="add-btn" onclick="addToCart('${product.id}')" ${product.stock === 'Out of Stock' ? 'disabled style="opacity: 0.5; cursor: not-allowed;"' : ''}>
+                Add
+              </button>
+              <button class="buy-now-btn" onclick="buyNow('${product.id}')" ${product.stock === 'Out of Stock' ? 'disabled style="opacity: 0.5; cursor: not-allowed;"' : ''}>
+                Buy Now
+              </button>
+            </div>
           </div>
         `;
         
@@ -1635,6 +2043,7 @@
       document.getElementById('detailTitle').textContent = product.title;
       document.getElementById('detailPrice').textContent = `₹${selectedWeight.price.toLocaleString('en-IN')}`;
       document.getElementById('detailStock').textContent = product.stock;
+      document.getElementById('detailStock').className = `stock-badge ${product.stock === 'In Stock' ? 'in-stock' : product.stock === 'Low Stock' ? 'low-stock' : 'out-of-stock'}`;
       document.getElementById('detailDelivery').textContent = product.deliveryTime;
       
       const weightOptions = document.getElementById('weightOptions');
@@ -1654,6 +2063,55 @@
       });
       
       showPage('productDetail');
+    }
+
+    // Toggle wishlist
+    function toggleWishlist(productId) {
+      event.stopPropagation();
+      const product = products.find(p => p.id === productId);
+      if (!product) return;
+      
+      const index = wishlist.findIndex(item => item.id === productId);
+      
+      if (index === -1) {
+        wishlist.push(product);
+        showNotification(`${product.title} added to wishlist`);
+      } else {
+        wishlist.splice(index, 1);
+        showNotification(`${product.title} removed from wishlist`);
+      }
+      
+      // Save to localStorage
+      localStorage.setItem('wishlist', JSON.stringify(wishlist));
+      
+      // Update wishlist count
+      updateWishlistCount();
+      
+      // Update heart icon
+      const btn = event.currentTarget;
+      btn.classList.toggle('active');
+      
+      // If on wishlist page, refresh the view
+      if (document.getElementById('wishlistPage').style.display === 'block') {
+        renderWishlist();
+      }
+    }
+
+    // Render wishlist
+    function renderWishlist() {
+      const wishlistContainer = document.getElementById('wishlistItems');
+      const emptyWishlist = document.getElementById('wishlistEmpty');
+      
+      if (wishlist.length === 0) {
+        wishlistContainer.innerHTML = '';
+        emptyWishlist.style.display = 'block';
+        return;
+      }
+      
+      emptyWishlist.style.display = 'none';
+      wishlistContainer.innerHTML = '';
+      
+      renderProductSection('wishlistItems', wishlist);
     }
 
     // Add product to cart from detail page
@@ -1687,6 +2145,12 @@
       
       // Go back to previous page
       goBack();
+    }
+
+    // Buy now from detail page
+    function buyNowFromDetail() {
+      addToCartFromDetail();
+      showPage('checkout');
     }
 
     // Add product to cart
@@ -1724,6 +2188,12 @@
       showNotification(`${product.title} added to cart`);
     }
 
+    // Buy now function
+    function buyNow(productId) {
+      addToCart(productId);
+      showPage('checkout');
+    }
+
     // Update cart count in navigation
     function updateCartCount() {
       const count = cart.reduce((sum, item) => sum + item.quantity, 0);
@@ -1733,6 +2203,18 @@
         cartCount.style.display = 'flex';
       } else {
         cartCount.style.display = 'none';
+      }
+    }
+
+    // Update wishlist count in navigation
+    function updateWishlistCount() {
+      const count = wishlist.length;
+      const wishlistCount = document.querySelector('.wishlist-count');
+      if (count > 0) {
+        wishlistCount.textContent = count;
+        wishlistCount.style.display = 'flex';
+      } else {
+        wishlistCount.style.display = 'none';
       }
     }
 
@@ -1804,6 +2286,22 @@
       // Also update checkout summary
       document.getElementById('checkoutSubtotal').textContent = `₹${subtotal.toLocaleString('en-IN')}`;
       document.getElementById('checkoutTotal').textContent = `₹${total.toLocaleString('en-IN')}`;
+      
+      // Render checkout items
+      const checkoutItems = document.getElementById('checkoutItems');
+      checkoutItems.innerHTML = '';
+      
+      cart.forEach(item => {
+        const itemEl = document.createElement('div');
+        itemEl.style.display = 'flex';
+        itemEl.style.justifyContent = 'space-between';
+        itemEl.style.marginBottom = '10px';
+        itemEl.innerHTML = `
+          <span>${item.title} (${item.selectedWeight.text}) x ${item.quantity}</span>
+          <span>₹${(item.price * item.quantity).toLocaleString('en-IN')}</span>
+        `;
+        checkoutItems.appendChild(itemEl);
+      });
     }
 
     // Update cart item quantity
@@ -1844,6 +2342,18 @@
       
       // Show confirmation page
       showPage('orderConfirmation');
+    }
+
+    // Save address
+    function saveAddress() {
+      showNotification('Address saved successfully');
+      showPage('checkout');
+    }
+
+    // Save payment method
+    function savePayment() {
+      showNotification('Payment method saved successfully');
+      showPage('payments');
     }
 
     // Show notification
@@ -1898,7 +2408,13 @@
         'cartPage',
         'accountPage',
         'checkoutPage',
-        'orderConfirmationPage'
+        'addAddressPage',
+        'orderConfirmationPage',
+        'ordersPage',
+        'addressesPage',
+        'wishlistPage',
+        'paymentsPage',
+        'addPaymentPage'
       ];
       
       pages.forEach(pageId => {
@@ -1906,7 +2422,7 @@
       });
       
       // Store last page for back navigation
-      if (page !== 'productDetail') {
+      if (page !== 'productDetail' && page !== 'addAddress' && page !== 'addPayment') {
         lastPage = page;
       }
       
@@ -1929,13 +2445,29 @@
         document.getElementById('accountPage').style.display = 'block';
       } else if (page === 'checkout') {
         document.getElementById('checkoutPage').style.display = 'block';
+      } else if (page === 'addAddress') {
+        document.getElementById('addAddressPage').style.display = 'block';
       } else if (page === 'orderConfirmation') {
         document.getElementById('orderConfirmationPage').style.display = 'block';
+      } else if (page === 'orders') {
+        document.getElementById('ordersPage').style.display = 'block';
+      } else if (page === 'addresses') {
+        document.getElementById('addressesPage').style.display = 'block';
+      } else if (page === 'wishlist') {
+        document.getElementById('wishlistPage').style.display = 'block';
+        renderWishlist();
+      } else if (page === 'payments') {
+        document.getElementById('paymentsPage').style.display = 'block';
+      } else if (page === 'addPayment') {
+        document.getElementById('addPaymentPage').style.display = 'block';
       }
       
       // Update active nav item
       if (page !== 'productDetail' && page !== 'categoryProducts' && 
-          page !== 'checkout' && page !== 'orderConfirmation') {
+          page !== 'checkout' && page !== 'orderConfirmation' &&
+          page !== 'addAddress' && page !== 'orders' &&
+          page !== 'addresses' && page !== 'wishlist' &&
+          page !== 'payments' && page !== 'addPayment') {
         document.querySelectorAll('.nav-item').forEach(item => {
           item.classList.remove('active');
         });
@@ -1952,6 +2484,10 @@
     function goBack() {
       if (lastPage === 'categoryProducts') {
         showPage('categories');
+      } else if (lastPage === 'addAddress') {
+        showPage('checkout');
+      } else if (lastPage === 'addPayment') {
+        showPage('payments');
       } else {
         showPage(lastPage);
       }
@@ -1959,7 +2495,7 @@
 
     // Open product detail when clicking on product
     document.addEventListener('click', function(e) {
-      if (e.target.closest('.product-card')) {
+      if (e.target.closest('.product-card') && !e.target.closest('.wishlist-btn')) {
         const productCard = e.target.closest('.product-card');
         const productTitle = productCard.querySelector('.product-title').textContent;
         const product = products.find(p => p.title === productTitle);
