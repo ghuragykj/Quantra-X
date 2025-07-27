@@ -2067,22 +2067,8 @@
         <h1 style="font-size: 20px; font-weight: 600;">My Orders</h1>
       </div>
       
-      <div style="padding: 15px 0;">
-        <div class="order-item">
-          <div class="order-id">Order #QM12345</div>
-          <div class="order-date">Placed on 15 July 2023</div>
-          <div class="order-status status-delivered">Delivered</div>
-        </div>
-        <div class="order-item">
-          <div class="order-id">Order #QM12344</div>
-          <div class="order-date">Placed on 10 July 2023</div>
-          <div class="order-status status-delivered">Delivered</div>
-        </div>
-        <div class="order-item">
-          <div class="order-id">Order #QM12343</div>
-          <div class="order-date">Placed on 5 July 2023</div>
-          <div class="order-status status-pending">Pending</div>
-        </div>
+      <div style="padding: 15px 0;" id="ordersList">
+        <!-- Orders will be inserted here -->
       </div>
     </div>
 
@@ -2351,6 +2337,7 @@
     // App data
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
     let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+    let orders = JSON.parse(localStorage.getItem('orders')) || [];
     let darkMode = localStorage.getItem('darkMode') === 'true';
     let lastPage = 'home';
     let currentCategory = 'all';
@@ -2787,16 +2774,12 @@
     // Update cart count in navigation
     function updateCartCount() {
       const count = cart.reduce((sum, item) => sum + item.quantity, 0);
-      const cartCount = document.querySelector('.cart-count');
       const mobileCartCount = document.querySelector('.cart-count-mobile');
       
       if (count > 0) {
-        cartCount.textContent = count;
-        cartCount.style.display = 'flex';
         mobileCartCount.textContent = count;
         mobileCartCount.style.display = 'flex';
       } else {
-        cartCount.style.display = 'none';
         mobileCartCount.style.display = 'none';
       }
     }
@@ -2952,6 +2935,35 @@
 
     // Place order
     function placeOrder() {
+      // Calculate order total
+      let subtotal = 0;
+      cart.forEach(item => {
+        subtotal += item.price * item.quantity;
+      });
+      
+      // Create order object
+      const order = {
+        id: 'ORD' + Date.now().toString(36).toUpperCase(),
+        date: new Date().toLocaleDateString('en-IN', { 
+          day: '2-digit',
+          month: 'short',
+          year: 'numeric'
+        }),
+        items: cart.map(item => ({ 
+          id: item.id,
+          title: item.title,
+          price: item.price,
+          quantity: item.quantity,
+          weight: item.selectedWeight.text
+        })),
+        total: subtotal + 10 + 15 + 49, // subtotal + fees
+        status: 'Processing'
+      };
+      
+      // Save order
+      orders.push(order);
+      localStorage.setItem('orders', JSON.stringify(orders));
+      
       // Clear cart
       cart = [];
       localStorage.setItem('cart', JSON.stringify(cart));
@@ -2959,6 +2971,32 @@
       
       // Show confirmation page
       showPage('orderConfirmation');
+      
+      // Update orders list
+      renderOrders();
+    }
+
+    // Render orders
+    function renderOrders() {
+      const ordersContainer = document.getElementById('ordersList');
+      ordersContainer.innerHTML = '';
+      
+      if (orders.length === 0) {
+        ordersContainer.innerHTML = '<p style="text-align: center; padding: 20px;">No orders found</p>';
+        return;
+      }
+      
+      orders.forEach(order => {
+        const orderEl = document.createElement('div');
+        orderEl.className = 'order-item';
+        orderEl.innerHTML = `
+          <div class="order-id">Order #${order.id}</div>
+          <div class="order-date">Placed on ${order.date}</div>
+          <div class="order-status">${order.status}</div>
+          <div>Total: ₹${order.total.toLocaleString('en-IN')}</div>
+        `;
+        ordersContainer.appendChild(orderEl);
+      });
     }
 
     // Render addresses
@@ -3167,6 +3205,7 @@
         document.getElementById('orderConfirmationPage').style.display = 'block';
       } else if (page === 'orders') {
         document.getElementById('ordersPage').style.display = 'block';
+        renderOrders();
       } else if (page === 'addresses') {
         document.getElementById('addressesPage').style.display = 'block';
         renderAddresses();
