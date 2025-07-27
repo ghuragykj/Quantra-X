@@ -81,6 +81,37 @@
       white-space: nowrap;
     }
 
+    .search-bar {
+      width: 100%;
+      position: relative;
+      margin-bottom: 5px;
+    }
+
+    .search-bar input {
+      width: 100%;
+      padding: 12px 15px 12px 45px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      font-size: 16px;
+      background: var(--card-bg);
+      color: var(--text);
+      transition: all 0.3s ease;
+    }
+
+    .search-bar input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(0, 177, 79, 0.2);
+      outline: none;
+    }
+
+    .search-bar i {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-light);
+    }
+
     .section-title {
       font-size: 20px;
       font-weight: 700;
@@ -152,28 +183,6 @@
     }
 
     .add-btn:disabled {
-      background-color: var(--border);
-      cursor: not-allowed;
-      opacity: 0.7;
-    }
-
-    .buy-now-btn {
-      background-color: var(--secondary);
-      color: var(--text);
-      border: none;
-      border-radius: 4px;
-      padding: 8px 12px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-      flex: 1;
-    }
-
-    .buy-now-btn:hover {
-      background-color: #e69500;
-    }
-
-    .buy-now-btn:disabled {
       background-color: var(--border);
       cursor: not-allowed;
       opacity: 0.7;
@@ -783,23 +792,6 @@
       background: #009944;
     }
 
-    .buy-now-detail-btn {
-      flex: 1;
-      background: var(--secondary);
-      color: var(--text);
-      border: none;
-      padding: 15px;
-      border-radius: 8px;
-      font-weight: 600;
-      cursor: pointer;
-      font-size: 16px;
-      transition: all 0.2s;
-    }
-
-    .buy-now-detail-btn:hover {
-      background: #e69500;
-    }
-
     .back-btn {
       background: none;
       border: none;
@@ -815,7 +807,7 @@
       background-color: rgba(0, 0, 0, 0.05);
     }
 
-    /* Checkout page */
+    /* Checkout page styles */
     .checkout-page {
       padding: 15px 0;
     }
@@ -989,11 +981,6 @@
     .status-pending {
       background-color: var(--warning);
       color: #1a1a1a;
-    }
-
-    .status-cancelled {
-      background-color: var(--danger);
-      color: white;
     }
 
     /* Loading skeletons */
@@ -1184,63 +1171,11 @@
     .button-click {
       animation: buttonClick 0.3s ease;
     }
-
-    /* Order details page */
-    .order-details {
-      padding: 15px 0;
-    }
-
-    .order-details-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-    }
-
-    .order-details-title {
-      font-size: 20px;
-      font-weight: 600;
-    }
-
-    .order-details-status {
-      padding: 5px 10px;
-      border-radius: 4px;
-      font-weight: 600;
-    }
-
-    .order-details-info {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 15px;
-    }
-
-    .order-details-address {
-      background: var(--card-bg);
-      padding: 15px;
-      border-radius: 8px;
-      margin-bottom: 20px;
-    }
-
-    .cancel-order-btn {
-      background-color: var(--danger);
-      color: white;
-      border: none;
-      padding: 12px;
-      border-radius: 8px;
-      font-weight: 600;
-      cursor: pointer;
-      width: 100%;
-      margin-top: 20px;
-    }
-
-    .cancel-order-btn:hover {
-      background-color: #e53935;
-    }
   </style>
 </head>
 <body>
   <div class="container">
-    <!-- Header with location -->
+    <!-- Header with location and search -->
     <div class="header">
       <div class="top-bar">
         <div class="location-selector">
@@ -1248,6 +1183,10 @@
           <span>Home</span>
           <i class="fas fa-chevron-down"></i>
         </div>
+      </div>
+      <div class="search-bar">
+        <input type="text" placeholder="Search for groceries..." onfocus="showPage('search')">
+        <i class="fas fa-search"></i>
       </div>
     </div>
 
@@ -1257,35 +1196,35 @@
       <div class="hero-slider">
         <div class="swiper">
           <div class="swiper-wrapper">
-            <div class="swiper-slide" style="background-image: url('https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
+            <div class="swiper-slide" style="background-image: linear-gradient(rgba(0,0,0,0.3), url('https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
               <div class="hero-content">
                 <h2 class="hero-title">Fresh Grocery Delivery</h2>
                 <p class="hero-subtitle">Get fresh groceries delivered in 15-30 minutes</p>
                 <button class="hero-btn">SHOP NOW</button>
               </div>
             </div>
-            <div class="swiper-slide" style="background-image: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
+            <div class="swiper-slide" style="background-image: linear-gradient(rgba(0,0,0,0.3), url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
               <div class="hero-content">
                 <h2 class="hero-title">Weekend Special Offers</h2>
                 <p class="hero-subtitle">Up to 50% off on fruits & vegetables</p>
                 <button class="hero-btn">SHOP NOW</button>
               </div>
             </div>
-            <div class="swiper-slide" style="background-image: url('https://images.unsplash.com/photo-1490818387583-1baba5e638af?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
+            <div class="swiper-slide" style="background-image: linear-gradient(rgba(0,0,0,0.3), url('https://images.unsplash.com/photo-1490818387583-1baba5e638af?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
               <div class="hero-content">
                 <h2 class="hero-title">Organic Produce</h2>
                 <p class="hero-subtitle">Farm fresh organic fruits & vegetables</p>
                 <button class="hero-btn">SHOP NOW</button>
               </div>
             </div>
-            <div class="swiper-slide" style="background-image: url('https://images.unsplash.com/photo-1548940740-204726a19be3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
+            <div class="swiper-slide" style="background-image: linear-gradient(rgba(0,0,0,0.3), url('https://images.unsplash.com/photo-1548940740-204726a19be3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
               <div class="hero-content">
                 <h2 class="hero-title">Dairy & Eggs</h2>
                 <p class="hero-subtitle">Fresh dairy products delivered daily</p>
                 <button class="hero-btn">SHOP NOW</button>
               </div>
             </div>
-            <div class="swiper-slide" style="background-image: url('https://images.unsplash.com/photo-1556911220-e15b29be8c8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
+            <div class="swiper-slide" style="background-image: linear-gradient(rgba(0,0,0,0.3), url('https://images.unsplash.com/photo-1556911220-e15b29be8c8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
               <div class="hero-content">
                 <h2 class="hero-title">Snacks & Beverages</h2>
                 <p class="hero-subtitle">Your favorite snacks at discounted prices</p>
@@ -1444,7 +1383,6 @@
         
         <div class="product-detail-actions">
           <button class="add-to-cart-btn" onclick="addToCartFromDetail()">Add to Cart</button>
-          <button class="buy-now-detail-btn" onclick="buyNowFromDetail()">Buy Now</button>
         </div>
       </div>
     </div>
@@ -1455,7 +1393,7 @@
         <button class="back-btn" onclick="showPage('home')">
           <i class="fas fa-arrow-left"></i>
         </button>
-        <h1 style="font-size: 20px; font-weight: 600;">Your Cart</h1>
+        <h1 style="font-size: 20px; font-weight: 600;">My Cart</h1>
       </div>
       
       <div id="cartItems">
@@ -1789,75 +1727,22 @@
         <h1 style="font-size: 20px; font-weight: 600;">My Orders</h1>
       </div>
       
-      <div style="padding: 15px 0;" id="ordersList">
-        <!-- Orders will be inserted here -->
-      </div>
-    </div>
-
-    <!-- Order Details Page (hidden by default) -->
-    <div id="orderDetailsPage" style="display: none;">
-      <div style="padding: 15px 0; display: flex; align-items: center; gap: 10px;">
-        <button class="back-btn" onclick="showPage('orders')">
-          <i class="fas fa-arrow-left"></i>
-        </button>
-        <h1 style="font-size: 20px; font-weight: 600;">Order Details</h1>
-      </div>
-      
-      <div class="order-details">
-        <div class="order-details-header">
-          <div class="order-details-title" id="orderDetailsTitle">Order #QM12345</div>
-          <div class="order-details-status" id="orderDetailsStatus">Pending</div>
+      <div style="padding: 15px 0;">
+        <div class="order-item">
+          <div class="order-id">Order #QM12345</div>
+          <div class="order-date">Placed on 15 July 2023</div>
+          <div class="order-status status-delivered">Delivered</div>
         </div>
-        
-        <div class="order-details-info">
-          <div>
-            <div style="font-weight: 600;">Order Date</div>
-            <div id="orderDetailsDate">15 July 2023</div>
-          </div>
-          <div>
-            <div style="font-weight: 600;">Delivery Time</div>
-            <div id="orderDetailsDeliveryTime">15-30 minutes</div>
-          </div>
+        <div class="order-item">
+          <div class="order-id">Order #QM12344</div>
+          <div class="order-date">Placed on 10 July 2023</div>
+          <div class="order-status status-delivered">Delivered</div>
         </div>
-        
-        <div class="order-details-address">
-          <div style="font-weight: 600; margin-bottom: 5px;">Delivery Address</div>
-          <div id="orderDetailsAddress">123 Main Street, Apartment 4B, New Delhi, 110001</div>
-          <div id="orderDetailsPhone">+91 9876543210</div>
+        <div class="order-item">
+          <div class="order-id">Order #QM12343</div>
+          <div class="order-date">Placed on 5 July 2023</div>
+          <div class="order-status status-pending">Pending</div>
         </div>
-        
-        <div class="checkout-section">
-          <h3 class="section-title-checkout">Order Items</h3>
-          <div id="orderDetailsItems">
-            <!-- Order items will be inserted here -->
-          </div>
-          <div class="order-summary-item">
-            <span>Subtotal</span>
-            <span id="orderDetailsSubtotal">₹0</span>
-          </div>
-          <div class="order-summary-item">
-            <span>Product Discount</span>
-            <span id="orderDetailsDiscount">-₹0</span>
-          </div>
-          <div class="order-summary-item">
-            <span>Platform Fee</span>
-            <span id="orderDetailsPlatformFee">₹10</span>
-          </div>
-          <div class="order-summary-item">
-            <span>Handling Fee</span>
-            <span id="orderDetailsHandlingFee">₹15</span>
-          </div>
-          <div class="order-summary-item">
-            <span>Delivery Fee</span>
-            <span id="orderDetailsDeliveryFee">₹49</span>
-          </div>
-          <div class="order-total">
-            <span>Total</span>
-            <span id="orderDetailsTotal">₹0</span>
-          </div>
-        </div>
-        
-        <button class="cancel-order-btn" id="cancelOrderBtn" onclick="cancelOrder()">Cancel Order</button>
       </div>
     </div>
 
@@ -2005,10 +1890,6 @@
       <i class="fas fa-list"></i>
       <span>Categories</span>
     </a>
-    <a href="#" class="nav-item" onclick="showPage('orders')">
-      <i class="fas fa-clipboard-list"></i>
-      <span>Orders</span>
-    </a>
     <a href="#" class="nav-item" onclick="showPage('cart')">
       <i class="fas fa-shopping-cart"></i>
       <span>Cart</span>
@@ -2026,14 +1907,14 @@
 
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script>
-    // Product data
+    // Product data with working images
     const products = [
       {
         id: 'apple',
         title: 'Washington Apples',
         price: 120,
         originalPrice: 150,
-        image: 'https://m.media-amazon.com/images/I/31x7euv1ZoL._AC_UL320_.jpg',
+        image: 'https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YXBwbGV8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60',
         category: 'fruits',
         weightOptions: [
           { value: 250, text: '250g', price: 30 },
@@ -2049,7 +1930,7 @@
         title: 'Fresh Bananas (6pcs)',
         price: 45,
         originalPrice: 50,
-        image: 'https://m.media-amazon.com/images/I/51ebZJ+DR4L._AC_UL320_.jpg',
+        image: 'https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YmFuYW5hfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60',
         category: 'fruits',
         weightOptions: [
           { value: 6, text: '6pcs', price: 45 }
@@ -2063,7 +1944,7 @@
         title: 'Fresh Cow Milk (1L)',
         price: 68,
         originalPrice: 80,
-        image: 'https://m.media-amazon.com/images/I/61uB5z7QxmL._AC_UL320_.jpg',
+        image: 'https://images.unsplash.com/photo-1563636619-e9143da7973b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bWlsa3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60',
         category: 'dairy',
         weightOptions: [
           { value: 500, text: '500ml', price: 34 },
@@ -2078,7 +1959,7 @@
         title: 'Fresh Potatoes',
         price: 40,
         originalPrice: 50,
-        image: 'https://m.media-amazon.com/images/I/31JfDKXlVIL._AC_UL320_.jpg',
+        image: 'https://images.unsplash.com/photo-1518977676601-b53f82aba655?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cG90YXRvfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60',
         category: 'vegetables',
         weightOptions: [
           { value: 500, text: '500g', price: 20 },
@@ -2093,7 +1974,7 @@
         title: 'Basmati Rice (5kg)',
         price: 375,
         originalPrice: 500,
-        image: 'https://m.media-amazon.com/images/I/81tIwsJjURL._AC_UL320_.jpg',
+        image: 'https://images.unsplash.com/photo-1598866594230-a7c12756260f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cmljZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60',
         category: 'staples',
         weightOptions: [
           { value: 1000, text: '1kg', price: 75 },
@@ -2108,7 +1989,7 @@
         title: 'Whole Wheat Bread',
         price: 45,
         originalPrice: 55,
-        image: 'https://m.media-amazon.com/images/I/61D9Ny03UIL._AC_UL320_.jpg',
+        image: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YnJlYWR8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60',
         category: 'bakery',
         weightOptions: [
           { value: 400, text: '400g', price: 45 }
@@ -2122,7 +2003,7 @@
         title: 'Farm Fresh Eggs (12)',
         price: 99,
         originalPrice: 120,
-        image: 'https://m.media-amazon.com/images/I/71y1Hj+3q4L._AC_UL320_.jpg',
+        image: 'https://images.unsplash.com/photo-1586802990180-41de3d9b1d20?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZWdnc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60',
         category: 'eggs-meat',
         weightOptions: [
           { value: 6, text: '6pcs', price: 50 },
@@ -2137,7 +2018,7 @@
         title: 'Potato Chips (100g)',
         price: 35,
         originalPrice: 50,
-        image: 'https://m.media-amazon.com/images/I/71TPda7cwUL._AC_UL320_.jpg',
+        image: 'https://images.unsplash.com/photo-1621447504864-d8686e12698c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y2hpcHN8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60',
         category: 'snacks',
         weightOptions: [
           { value: 50, text: '50g', price: 20 },
@@ -2152,14 +2033,12 @@
     // App data
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
     let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-    let orders = JSON.parse(localStorage.getItem('orders')) || [];
     let darkMode = localStorage.getItem('darkMode') === 'true';
     let lastPage = 'home';
     let currentCategory = 'all';
     let currentProduct = null;
     let selectedWeight = null;
     let selectedPayment = 'wallet';
-    let currentOrder = null;
     let addresses = [
       {
         id: 'home',
@@ -2215,14 +2094,6 @@
       // Update counts
       updateCartCount();
       updateWishlistCount();
-      
-      // Render orders if any
-      if (orders.length > 0) {
-        renderOrders();
-      }
-      
-      // Render addresses
-      renderAddresses();
     });
 
     // Render product section
@@ -2284,14 +2155,18 @@
             <div class="delivery-time">${product.deliveryTime}</div>
             <div class="product-actions">
               <button class="add-btn" onclick="addToCart('${product.id}', event)" ${product.stock === 'Out of Stock' ? 'disabled' : ''}>
-                Add
-              </button>
-              <button class="buy-now-btn" onclick="buyNow('${product.id}', event)" ${product.stock === 'Out of Stock' ? 'disabled' : ''}>
-                Buy Now
+                Add to Cart
               </button>
             </div>
           </div>
         `;
+        
+        // Add click event for product detail
+        productEl.addEventListener('click', function(e) {
+          if (!e.target.closest('.wishlist-btn') && !e.target.closest('.product-actions')) {
+            showProductDetail(product.id);
+          }
+        });
         
         section.appendChild(productEl);
       });
@@ -2507,12 +2382,6 @@
       goBack();
     }
 
-    // Buy now from detail page
-    function buyNowFromDetail() {
-      addToCartFromDetail();
-      showPage('checkout');
-    }
-
     // Add product to cart
     function addToCart(productId, event) {
       if (event) event.stopPropagation();
@@ -2557,13 +2426,6 @@
           btn.classList.remove('button-click');
         }, 300);
       }
-    }
-
-    // Buy now function
-    function buyNow(productId, event) {
-      if (event) event.stopPropagation();
-      addToCart(productId, event);
-      showPage('checkout');
     }
 
     // Update cart count in navigation
@@ -2729,49 +2591,6 @@
 
     // Place order
     function placeOrder() {
-      if (cart.length === 0) {
-        showNotification('Your cart is empty');
-        return;
-      }
-      
-      // Calculate order total
-      let subtotal = 0;
-      let totalDiscount = 0;
-      const platformFee = 10;
-      const handlingFee = 15;
-      const deliveryFee = 49;
-      
-      cart.forEach(item => {
-        subtotal += item.price * item.quantity;
-        totalDiscount += (item.originalPrice - item.price) * item.quantity;
-      });
-      
-      const total = subtotal + platformFee + handlingFee + deliveryFee;
-      
-      // Get selected address
-      const selectedAddress = addresses.find(addr => addr.selected);
-      
-      // Create new order
-      const newOrder = {
-        id: 'QM' + Math.floor(Math.random() * 1000000),
-        date: new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' }),
-        items: [...cart],
-        subtotal,
-        totalDiscount,
-        platformFee,
-        handlingFee,
-        deliveryFee,
-        total,
-        address: selectedAddress,
-        paymentMethod: selectedPayment,
-        status: 'pending',
-        deliveryTime: '15-30 minutes'
-      };
-      
-      // Add to orders
-      orders.unshift(newOrder);
-      localStorage.setItem('orders', JSON.stringify(orders));
-      
       // Clear cart
       cart = [];
       localStorage.setItem('cart', JSON.stringify(cart));
@@ -2779,130 +2598,6 @@
       
       // Show confirmation page
       showPage('orderConfirmation');
-    }
-
-    // Render orders
-    function renderOrders() {
-      const ordersContainer = document.getElementById('ordersList');
-      ordersContainer.innerHTML = '';
-      
-      if (orders.length === 0) {
-        ordersContainer.innerHTML = '<p style="text-align: center; padding: 40px 0;">No orders yet</p>';
-        return;
-      }
-      
-      orders.forEach(order => {
-        const orderEl = document.createElement('div');
-        orderEl.className = 'order-item';
-        orderEl.onclick = () => showOrderDetails(order.id);
-        
-        let statusClass = '';
-        let statusText = '';
-        
-        if (order.status === 'delivered') {
-          statusClass = 'status-delivered';
-          statusText = 'Delivered';
-        } else if (order.status === 'cancelled') {
-          statusClass = 'status-cancelled';
-          statusText = 'Cancelled';
-        } else {
-          statusClass = 'status-pending';
-          statusText = 'Pending';
-        }
-        
-        orderEl.innerHTML = `
-          <div class="order-id">Order #${order.id}</div>
-          <div class="order-date">Placed on ${order.date}</div>
-          <div class="order-status ${statusClass}">${statusText}</div>
-          <div style="margin-top: 10px; font-weight: 600;">₹${order.total.toLocaleString('en-IN')}</div>
-        `;
-        
-        ordersContainer.appendChild(orderEl);
-      });
-    }
-
-    // Show order details
-    function showOrderDetails(orderId) {
-      const order = orders.find(o => o.id === orderId);
-      if (!order) return;
-      
-      currentOrder = order;
-      
-      document.getElementById('orderDetailsTitle').textContent = `Order #${order.id}`;
-      
-      // Set status
-      let statusClass = '';
-      let statusText = '';
-      
-      if (order.status === 'delivered') {
-        statusClass = 'status-delivered';
-        statusText = 'Delivered';
-      } else if (order.status === 'cancelled') {
-        statusClass = 'status-cancelled';
-        statusText = 'Cancelled';
-      } else {
-        statusClass = 'status-pending';
-        statusText = 'Pending';
-      }
-      
-      const statusEl = document.getElementById('orderDetailsStatus');
-      statusEl.textContent = statusText;
-      statusEl.className = `order-details-status ${statusClass}`;
-      
-      // Show/hide cancel button
-      const cancelBtn = document.getElementById('cancelOrderBtn');
-      if (order.status === 'pending') {
-        cancelBtn.style.display = 'block';
-      } else {
-        cancelBtn.style.display = 'none';
-      }
-      
-      // Set other details
-      document.getElementById('orderDetailsDate').textContent = order.date;
-      document.getElementById('orderDetailsDeliveryTime').textContent = order.deliveryTime;
-      document.getElementById('orderDetailsAddress').innerHTML = `
-        ${order.address.street}<br>
-        ${order.address.city}, ${order.address.state} ${order.address.zip}
-      `;
-      document.getElementById('orderDetailsPhone').textContent = order.address.phone;
-      
-      // Render items
-      const itemsContainer = document.getElementById('orderDetailsItems');
-      itemsContainer.innerHTML = '';
-      
-      order.items.forEach(item => {
-        const itemEl = document.createElement('div');
-        itemEl.style.display = 'flex';
-        itemEl.style.justifyContent = 'space-between';
-        itemEl.style.marginBottom = '10px';
-        itemEl.innerHTML = `
-          <span>${item.title} (${item.selectedWeight.text}) x ${item.quantity}</span>
-          <span>₹${(item.price * item.quantity).toLocaleString('en-IN')}</span>
-        `;
-        itemsContainer.appendChild(itemEl);
-      });
-      
-      // Set totals
-      document.getElementById('orderDetailsSubtotal').textContent = `₹${order.subtotal.toLocaleString('en-IN')}`;
-      document.getElementById('orderDetailsDiscount').textContent = `-₹${order.totalDiscount.toLocaleString('en-IN')}`;
-      document.getElementById('orderDetailsPlatformFee').textContent = `₹${order.platformFee.toLocaleString('en-IN')}`;
-      document.getElementById('orderDetailsHandlingFee').textContent = `₹${order.handlingFee.toLocaleString('en-IN')}`;
-      document.getElementById('orderDetailsDeliveryFee').textContent = `₹${order.deliveryFee.toLocaleString('en-IN')}`;
-      document.getElementById('orderDetailsTotal').textContent = `₹${order.total.toLocaleString('en-IN')}`;
-      
-      showPage('orderDetails');
-    }
-
-    // Cancel order
-    function cancelOrder() {
-      if (!currentOrder) return;
-      
-      currentOrder.status = 'cancelled';
-      localStorage.setItem('orders', JSON.stringify(orders));
-      
-      showNotification('Order cancelled successfully');
-      showPage('orders');
-      renderOrders();
     }
 
     // Render addresses
@@ -3070,7 +2765,6 @@
         'addAddressPage',
         'orderConfirmationPage',
         'ordersPage',
-        'orderDetailsPage',
         'addressesPage',
         'wishlistPage',
         'paymentsPage',
@@ -3082,8 +2776,11 @@
       });
       
       // Store last page for back navigation
-      if (page !== 'productDetail' && page !== 'addAddress' && page !== 'addPayment' && 
-          page !== 'orderDetails') {
+      if (page !== 'productDetail' && page !== 'categoryProducts' && 
+          page !== 'checkout' && page !== 'orderConfirmation' &&
+          page !== 'addAddress' && page !== 'orders' &&
+          page !== 'addresses' && page !== 'wishlist' &&
+          page !== 'payments' && page !== 'addPayment') {
         lastPage = page;
       }
       
@@ -3109,9 +2806,6 @@
         document.getElementById('orderConfirmationPage').style.display = 'block';
       } else if (page === 'orders') {
         document.getElementById('ordersPage').style.display = 'block';
-        renderOrders();
-      } else if (page === 'orderDetails') {
-        document.getElementById('orderDetailsPage').style.display = 'block';
       } else if (page === 'addresses') {
         document.getElementById('addressesPage').style.display = 'block';
         renderAddresses();
@@ -3128,9 +2822,8 @@
       if (page !== 'productDetail' && page !== 'categoryProducts' && 
           page !== 'checkout' && page !== 'orderConfirmation' &&
           page !== 'addAddress' && page !== 'orders' &&
-          page !== 'orderDetails' && page !== 'addresses' && 
-          page !== 'wishlist' && page !== 'payments' && 
-          page !== 'addPayment') {
+          page !== 'addresses' && page !== 'wishlist' &&
+          page !== 'payments' && page !== 'addPayment') {
         document.querySelectorAll('.nav-item').forEach(item => {
           item.classList.remove('active');
         });
@@ -3151,24 +2844,10 @@
         showPage('checkout');
       } else if (lastPage === 'addPayment') {
         showPage('payments');
-      } else if (lastPage === 'orderDetails') {
-        showPage('orders');
       } else {
         showPage(lastPage);
       }
     }
-
-    // Open product detail when clicking on product
-    document.addEventListener('click', function(e) {
-      if (e.target.closest('.product-card') && !e.target.closest('.wishlist-btn') && !e.target.closest('.product-actions')) {
-        const productCard = e.target.closest('.product-card');
-        const productTitle = productCard.querySelector('.product-title').textContent;
-        const product = products.find(p => p.title === productTitle);
-        if (product) {
-          showProductDetail(product.id);
-        }
-      }
-    });
   </script>
 </body>
 </html>
