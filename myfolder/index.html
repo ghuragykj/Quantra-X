@@ -21,6 +21,7 @@
       --danger: #ff4d4f;
       --warning: #faad14;
       --shadow: 0 2px 12px rgba(0,0,0,0.08);
+      --sidebar-width: 280px;
     }
 
     .dark {
@@ -46,6 +47,7 @@
       background: var(--bg);
       color: var(--text);
       padding-bottom: 70px;
+      overflow-x: hidden;
     }
 
     .container {
@@ -60,12 +62,26 @@
       flex-direction: column;
       gap: 10px;
       padding: 15px 0;
+      position: relative;
     }
 
     .top-bar {
       display: flex;
       align-items: center;
       gap: 15px;
+    }
+
+    .menu-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--primary-light);
+      cursor: pointer;
+      font-size: 20px;
+      color: var(--text);
     }
 
     .location-selector {
@@ -79,6 +95,36 @@
       font-weight: 500;
       cursor: pointer;
       white-space: nowrap;
+      flex: 1;
+    }
+
+    .cart-icon-mobile {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--primary-light);
+      cursor: pointer;
+      font-size: 20px;
+      color: var(--text);
+      position: relative;
+    }
+
+    .cart-count-mobile {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background: var(--primary);
+      color: white;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      font-size: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .search-bar {
@@ -110,6 +156,81 @@
       top: 50%;
       transform: translateY(-50%);
       color: var(--text-light);
+    }
+
+    /* Sidebar Menu Styles */
+    .sidebar-menu {
+      position: fixed;
+      top: 0;
+      left: -280px;
+      width: var(--sidebar-width);
+      height: 100vh;
+      background: var(--card-bg);
+      z-index: 1001;
+      overflow-y: auto;
+      transition: all 0.3s ease;
+      box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    }
+
+    .sidebar-menu.active {
+      left: 0;
+    }
+
+    .sidebar-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 15px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .sidebar-logo {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .close-menu {
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .menu-items {
+      padding: 15px 0;
+    }
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      padding: 15px 20px;
+      color: var(--text);
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .menu-item:hover {
+      background: var(--primary-light);
+    }
+
+    .menu-item i {
+      width: 30px;
+      font-size: 18px;
+      margin-right: 15px;
+    }
+
+    .menu-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 1000;
+      display: none;
+    }
+
+    .menu-overlay.active {
+      display: block;
     }
 
     .section-title {
@@ -179,7 +300,7 @@
     }
 
     .add-btn:hover {
-      background-color: #009944;
+      background: #009944;
     }
 
     .add-btn:disabled {
@@ -1171,17 +1292,145 @@
     .button-click {
       animation: buttonClick 0.3s ease;
     }
+
+    /* Desktop specific styles */
+    @media (min-width: 768px) {
+      .menu-toggle {
+        display: none;
+      }
+      
+      .cart-icon-mobile {
+        display: none;
+      }
+      
+      .sidebar-menu {
+        position: static;
+        width: auto;
+        height: auto;
+        background: transparent;
+        box-shadow: none;
+      }
+      
+      .sidebar-header, .close-menu {
+        display: none;
+      }
+      
+      .menu-items {
+        display: flex;
+        gap: 15px;
+        padding: 0;
+      }
+      
+      .menu-item {
+        padding: 8px 15px;
+        border-radius: 20px;
+        background: var(--primary-light);
+        color: var(--text);
+        font-weight: 500;
+      }
+      
+      .menu-item:hover {
+        background: var(--primary);
+        color: white;
+      }
+      
+      .menu-item i {
+        display: none;
+      }
+      
+      .menu-overlay {
+        display: none !important;
+      }
+      
+      .top-bar {
+        justify-content: space-between;
+      }
+      
+      .location-selector {
+        flex: 0 0 auto;
+        margin-right: auto;
+      }
+      
+      .search-bar {
+        max-width: 500px;
+        margin: 0 auto;
+      }
+    }
+
+    /* Mobile specific styles */
+    @media (max-width: 767px) {
+      .menu-items {
+        display: none;
+      }
+      
+      .sidebar-menu.active .menu-items {
+        display: block;
+      }
+    }
   </style>
 </head>
 <body>
+  <!-- Sidebar Menu -->
+  <div class="sidebar-menu">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">QuickMart</div>
+      <div class="close-menu" onclick="toggleMenu()">
+        <i class="fas fa-times"></i>
+      </div>
+    </div>
+    <div class="menu-items">
+      <a href="#" class="menu-item" onclick="showPage('home'); toggleMenu();">
+        <i class="fas fa-home"></i>
+        <span>Home</span>
+      </a>
+      <a href="#" class="menu-item" onclick="showPage('categories'); toggleMenu();">
+        <i class="fas fa-list"></i>
+        <span>Categories</span>
+      </a>
+      <a href="#" class="menu-item" onclick="showPage('cart'); toggleMenu();">
+        <i class="fas fa-shopping-cart"></i>
+        <span>Cart</span>
+      </a>
+      <a href="#" class="menu-item" onclick="showPage('account'); toggleMenu();">
+        <i class="fas fa-user"></i>
+        <span>Account</span>
+      </a>
+      <a href="#" class="menu-item" onclick="showPage('orders'); toggleMenu();">
+        <i class="fas fa-box"></i>
+        <span>Orders</span>
+      </a>
+      <a href="#" class="menu-item" onclick="showPage('wishlist'); toggleMenu();">
+        <i class="fas fa-heart"></i>
+        <span>Wishlist</span>
+      </a>
+      <a href="#" class="menu-item" onclick="showPage('addresses'); toggleMenu();">
+        <i class="fas fa-map-marker-alt"></i>
+        <span>Addresses</span>
+      </a>
+      <a href="#" class="menu-item" onclick="showPage('payments'); toggleMenu();">
+        <i class="fas fa-credit-card"></i>
+        <span>Payments</span>
+      </a>
+    </div>
+  </div>
+  
+  <div class="menu-overlay" onclick="toggleMenu()"></div>
+
   <div class="container">
     <!-- Header with location and search -->
     <div class="header">
       <div class="top-bar">
+        <div class="menu-toggle" onclick="toggleMenu()">
+          <i class="fas fa-bars"></i>
+        </div>
         <div class="location-selector">
           <i class="fas fa-map-marker-alt"></i>
           <span>Home</span>
           <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="cart-icon-mobile" onclick="showPage('cart')">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="cart-count-mobile">0</span>
         </div>
       </div>
       <div class="search-bar">
@@ -2096,6 +2345,13 @@
       updateWishlistCount();
     });
 
+    // Toggle menu
+    function toggleMenu() {
+      document.querySelector('.sidebar-menu').classList.toggle('active');
+      document.querySelector('.menu-overlay').classList.toggle('active');
+      document.body.classList.toggle('no-scroll');
+    }
+
     // Render product section
     function renderProductSection(sectionId, products) {
       const section = document.getElementById(sectionId);
@@ -2432,11 +2688,16 @@
     function updateCartCount() {
       const count = cart.reduce((sum, item) => sum + item.quantity, 0);
       const cartCount = document.querySelector('.cart-count');
+      const mobileCartCount = document.querySelector('.cart-count-mobile');
+      
       if (count > 0) {
         cartCount.textContent = count;
         cartCount.style.display = 'flex';
+        mobileCartCount.textContent = count;
+        mobileCartCount.style.display = 'flex';
       } else {
         cartCount.style.display = 'none';
+        mobileCartCount.style.display = 'none';
       }
     }
 
@@ -2851,6 +3112,3 @@
   </script>
 </body>
 </html>
-
-home cateogery cart aur profile menu ma dala do jab menu pa click karaga to sab deiha ga search bar ka uppar menu add kar dena 
-aur desktop ma bhi sahi sa unterface aaya aur mobile ma bhi 
