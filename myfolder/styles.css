@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete E-Commerce Product Cards</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            padding: 16px;
+            background-color: #f5f5f5;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin: 24px 0 16px;
+            color: #333;
+            padding-left: 8px;
+        }
+
+        .product-row {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding-bottom: 16px;
+            scrollbar-width: none;
+        }
+
+        .product-row::-webkit-scrollbar {
+            display: none;
+        }
+
+        .product-card {
+            width: 170px;
+            min-width: 170px;
+            height: 250px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .card-header {
+            position: relative;
+            height: 100px;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background-color: #f9f9f9;
+            padding: 10px;
+        }
+
+        .bestseller-tag {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background-color: #FFD700;
+            color: #333;
+            font-size: 10px;
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 4px;
+            z-index: 1;
+        }
+
+        .wishlist-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: white;
+            border: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+            color: #666;
+            cursor: pointer;
+        }
+
+        .wishlist-btn.active {
+            color: #ff4757;
+        }
+
+        .card-body {
+            padding: 10px 12px;
+            flex-grow: 1;
+        }
+
+        .product-name {
+            font-size: 13px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 4px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            height: 36px;
+            line-height: 18px;
+        }
+
+        .product-weight {
+            font-size: 11px;
+            color: #666;
+            margin-bottom: 6px;
+        }
+
+        .rating {
+            font-size: 11px;
+            color: #FF9529;
+            margin-bottom: 6px;
+        }
+
+        .review-count {
+            color: #666;
+        }
+
+        .delivery-time {
+            font-size: 11px;
+            color: #388E3C;
+            font-weight: 500;
+        }
+
+        .card-footer {
+            padding: 0 12px 12px;
+        }
+
+        .price {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-bottom: 8px;
+        }
+
+        .current-price {
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .original-price {
+            font-size: 12px;
+            color: #666;
+            text-decoration: line-through;
+        }
+
+        .discount {
+            font-size: 10px;
+            color: #388E3C;
+            font-weight: 500;
+        }
+
+        .add-btn {
+            width: 100%;
+            background: transparent;
+            border: 1px solid #388E3C;
+            color: #388E3C;
+            border-radius: 20px;
+            padding: 6px 0;
+            font-weight: bold;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .add-btn.added {
+            background: #388E3C;
+            color: white;
+        }
+
+        .add-btn.added::after {
+            content: "✓ ADDED";
+        }
+
+        .add-btn:not(.added)::after {
+            content: "ADD";
+        }
+    </style>
+</head>
+<body>
+    <!-- Grocery & Everyday Essentials -->
+    <h2 class="section-title">Grocery & Everyday Essentials</h2>
+    
+    <!-- Grains & Staples -->
+    <h3 class="section-title" style="font-size: 16px; margin: 12px 0 8px 12px;">Grains & Staples</h3>
+    <div class="product-row">
+        <div class="product-card">
+            <div class="card-header">
+                <span class="bestseller-tag">Bestseller</span>
+                <button class="wishlist-btn">♡</button>
+                <img src="https://m.media-amazon.com/images/I/61Lk8Z6sBIL._SL1500_.jpg" alt="Basmati Rice" class="product-image">
+            </div>
+            <div class="card-body">
+                <h3 class="product-name">India Gate Basmati Rice - Premium</h3>
+                <p class="product-weight">1kg</p>
+                <div class="rating">★★★★☆ <span class="review-count">(4.2k)</span></div>
+                <p class="delivery-time">22 MINS</p>
+            </div>
+            <div class="card-footer">
+                <div class="price">
+                    <span class="current-price">₹125</span>
+                    <span class="original-price">₹145</span>
+                    <span class="discount">14% OFF</span>
+                </div>
+                <button class="add-btn"></button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="card-header">
+                <button class="wishlist-btn">♡</button>
+                <img src="https://m.media-amazon.com/images/I/71vU2+UYrQL._SL1500_.jpg" alt="Wheat Flour" class="product-image">
+            </div>
+            <div class="card-body">
+                <h3 class="product-name">Aashirvaad Whole Wheat Atta</h3>
+                <p class="product-weight">5kg</p>
+                <div class="rating">★★★★★ <span class="review-count">(12.5k)</span></div>
+                <p class="delivery-time">18 MINS</p>
+            </div>
+            <div class="card-footer">
+                <div class="price">
+                    <span class="current-price">₹235</span>
+                    <span class="original-price">₹260</span>
+                    <span class="discount">10% OFF</span>
+                </div>
+                <button class="add-btn"></button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="card-header">
+                <span class="bestseller-tag">Bestseller</span>
+                <button class="wishlist-btn">♡</button>
+                <img src="https://m.media-amazon.com/images/I/71YHtY9WmwL._SL1500_.jpg" alt="Besan" class="product-image">
+            </div>
+            <div class="card-body">
+                <h3 class="product-name">Tata Sampann Chana Besan</h3>
+                <p class="product-weight">500g</p>
+                <div class="rating">★★★★☆ <span class="review-count">(3.8k)</span></div>
+                <p class="delivery-time">25 MINS</p>
+            </div>
+            <div class="card-footer">
+                <div class="price">
+                    <span class="current-price">₹55</span>
+                    <span class="original-price">₹65</span>
+                    <span class="discount">15% OFF</span>
+                </div>
+                <button class="add-btn"></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pulses & Legumes -->
+    <h3 class="section-title" style="font-size: 16px; margin: 12px 0 8px 12px;">Pulses & Legumes</h3>
+    <div class="product-row">
+        <div class="product-card">
+            <div class="card-header">
+                <span class="bestseller-tag">Bestseller</span>
+                <button class="wishlist-btn">♡</button>
+                <img src="https://m.media-amazon.com/images/I/71Y1W0KZ5GL._SL1500_.jpg" alt="Toor Dal" class="product-image">
+            </div>
+            <div class="card-body">
+                <h3 class="product-name">Tata Sampann Toor Dal</h3>
+                <p class="product-weight">1kg</p>
+                <div class="rating">★★★★☆ <span class="review-count">(5.7k)</span></div>
+                <p class="delivery-time">20 MINS</p>
+            </div>
+            <div class="card-footer">
+                <div class="price">
+                    <span class="current-price">₹145</span>
+                    <span class="original-price">₹165</span>
+                    <span class="discount">12% OFF</span>
+                </div>
+                <button class="add-btn"></button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="card-header">
+                <button class="wishlist-btn">♡</button>
+                <img src="https://m.media-amazon.com/images/I/71vU2+UYrQL._SL1500_.jpg" alt="Masoor Dal" class="product-image">
+            </div>
+            <div class="card-body">
+                <h3 class="product-name">Fortune Masoor Dal</h3>
+                <p class="product-weight">500g</p>
+                <div class="rating">★★★★★ <span class="review-count">(8.3k)</span></div>
+                <p class="delivery-time">15 MINS</p>
+            </div>
+            <div class="card-footer">
+                <div class="price">
+                    <span class="current-price">₹65</span>
+                    <span class="original-price">₹75</span>
+                    <span class="discount">13% OFF</span>
+                </div>
+                <button class="add-btn"></button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="card-header">
+                <span class="bestseller-tag">Bestseller</span>
+                <button class="wishlist-btn">♡</button>
+                <img src="https://m.media-amazon.com/images/I/71YHtY9WmwL._SL1500_.jpg" alt="Moong Dal" class="product-image">
+            </div>
+            <div class="card-body">
+                <h3 class="product-name">Tata Sampann Moong Dal</h3>
+                <p class="product-weight">500g</p>
+                <div class="rating">★★★★☆ <span class="review-count">(4.9k)</span></div>
+                <p class="delivery-time">18 MINS</p>
+            </div>
+            <div class="card-footer">
+                <div class="price">
+                    <span class="current-price">₹85</span>
+                    <span class="original-price">₹95</span>
+                    <span class="discount">11% OFF</span>
+                </div>
+                <button class="add-btn"></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cooking Oils & Fats -->
+    <h3 class="section-title" style="font-size: 16px; margin: 12px 0 8px 12px;">Cooking Oils & Fats</h3>
+    <div class="product-row">
+        <div class="product-card">
+            <div class="card-header">
+                <span class="bestseller-tag">Bestseller</span>
+                <button class="wishlist-btn">♡</button>
+                <img src="https://m.media-amazon.com/images/I/71JYHtBfRVL._SL1500_.jpg" alt="Sunflower Oil" class="product-image">
+            </div>
+            <div class="card-body">
+                <h3 class="product-name">Fortune Sunflower Oil</h3>
+                <p class="product-weight">1L</p>
+                <div class="rating">★★★★☆ <span class="review-count">(7.1k)</span></div>
+                <p class="delivery-time">20 MINS</p>
+            </div>
+            <div class="card-footer">
+                <div class="price">
+                    <span class="current-price">₹175</span>
+                    <span class="original-price">₹195</span>
+                    <span class="discount">10% OFF</span>
+                </div>
+                <button class="add-btn"></button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="card-header">
+                <button class="wishlist-btn">♡</button>
+                <img src="https://m.media-amazon.com/images/I/61uFrcoJ8FL._SL1500_.jpg" alt="Mustard Oil" class="product-image">
+            </div>
+            <div class="card-body">
+                <h3 class="product-name">Dhara Mustard Oil</h3>
+                <p class="product-weight">1L</p>
+                <div class="rating">★★★★☆ <span class="review-count">(5.3k)</span></div>
+                <p class="delivery-time">22 MINS</p>
+            </div>
+            <div class="card-footer">
+                <div class="price">
+                    <span class="current-price">₹165</span>
+                    <span class="original-price">₹185</span>
+                    <span class="discount">11% OFF</span>
+                </div>
+                <button class="add-btn"></button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="card-header">
+                <span class="bestseller-tag">Bestseller</span>
+                <button class="wishlist-btn">♡</button>
+                <img src="https://m.media-amazon.com/images/I/61YVjHSdpHL._SL1500_.jpg" alt="Ghee" class="product-image">
+            </div>
+            <div class="card-body">
+                <h3 class="product-name">Amul Pure Ghee</h3>
+                <p class="product-weight">500g</p>
+                <div class="rating">★★★★★ <span class="review-count">(15.2k)</span></div>
+                <p class="delivery-time">18 MINS</p>
+            </div>
+            <div class="card-footer">
+                <div class="price">
+                    <span class="current-price">₹295</span>
+                    <span class="original-price">₹325</span>
+                    <span class="discount">9% OFF</span>
+                </div>
+                <button class="add-btn"></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Spices & Seasonings -->
+    <h3 class="section-title" style="font-size: 16px; margin: 12px 0 8px 12px;">Spices & Seasonings</h3>
+    <div class="product-row">
+        <div class="product-card">
+            <div class="card-header">
+                <span class="bestseller-tag">Bestseller</span>
+                <button class="wishlist-btn">♡</button>
+                <img src="https://m.media-amazon.com/images/I/71Y1W0KZ5GL._SL1500_.jpg" alt="Turmeric Powder" class="product-image">
+            </div>
+            <div class="card-body">
+                <h3 class="product-name">Everest Turmeric Powder</h3>
+                <p class="product-weight">100g</p>
+                <div class="rating">★★★★★ <span class="review-count">(9.8k)</span></div>
+                <p class="delivery-time">15 MINS</p>
+            </div>
+            <div class="card-footer">
+                <div class="price">
+                    <span class="current-price">₹45</span>
+                    <span class="original-price">₹55</span>
+                    <span class="discount">18% OFF</span>
+                </div>
+                <button class="add-btn"></button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="card-header">
+                <button class="wishlist-btn">♡</button>
+                <img src="https://m.media-amazon.com/images/I/71vU2+UYrQL._SL1500_.jpg" alt="Red Chilli Powder" class="product-image">
+            </div>
+            <div class="card-body">
+                <h3 class="product-name">Everest Red Chilli Powder</h3>
+                <p class="product-weight">100g</p>
+                <div class="rating">★★★★☆ <span class="review-count">(7.5k)</span></div>
+                <p class="delivery-time">12 MINS</p>
+            </div>
+            <div class="card-footer">
+                <div class="price">
+                    <span class="current-price">₹55</span>
+                    <span class="original-price">₹65</span>
+                    <span class="discount">15% OFF</span>
+                </div>
+                <button class="add-btn"></button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="card-header">
+                <span class="bestseller-tag">Bestseller</span>
+                <button class="wishlist-btn">♡</button>
+                <img src="https://m.media-amazon.com/images/I/71YHtY9WmwL._SL1500_.jpg" alt="Garam Masala" class="product-image">
+            </div>
+            <div class="card-body">
+                <h3 class="product-name">MDH Garam Masala</h3>
+                <p class="product-weight">100g</p>
+                <div class="rating">★★★★★ <span class="review-count">(11.2k)</span></div>
+                <p class="delivery-time">10 MINS</p>
+            </div>
+            <div class="card-footer">
+                <div class="price">
+                    <span class="current-price">₹65</span>
+                    <span class="original-price">₹75</span>
+                    <span class="discount">13% OFF</span>
+                </div>
+                <button class="add-btn"></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Snacks & Confectionery -->
+    <h2 class="section-title">Snacks & Confectionery</h2>
+    <div class="product-row">
+        <div class="product-card">
+            <div class="card-header">
+                <span class="bestseller-tag">Bestseller</span>
+                <button class="wishlist-btn">♡</button>
+                <img src="https://m.media-amazon.com/images/I/61uFrcoJ8FL._SL1500_.jpg" alt="Lays Chips" class="product-image">
+            </div>
+            <div class="card-body">
+                <h3 class="product-name">Lays Potato Chips - Classic Salted</h3>
+                <p class="product-weight">52g</p>
+                <div class="rating">★★★★☆ <span class="review-count">(12.5k)</span></div>
+                <p class="delivery-time">20 MINS</p>
+            </div>
+            <div class="card-footer">
+                <div class="price">
+                    <span class="current-price">₹20</span>
+                    <span class="original-price">₹25</span>
+                    <span class="discount">20% OFF</span>
+                </div>
+                <button class="add-btn"></button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="card-header">
+                <button class="wishlist-btn">♡</button>
+                <img src="https://m.media-amazon.com/images/I/71VzQZqv9BL._SL1500_.jpg" alt="Marie Biscuits" class="product-image">
+            </div>
+            <div class="card-body">
+                <h3 class="product-name">Britannia Marie Gold Biscuits</h3>
+                <p class="product-weight">300g</p>
+                <div class="rating">★★★★☆ <span class="review-count">(8.9k)</span></div>
+                <p class="delivery-time">25 MINS</p>
+            </div>
+            <div class="card-footer">
+                <div class="price">
+                    <span class="current-price">₹45</span>
+                    <span class="original-price">₹50</span>
+                    <span class="discount">10% OFF</span>
+                </div>
+                <button class="add-btn"></button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="card-header">
+                <span class="bestseller-tag">Bestseller</span>
+                <button class="wishlist-btn">♡</button>
+                <img src="https://m.media-amazon.com/images/I/61YVjHSdpHL._SL1500_.jpg" alt="Dairy Milk" class="product-image">
+            </div>
+            <div class="card-body">
+                <h3 class="product-name">Cadbury Dairy Milk Chocolate</h3>
+                <p class="product-weight">55g</p>
+                <div class="rating">★★★★★ <span class="review-count">(15.2k)</span></div>
+                <p class="delivery-time">18 MINS</p>
+            </div>
+            <div class="card-footer">
+                <div class="price">
+                    <span class="current-price">₹30</span>
+                    <span class="original-price">₹35</span>
+                    <span class="discount">14% OFF</span>
+                </div>
+                <button class="add-btn"></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dairy & Refrigerated -->
+    <h2 class="section-title">Dairy & Refrigerated</h2>
+    <div class="product-row">
+        <div class="product-card">
+            <div class="card-header">
+                <span class="bestseller-tag">Bestseller</span>
+                <button class="wishlist-btn">♡</button>
+                <img src="https://m.media-amazon.com/images/I/61XZQXFQeVL._SL1500_.jpg" alt="Amul Butter" class="product-image">
+            </div>
+            <div class="card-body">
+                <h3 class="product-name">Amul Butter - Salted</h3>
+                <p class="product-weight">100g</p>
+                <div class="rating">★★★★★ <span class="review-count">(9.8k)</span></div>
+                <p class="delivery-time">15 MINS</p>
+            </div>
+            <div class="card-footer">
+                <div class="price">
+                    <span class="current-price">₹55</span>
+                    <span class="original-price">₹60</span>
+                    <span class="discount">8% OFF</span>
+                </div>
+                <button class="add-btn"></button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="card-header">
+                <button class="wishlist-btn">♡</button>
+                <img src="https://m.media-amazon.com/images/I/61nG4b0XJVL._SL1500_.jpg" alt="Amul Milk" class="product-image">
+            </div>
+            <div class="card-body">
+                <h3 class="product-name">Amul Taaza Homogenized Milk</h3>
+                <p class="product-weight">1L</p>
+                <div class="rating">★★★★☆ <span class="review-count">(7.5k)</span></div>
+                <p class="delivery-time">12 MINS</p>
+            </div>
+            <div class="card-footer">
+                <div class="price">
+                    <span class="current-price">₹66</span>
+                    <span class="original-price">₹70</span>
+                    <span class="discount">6% OFF</span>
+                </div>
+                <button class="add-btn"></button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="card-header">
+                <span class="bestseller-tag">Bestseller</span>
+                <button class="wishlist-btn">♡</button>
+                <img src="https://m.media-amazon.com/images/I/71YHtY9WmwL._SL1500_.jpg" alt="Mother Dairy Curd" class="product-image">
+            </div>
+            <div class="card-body">
+                <h3 class="product-name">Mother Dairy Fresh Curd</h3>
+                <p class="product-weight">400g</p>
+                <div class="rating">★★★★☆ <span class="review-count">(5.2k)</span></div>
+                <p class="delivery-time">10 MINS</p>
+            </div>
+            <div class="card-footer">
+                <div class="price">
+                    <span class="current-price">₹38</span>
+                    <span class="original-price">₹42</span>
+                    <span class="discount">10% OFF</span>
+                </div>
+                <button class="add-btn"></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- More categories can be added similarly -->
+
+    <script>
+        // Add to cart functionality
+        document.querySelectorAll('.add-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                this.classList.toggle('added');
+                
+                // Toggle product in cart (you would implement actual cart logic here)
+                const productCard = this.closest('.product-card');
+                const productName = productCard.querySelector('.product-name').textContent;
+                const productPrice = productCard.querySelector('.current-price').textContent;
+                
+                if (this.classList.contains('added')) {
+                    console.log(`Added to cart: ${productName} - ${productPrice}`);
+                } else {
+                    console.log(`Removed from cart: ${productName} - ${productPrice}`);
+                }
+            });
+        });
+
+        // Wishlist functionality
+        document.querySelectorAll('.wishlist-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                this.classList.toggle('active');
+                this.textContent = this.classList.contains('active') ? '♥' : '♡';
+                
+                const productCard = this.closest('.product-card');
+                const productName = productCard.querySelector('.product-name').textContent;
+                
+                if (this.classList.contains('active')) {
+                    console.log(`Added to wishlist: ${productName}`);
+                } else {
+                    console.log(`Removed from wishlist: ${productName}`);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
+tick lag kar hat jaya  aur image bhi load ho link sa aur iska Ui/UX sahi kar do 
