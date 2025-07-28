@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>QuickMart - Grocery Delivery in 15 Minutes</title>
+  <title>Brixo Mart - Grocery Delivery in 40 Minutes</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
   <style>
@@ -46,7 +46,7 @@
     body {
       background: var(--bg);
       color: var(--text);
-      padding-bottom: 70px;
+      padding-bottom: 20px;
       overflow-x: hidden;
     }
 
@@ -96,6 +96,24 @@
       cursor: pointer;
       white-space: nowrap;
       flex: 1;
+    }
+
+    .login-section {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .login-btn {
+      padding: 8px 15px;
+      background: var(--primary);
+      color: white;
+      border-radius: 20px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
     }
 
     .cart-icon-mobile {
@@ -340,77 +358,6 @@
       background-color: var(--primary-light);
     }
 
-    /* Bottom navigation styles */
-    .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 70px;
-      background: var(--card-bg);
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
-      z-index: 1000;
-    }
-
-    .nav-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      color: var(--text-light);
-      text-decoration: none;
-      font-size: 10px;
-      transition: all 0.2s;
-      padding: 8px 0;
-      flex: 1;
-      position: relative;
-    }
-
-    .nav-item i {
-      font-size: 22px;
-      margin-bottom: 3px;
-    }
-
-    .nav-item.active {
-      color: var(--primary);
-    }
-
-    .nav-item.active i {
-      transform: scale(1.1);
-    }
-
-    .cart-count {
-      position: absolute;
-      top: 0;
-      right: 25%;
-      background: var(--primary);
-      color: white;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      font-size: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .wishlist-count {
-      position: absolute;
-      top: 0;
-      right: 25%;
-      background: var(--secondary);
-      color: var(--text);
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      font-size: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
     /* Category bar styles */
     .category-scroll {
       display: flex;
@@ -462,6 +409,7 @@
       align-items: center;
       justify-content: center;
       font-size: 24px;
+      color: var(--primary);
     }
 
     .category-name {
@@ -820,6 +768,7 @@
     .category-grid-icon {
       font-size: 32px;
       margin-bottom: 10px;
+      color: var(--primary);
     }
 
     .category-grid-name {
@@ -1367,13 +1316,131 @@
         display: block;
       }
     }
+    
+    /* New category icons */
+    .category-icon {
+      font-size: 20px;
+    }
+    
+    /* Login modal */
+    .login-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s;
+    }
+    
+    .login-modal.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .login-content {
+      background: var(--card-bg);
+      border-radius: 12px;
+      width: 90%;
+      max-width: 400px;
+      padding: 25px;
+      position: relative;
+    }
+    
+    .close-login {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      font-size: 24px;
+      cursor: pointer;
+    }
+    
+    .login-title {
+      font-size: 22px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    
+    .login-input {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 15px;
+      font-size: 16px;
+    }
+    
+    .login-btn-modal {
+      width: 100%;
+      padding: 15px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    
+    .otp-section {
+      display: none;
+    }
+    
+    .otp-inputs {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin: 20px 0;
+    }
+    
+    .otp-input {
+      width: 40px;
+      height: 40px;
+      text-align: center;
+      font-size: 18px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
   </style>
 </head>
 <body>
+  <!-- Login Modal -->
+  <div class="login-modal" id="loginModal">
+    <div class="login-content">
+      <span class="close-login" onclick="closeLogin()">
+        <i class="fas fa-times"></i>
+      </span>
+      <h2 class="login-title">Login with Phone</h2>
+      <div class="phone-section" id="phoneSection">
+        <input type="tel" class="login-input" id="loginPhone" placeholder="Enter your phone number" maxlength="10">
+        <button class="login-btn-modal" onclick="sendOTP()">Send OTP</button>
+      </div>
+      <div class="otp-section" id="otpSection">
+        <p style="text-align: center;">Enter the OTP sent to your phone</p>
+        <div class="otp-inputs">
+          <input type="text" class="otp-input" maxlength="1">
+          <input type="text" class="otp-input" maxlength="1">
+          <input type="text" class="otp-input" maxlength="1">
+          <input type="text" class="otp-input" maxlength="1">
+          <input type="text" class="otp-input" maxlength="1">
+          <input type="text" class="otp-input" maxlength="1">
+        </div>
+        <button class="login-btn-modal" onclick="verifyOTP()">Verify OTP</button>
+      </div>
+    </div>
+  </div>
+  
   <!-- Sidebar Menu -->
   <div class="sidebar-menu">
     <div class="sidebar-header">
-      <div class="sidebar-logo">QuickMart</div>
+      <div class="sidebar-logo">QuickGrocer</div>
       <div class="close-menu" onclick="toggleMenu()">
         <i class="fas fa-times"></i>
       </div>
@@ -1428,9 +1495,15 @@
           <span>Home</span>
           <i class="fas fa-chevron-down"></i>
         </div>
-        <div class="cart-icon-mobile" onclick="showPage('cart')">
-          <i class="fas fa-shopping-cart"></i>
-          <span class="cart-count-mobile">0</span>
+        <div class="login-section">
+          <div class="login-btn" onclick="openLogin()">
+            <i class="fas fa-user"></i>
+            <span>Login</span>
+          </div>
+          <div class="cart-icon-mobile" onclick="showPage('cart')">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-count-mobile">0</span>
+          </div>
         </div>
       </div>
       <div class="search-bar">
@@ -1466,20 +1539,6 @@
                 <button class="hero-btn">SHOP NOW</button>
               </div>
             </div>
-            <div class="swiper-slide" style="background-image: linear-gradient(rgba(0,0,0,0.3), url('https://images.unsplash.com/photo-1548940740-204726a19be3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
-              <div class="hero-content">
-                <h2 class="hero-title">Dairy & Eggs</h2>
-                <p class="hero-subtitle">Fresh dairy products delivered daily</p>
-                <button class="hero-btn">SHOP NOW</button>
-              </div>
-            </div>
-            <div class="swiper-slide" style="background-image: linear-gradient(rgba(0,0,0,0.3), url('https://images.unsplash.com/photo-1556911220-e15b29be8c8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
-              <div class="hero-content">
-                <h2 class="hero-title">Snacks & Beverages</h2>
-                <p class="hero-subtitle">Your favorite snacks at discounted prices</p>
-                <button class="hero-btn">SHOP NOW</button>
-              </div>
-            </div>
           </div>
           <div class="swiper-pagination"></div>
         </div>
@@ -1488,35 +1547,51 @@
       <!-- Category Bar -->
       <div class="category-scroll">
         <div class="category-card active" onclick="filterProducts('all')">
-          <div class="category-icon">⭐</div>
+          <div class="category-icon">
+            <i class="fas fa-star"></i>
+          </div>
           <div class="category-name">All</div>
         </div>
         <div class="category-card" onclick="filterProducts('fruits')">
-          <div class="category-icon">🍎</div>
+          <div class="category-icon">
+            <i class="fas fa-apple-alt"></i>
+          </div>
           <div class="category-name">Fruits</div>
         </div>
         <div class="category-card" onclick="filterProducts('vegetables')">
-          <div class="category-icon">🥕</div>
+          <div class="category-icon">
+            <i class="fas fa-carrot"></i>
+          </div>
           <div class="category-name">Vegetables</div>
         </div>
         <div class="category-card" onclick="filterProducts('dairy')">
-          <div class="category-icon">🥛</div>
+          <div class="category-icon">
+            <i class="fas fa-wine-bottle"></i>
+          </div>
           <div class="category-name">Dairy</div>
         </div>
         <div class="category-card" onclick="filterProducts('eggs-meat')">
-          <div class="category-icon">🥚</div>
+          <div class="category-icon">
+            <i class="fas fa-egg"></i>
+          </div>
           <div class="category-name">Eggs & Meat</div>
         </div>
         <div class="category-card" onclick="filterProducts('snacks')">
-          <div class="category-icon">🍿</div>
+          <div class="category-icon">
+            <i class="fas fa-cookie"></i>
+          </div>
           <div class="category-name">Snacks</div>
         </div>
         <div class="category-card" onclick="filterProducts('beverages')">
-          <div class="category-icon">🥤</div>
+          <div class="category-icon">
+            <i class="fas fa-wine-glass-alt"></i>
+          </div>
           <div class="category-name">Beverages</div>
         </div>
         <div class="category-card" onclick="filterProducts('staples')">
-          <div class="category-icon">🍚</div>
+          <div class="category-icon">
+            <i class="fas fa-bread-slice"></i>
+          </div>
           <div class="category-name">Staples</div>
         </div>
       </div>
@@ -1560,35 +1635,51 @@
       
       <div class="categories-grid">
         <div class="category-grid-card" onclick="showCategoryProducts('fruits')">
-          <div class="category-grid-icon">🍎</div>
+          <div class="category-grid-icon">
+            <i class="fas fa-apple-alt"></i>
+          </div>
           <div class="category-grid-name">Fruits</div>
         </div>
         <div class="category-grid-card" onclick="showCategoryProducts('vegetables')">
-          <div class="category-grid-icon">🥕</div>
+          <div class="category-grid-icon">
+            <i class="fas fa-carrot"></i>
+          </div>
           <div class="category-grid-name">Vegetables</div>
         </div>
         <div class="category-grid-card" onclick="showCategoryProducts('dairy')">
-          <div class="category-grid-icon">🥛</div>
+          <div class="category-grid-icon">
+            <i class="fas fa-wine-bottle"></i>
+          </div>
           <div class="category-grid-name">Dairy</div>
         </div>
         <div class="category-grid-card" onclick="showCategoryProducts('eggs-meat')">
-          <div class="category-grid-icon">🥚</div>
+          <div class="category-grid-icon">
+            <i class="fas fa-egg"></i>
+          </div>
           <div class="category-grid-name">Eggs & Meat</div>
         </div>
         <div class="category-grid-card" onclick="showCategoryProducts('snacks')">
-          <div class="category-grid-icon">🍿</div>
+          <div class="category-grid-icon">
+            <i class="fas fa-cookie"></i>
+          </div>
           <div class="category-grid-name">Snacks</div>
         </div>
         <div class="category-grid-card" onclick="showCategoryProducts('beverages')">
-          <div class="category-grid-icon">🥤</div>
+          <div class="category-grid-icon">
+            <i class="fas fa-wine-glass-alt"></i>
+          </div>
           <div class="category-grid-name">Beverages</div>
         </div>
         <div class="category-grid-card" onclick="showCategoryProducts('staples')">
-          <div class="category-grid-icon">🍚</div>
+          <div class="category-grid-icon">
+            <i class="fas fa-bread-slice"></i>
+          </div>
           <div class="category-grid-name">Staples</div>
         </div>
         <div class="category-grid-card" onclick="showCategoryProducts('bakery')">
-          <div class="category-grid-icon">🍞</div>
+          <div class="category-grid-icon">
+            <i class="fas fa-birthday-cake"></i>
+          </div>
           <div class="category-grid-name">Bakery</div>
         </div>
       </div>
@@ -1976,22 +2067,8 @@
         <h1 style="font-size: 20px; font-weight: 600;">My Orders</h1>
       </div>
       
-      <div style="padding: 15px 0;">
-        <div class="order-item">
-          <div class="order-id">Order #QM12345</div>
-          <div class="order-date">Placed on 15 July 2023</div>
-          <div class="order-status status-delivered">Delivered</div>
-        </div>
-        <div class="order-item">
-          <div class="order-id">Order #QM12344</div>
-          <div class="order-date">Placed on 10 July 2023</div>
-          <div class="order-status status-delivered">Delivered</div>
-        </div>
-        <div class="order-item">
-          <div class="order-id">Order #QM12343</div>
-          <div class="order-date">Placed on 5 July 2023</div>
-          <div class="order-status status-pending">Pending</div>
-        </div>
+      <div style="padding: 15px 0;" id="ordersList">
+        <!-- Orders will be inserted here -->
       </div>
     </div>
 
@@ -2129,28 +2206,6 @@
     </div>
   </div>
 
-  <!-- Bottom Navigation -->
-  <nav class="bottom-nav">
-    <a href="#" class="nav-item active" onclick="showPage('home')">
-      <i class="fas fa-home"></i>
-      <span>Home</span>
-    </a>
-    <a href="#" class="nav-item" onclick="showPage('categories')">
-      <i class="fas fa-list"></i>
-      <span>Categories</span>
-    </a>
-    <a href="#" class="nav-item" onclick="showPage('cart')">
-      <i class="fas fa-shopping-cart"></i>
-      <span>Cart</span>
-      <span class="cart-count">0</span>
-    </a>
-    <a href="#" class="nav-item" onclick="showPage('account')">
-      <i class="fas fa-user"></i>
-      <span>Account</span>
-      <span class="wishlist-count">0</span>
-    </a>
-  </nav>
-
   <!-- Notification Element -->
   <div id="notification" class="notification"></div>
 
@@ -2282,6 +2337,7 @@
     // App data
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
     let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+    let orders = JSON.parse(localStorage.getItem('orders')) || [];
     let darkMode = localStorage.getItem('darkMode') === 'true';
     let lastPage = 'home';
     let currentCategory = 'all';
@@ -2350,6 +2406,37 @@
       document.querySelector('.sidebar-menu').classList.toggle('active');
       document.querySelector('.menu-overlay').classList.toggle('active');
       document.body.classList.toggle('no-scroll');
+    }
+    
+    // Open login modal
+    function openLogin() {
+      document.getElementById('loginModal').classList.add('active');
+    }
+    
+    // Close login modal
+    function closeLogin() {
+      document.getElementById('loginModal').classList.remove('active');
+    }
+    
+    // Send OTP
+    function sendOTP() {
+      const phone = document.getElementById('loginPhone').value;
+      if (!phone || phone.length !== 10) {
+        showNotification('Please enter a valid 10-digit phone number');
+        return;
+      }
+      
+      // Show OTP section
+      document.getElementById('phoneSection').style.display = 'none';
+      document.getElementById('otpSection').style.display = 'block';
+    }
+    
+    // Verify OTP
+    function verifyOTP() {
+      // Simulate OTP verification
+      showNotification('Login successful!');
+      closeLogin();
+      document.querySelector('.login-btn span').textContent = 'Hi, User';
     }
 
     // Render product section
@@ -2687,16 +2774,12 @@
     // Update cart count in navigation
     function updateCartCount() {
       const count = cart.reduce((sum, item) => sum + item.quantity, 0);
-      const cartCount = document.querySelector('.cart-count');
       const mobileCartCount = document.querySelector('.cart-count-mobile');
       
       if (count > 0) {
-        cartCount.textContent = count;
-        cartCount.style.display = 'flex';
         mobileCartCount.textContent = count;
         mobileCartCount.style.display = 'flex';
       } else {
-        cartCount.style.display = 'none';
         mobileCartCount.style.display = 'none';
       }
     }
@@ -2852,6 +2935,35 @@
 
     // Place order
     function placeOrder() {
+      // Calculate order total
+      let subtotal = 0;
+      cart.forEach(item => {
+        subtotal += item.price * item.quantity;
+      });
+      
+      // Create order object
+      const order = {
+        id: 'ORD' + Date.now().toString(36).toUpperCase(),
+        date: new Date().toLocaleDateString('en-IN', { 
+          day: '2-digit',
+          month: 'short',
+          year: 'numeric'
+        }),
+        items: cart.map(item => ({ 
+          id: item.id,
+          title: item.title,
+          price: item.price,
+          quantity: item.quantity,
+          weight: item.selectedWeight.text
+        })),
+        total: subtotal + 10 + 15 + 49, // subtotal + fees
+        status: 'Processing'
+      };
+      
+      // Save order
+      orders.push(order);
+      localStorage.setItem('orders', JSON.stringify(orders));
+      
       // Clear cart
       cart = [];
       localStorage.setItem('cart', JSON.stringify(cart));
@@ -2859,6 +2971,32 @@
       
       // Show confirmation page
       showPage('orderConfirmation');
+      
+      // Update orders list
+      renderOrders();
+    }
+
+    // Render orders
+    function renderOrders() {
+      const ordersContainer = document.getElementById('ordersList');
+      ordersContainer.innerHTML = '';
+      
+      if (orders.length === 0) {
+        ordersContainer.innerHTML = '<p style="text-align: center; padding: 20px;">No orders found</p>';
+        return;
+      }
+      
+      orders.forEach(order => {
+        const orderEl = document.createElement('div');
+        orderEl.className = 'order-item';
+        orderEl.innerHTML = `
+          <div class="order-id">Order #${order.id}</div>
+          <div class="order-date">Placed on ${order.date}</div>
+          <div class="order-status">${order.status}</div>
+          <div>Total: ₹${order.total.toLocaleString('en-IN')}</div>
+        `;
+        ordersContainer.appendChild(orderEl);
+      });
     }
 
     // Render addresses
@@ -3067,6 +3205,7 @@
         document.getElementById('orderConfirmationPage').style.display = 'block';
       } else if (page === 'orders') {
         document.getElementById('ordersPage').style.display = 'block';
+        renderOrders();
       } else if (page === 'addresses') {
         document.getElementById('addressesPage').style.display = 'block';
         renderAddresses();
@@ -3077,23 +3216,6 @@
         document.getElementById('paymentsPage').style.display = 'block';
       } else if (page === 'addPayment') {
         document.getElementById('addPaymentPage').style.display = 'block';
-      }
-      
-      // Update active nav item
-      if (page !== 'productDetail' && page !== 'categoryProducts' && 
-          page !== 'checkout' && page !== 'orderConfirmation' &&
-          page !== 'addAddress' && page !== 'orders' &&
-          page !== 'addresses' && page !== 'wishlist' &&
-          page !== 'payments' && page !== 'addPayment') {
-        document.querySelectorAll('.nav-item').forEach(item => {
-          item.classList.remove('active');
-        });
-        
-        if (page === 'home' || page === 'categories' || page === 'categoryProducts') {
-          document.querySelector('.nav-item[onclick*="home"]').classList.add('active');
-        } else {
-          document.querySelector(`.nav-item[onclick*="${page}"]`).classList.add('active');
-        }
       }
     }
 
@@ -3114,4 +3236,7 @@
 </html>
 
 
-nicha sa home cateogery cart account hata do  aur uppar ma cart ka bagal ma phone no sa logine waloa bhi add kar dena to  aur munu ma bhi banner ba photo nahi load  ho raha ha wa bhi load kar dena  full update kar ka code do to aur desktop mood ma bar nahi aa raha ha desktop ma bhi bar aaya
+is code ka kharabi batlao to jis §a inatractive lagta ha ya aur ya sara product bhi add kar dena 
+
+
+ full code do upgrade kar do
