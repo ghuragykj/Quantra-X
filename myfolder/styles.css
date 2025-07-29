@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+'Sahi sa work nahi kar raha ha function ham cart nahi kar pa raha h aaur product ,a click karaga to uska detail dikhaya ga <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -259,6 +259,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      padding-left: 8px;
     }
 
     .view-all {
@@ -305,57 +306,321 @@
       color: var(--danger);
     }
 
-    .add-btn {
-      background-color: var(--primary);
-      color: white;
-      border: none;
-      border-radius: 4px;
-      padding: 8px 12px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-      flex: 1;
-    }
-
-    .add-btn:hover {
-      background: #009944;
-    }
-
-    .add-btn:disabled {
-      background-color: var(--border);
-      cursor: not-allowed;
-      opacity: 0.7;
-    }
-
-    .product-actions {
+    /* Product row styles */
+    .product-row {
       display: flex;
-      gap: 10px;
-      margin-top: 10px;
+      gap: 16px;
+      overflow-x: auto;
+      padding-bottom: 16px;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
     }
 
-    .quantity-selector {
+    .product-row::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Product card styles */
+    .product-card {
+      width: 180px;
+      min-width: 180px;
+      height: 270px;
+      background: var(--card-bg);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
       display: flex;
-      align-items: center;
-      gap: 8px;
+      flex-direction: column;
+      position: relative;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: 1px solid var(--border);
     }
 
-    .quantity-btn {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      border: 1px solid var(--primary);
-      background: none;
-      color: var(--primary);
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+    }
+
+    .card-header {
+      position: relative;
+      height: 110px;
+      background-color: var(--primary-light);
+    }
+
+    .product-image {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 10px;
+      transition: transform 0.3s;
+      background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
+      background-size: 200% 100%;
+      animation: 1.5s shine linear infinite;
+    }
+
+    .dark .product-image {
+      background: linear-gradient(110deg, #333 8%, #444 18%, #333 33%);
+    }
+
+    .product-image:hover {
+      transform: scale(1.05);
+    }
+
+    .bestseller-tag {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      background-color: #FFD700;
+      color: #333;
+      font-size: 10px;
       font-weight: bold;
-      cursor: pointer;
+      padding: 3px 8px;
+      border-radius: 4px;
+      z-index: 1;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .wishlist-btn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: var(--card-bg);
+      border: none;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      z-index: 1;
+      color: #666;
+      cursor: pointer;
       transition: all 0.2s;
     }
 
-    .quantity-btn:hover {
-      background-color: var(--primary-light);
+    .wishlist-btn:hover {
+      transform: scale(1.1);
+    }
+
+    .wishlist-btn.active {
+      color: var(--danger);
+    }
+
+    .card-body {
+      padding: 12px;
+      flex-grow: 1;
+    }
+
+    .product-name {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 6px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      height: 36px;
+      line-height: 18px;
+    }
+
+    .product-weight {
+      font-size: 11px;
+      color: var(--text-light);
+      margin-bottom: 8px;
+    }
+
+    .rating {
+      display: flex;
+      align-items: center;
+      font-size: 11px;
+      color: #FF9529;
+      margin-bottom: 8px;
+    }
+
+    .stars {
+      margin-right: 4px;
+      letter-spacing: 1px;
+    }
+
+    .review-count {
+      color: var(--text-light);
+    }
+
+    .delivery-time {
+      font-size: 11px;
+      color: var(--primary);
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+    }
+
+    .delivery-time::before {
+      content: "🛵";
+      margin-right: 4px;
+      font-size: 10px;
+    }
+
+    .card-footer {
+      padding: 0 12px 12px;
+    }
+
+    .price {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+
+    .current-price {
+      font-weight: bold;
+      font-size: 15px;
+      color: var(--text);
+    }
+
+    .original-price {
+      font-size: 12px;
+      color: var(--text-light);
+      text-decoration: line-through;
+    }
+
+    .discount {
+      font-size: 11px;
+      color: var(--success);
+      font-weight: 600;
+      background: var(--primary-light);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .add-btn {
+      width: 100%;
+      background: transparent;
+      border: 1px solid var(--primary);
+      color: var(--primary);
+      border-radius: 20px;
+      padding: 7px 0;
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .add-btn:hover {
+      background: rgba(0, 177, 79, 0.1);
+    }
+
+    .add-btn.added {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .add-btn::after {
+      content: "ADD";
+      display: block;
+      transition: opacity 0.2s;
+    }
+
+    .add-btn.added::after {
+      content: "✓ ADDED";
+    }
+
+    /* Subcategory styling */
+    .subcategory-title {
+      font-size: 16px; 
+      margin: 16px 0 8px 12px;
+      color: var(--text-light);
+      font-weight: 500;
+      position: relative;
+      padding-left: 8px;
+    }
+
+    .subcategory-title::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 2px;
+      height: 16px;
+      width: 4px;
+      background: var(--primary);
+      border-radius: 2px;
+    }
+
+    @keyframes shine {
+      to {
+        background-position-x: -200%;
+      }
+    }
+
+    /* Hero banner styles */
+    .hero-slider {
+      height: 200px;
+      border-radius: 12px;
+      margin: 15px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .swiper {
+      width: 100%;
+      height: 100%;
+    }
+
+    .swiper-slide {
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+
+    .hero-content {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 20px;
+      background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+      color: white;
+    }
+
+    .hero-title {
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+
+    .hero-subtitle {
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+
+    .hero-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .hero-btn:hover {
+      background: #009944;
+    }
+
+    .swiper-pagination-bullet {
+      width: 8px;
+      height: 8px;
+      background: rgba(255,255,255,0.5);
+      opacity: 1;
+    }
+
+    .swiper-pagination-bullet-active {
+      background: var(--primary);
     }
 
     /* Category bar styles */
@@ -437,180 +702,6 @@
       .product-grid {
         grid-template-columns: repeat(2, 1fr);
       }
-    }
-
-    .product-card {
-      background: var(--card-bg);
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: var(--shadow);
-      transition: all 0.2s;
-      border: 1px solid var(--border);
-      position: relative;
-      cursor: pointer;
-    }
-
-    .product-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
-
-    .product-image {
-      width: 100%;
-      height: 140px;
-      background: #f5f5f5;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-    }
-
-    .dark .product-image {
-      background: #2a2a2a;
-    }
-
-    .product-image img {
-      max-width: 80%;
-      max-height: 80%;
-      object-fit: contain;
-      transition: transform 0.3s ease;
-    }
-
-    .product-card:hover .product-image img {
-      transform: scale(1.05);
-    }
-
-    .wishlist-btn {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background: rgba(255, 255, 255, 0.8);
-      border: none;
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      color: var(--danger);
-      font-size: 16px;
-      transition: all 0.2s;
-      z-index: 2;
-    }
-
-    .dark .wishlist-btn {
-      background: rgba(30, 30, 30, 0.8);
-    }
-
-    .wishlist-btn.active {
-      color: var(--danger);
-    }
-
-    .wishlist-btn:hover {
-      transform: scale(1.1);
-    }
-
-    .product-info {
-      padding: 12px;
-    }
-
-    .product-title {
-      font-size: 14px;
-      margin-bottom: 8px;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      min-height: 40px;
-      line-height: 1.4;
-    }
-
-    .product-price {
-      font-weight: 700;
-      margin-bottom: 5px;
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 5px;
-    }
-
-    .product-unit-price {
-      font-size: 12px;
-      color: var(--text-light);
-      margin-bottom: 5px;
-    }
-
-    .delivery-time {
-      font-size: 12px;
-      color: var(--primary);
-      margin-top: 5px;
-    }
-
-    /* Hero banner styles */
-    .hero-slider {
-      height: 200px;
-      border-radius: 12px;
-      margin: 15px 0;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .swiper {
-      width: 100%;
-      height: 100%;
-    }
-
-    .swiper-slide {
-      background-size: cover;
-      background-position: center;
-      position: relative;
-    }
-
-    .hero-content {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      padding: 20px;
-      background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-      color: white;
-    }
-
-    .hero-title {
-      font-size: 20px;
-      margin-bottom: 8px;
-    }
-
-    .hero-subtitle {
-      font-size: 14px;
-      margin-bottom: 12px;
-    }
-
-    .hero-btn {
-      background: var(--primary);
-      color: white;
-      border: none;
-      padding: 8px 20px;
-      border-radius: 20px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .hero-btn:hover {
-      background: #009944;
-    }
-
-    .swiper-pagination-bullet {
-      width: 8px;
-      height: 8px;
-      background: rgba(255,255,255,0.5);
-      opacity: 1;
-    }
-
-    .swiper-pagination-bullet-active {
-      background: var(--primary);
     }
 
     /* Cart page styles */
@@ -1440,7 +1531,7 @@
   <!-- Sidebar Menu -->
   <div class="sidebar-menu">
     <div class="sidebar-header">
-      <div class="sidebar-logo">QuickGrocer</div>
+      <div class="sidebar-logo">Brixo mart</div>
       <div class="close-menu" onclick="toggleMenu()">
         <i class="fas fa-times"></i>
       </div>
@@ -1543,6 +1634,7 @@
           <div class="swiper-pagination"></div>
         </div>
       </div>
+      
 
       <!-- Category Bar -->
       <div class="category-scroll">
@@ -1601,8 +1693,104 @@
         Top Deals
         <span class="view-all" onclick="showCategoryProducts('top-deals')">View All</span>
       </h2>
-      <div class="product-grid" id="topDeals">
-        <!-- Products will be inserted here by JavaScript -->
+      <div class="product-row">
+        <div class="product-card">
+          <div class="card-header">
+            <span class="bestseller-tag">Bestseller</span>
+            <button class="wishlist-btn">♡</button>
+            <img src="https://m.media-amazon.com/images/I/61Lk8Z6sBIL._SL1500_.jpg" alt="Basmati Rice" class="product-image" loading="lazy">
+          </div>
+          <div class="card-body">
+            <h3 class="product-name">India Gate Basmati Rice - Premium</h3>
+            <p class="product-weight">1kg</p>
+            <div class="rating">
+              <span class="stars">★★★★☆</span>
+              <span class="review-count">(4.2k)</span>
+            </div>
+            <p class="delivery-time">22 MINS</p>
+          </div>
+          <div class="card-footer">
+            <div class="price">
+              <span class="current-price">₹125</span>
+              <span class="original-price">₹145</span>
+              <span class="discount">14% OFF</span>
+            </div>
+            <button class="add-btn"></button>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="card-header">
+            <button class="wishlist-btn">♡</button>
+            <img src="https://m.media-amazon.com/images/I/61lZzZzZ-ZL._SL1500_.jpg" alt="Fortune Sunflower Oil" class="product-image" loading="lazy">
+          </div>
+          <div class="card-body">
+            <h3 class="product-name">Fortune Sunflower Oil</h3>
+            <p class="product-weight">1L</p>
+            <div class="rating">
+              <span class="stars">★★★★☆</span>
+              <span class="review-count">(3.8k)</span>
+            </div>
+            <p class="delivery-time">18 MINS</p>
+          </div>
+          <div class="card-footer">
+            <div class="price">
+              <span class="current-price">₹175</span>
+              <span class="original-price">₹195</span>
+              <span class="discount">10% OFF</span>
+            </div>
+            <button class="add-btn"></button>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="card-header">
+            <span class="bestseller-tag">Bestseller</span>
+            <button class="wishlist-btn">♡</button>
+            <img src="https://m.media-amazon.com/images/I/61Lk8Z6sBIL._SL1500_.jpg" alt="Tata Salt" class="product-image" loading="lazy">
+          </div>
+          <div class="card-body">
+            <h3 class="product-name">Tata Salt - Iodized</h3>
+            <p class="product-weight">1kg</p>
+            <div class="rating">
+              <span class="stars">★★★★☆</span>
+              <span class="review-count">(5.1k)</span>
+            </div>
+            <p class="delivery-time">15 MINS</p>
+          </div>
+          <div class="card-footer">
+            <div class="price">
+              <span class="current-price">₹25</span>
+              <span class="original-price">₹30</span>
+              <span class="discount">17% OFF</span>
+            </div>
+            <button class="add-btn"></button>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="card-header">
+            <button class="wishlist-btn">♡</button>
+            <img src="https://m.media-amazon.com/images/I/61Lk8Z6sBIL._SL1500_.jpg" alt="Aashirvaad Atta" class="product-image" loading="lazy">
+          </div>
+          <div class="card-body">
+            <h3 class="product-name">Aashirvaad Whole Wheat Atta</h3>
+            <p class="product-weight">5kg</p>
+            <div class="rating">
+              <span class="stars">★★★★☆</span>
+              <span class="review-count">(6.3k)</span>
+            </div>
+            <p class="delivery-time">20 MINS</p>
+          </div>
+          <div class="card-footer">
+            <div class="price">
+              <span class="current-price">₹225</span>
+              <span class="original-price">₹250</span>
+              <span class="discount">10% OFF</span>
+            </div>
+            <button class="add-btn"></button>
+          </div>
+        </div>
       </div>
 
       <!-- Daily Essentials Section -->
@@ -1610,8 +1798,104 @@
         Daily Essentials
         <span class="view-all" onclick="showCategoryProducts('daily-essentials')">View All</span>
       </h2>
-      <div class="product-grid" id="dailyEssentials">
-        <!-- Products will be inserted here by JavaScript -->
+      <div class="product-row">
+        <div class="product-card">
+          <div class="card-header">
+            <span class="bestseller-tag">Bestseller</span>
+            <button class="wishlist-btn">♡</button>
+            <img src="https://m.media-amazon.com/images/I/61Lk8Z6sBIL._SL1500_.jpg" alt="Amul Milk" class="product-image" loading="lazy">
+          </div>
+          <div class="card-body">
+            <h3 class="product-name">Amul Taaza Homogenized Toned Milk</h3>
+            <p class="product-weight">1L</p>
+            <div class="rating">
+              <span class="stars">★★★★☆</span>
+              <span class="review-count">(4.5k)</span>
+            </div>
+            <p class="delivery-time">10 MINS</p>
+          </div>
+          <div class="card-footer">
+            <div class="price">
+              <span class="current-price">₹58</span>
+              <span class="original-price">₹62</span>
+              <span class="discount">6% OFF</span>
+            </div>
+            <button class="add-btn"></button>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="card-header">
+            <button class="wishlist-btn">♡</button>
+            <img src="https://m.media-amazon.com/images/I/61Lk8Z6sBIL._SL1500_.jpg" alt="Amul Butter" class="product-image" loading="lazy">
+          </div>
+          <div class="card-body">
+            <h3 class="product-name">Amul Salted Butter</h3>
+            <p class="product-weight">100g</p>
+            <div class="rating">
+              <span class="stars">★★★★☆</span>
+              <span class="review-count">(3.9k)</span>
+            </div>
+            <p class="delivery-time">12 MINS</p>
+          </div>
+          <div class="card-footer">
+            <div class="price">
+              <span class="current-price">₹50</span>
+              <span class="original-price">₹55</span>
+              <span class="discount">9% OFF</span>
+            </div>
+            <button class="add-btn"></button>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="card-header">
+            <span class="bestseller-tag">Bestseller</span>
+            <button class="wishlist-btn">♡</button>
+            <img src="https://m.media-amazon.com/images/I/61Lk8Z6sBIL._SL1500_.jpg" alt="Nestle Curd" class="product-image" loading="lazy">
+          </div>
+          <div class="card-body">
+            <h3 class="product-name">Nestle Classic Curd</h3>
+            <p class="product-weight">400g</p>
+            <div class="rating">
+              <span class="stars">★★★★☆</span>
+              <span class="review-count">(4.1k)</span>
+            </div>
+            <p class="delivery-time">15 MINS</p>
+          </div>
+          <div class="card-footer">
+            <div class="price">
+              <span class="current-price">₹40</span>
+              <span class="original-price">₹45</span>
+              <span class="discount">11% OFF</span>
+            </div>
+            <button class="add-btn"></button>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="card-header">
+            <button class="wishlist-btn">♡</button>
+            <img src="https://m.media-amazon.com/images/I/61Lk8Z6sBIL._SL1500_.jpg" alt="Britannia Bread" class="product-image" loading="lazy">
+          </div>
+          <div class="card-body">
+            <h3 class="product-name">Britannia Whole Wheat Bread</h3>
+            <p class="product-weight">400g</p>
+            <div class="rating">
+              <span class="stars">★★★★☆</span>
+              <span class="review-count">(3.7k)</span>
+            </div>
+            <p class="delivery-time">18 MINS</p>
+          </div>
+          <div class="card-footer">
+            <div class="price">
+              <span class="current-price">₹35</span>
+              <span class="original-price">₹40</span>
+              <span class="discount">13% OFF</span>
+            </div>
+            <button class="add-btn"></button>
+          </div>
+        </div>
       </div>
 
       <!-- Frequently Bought Section -->
@@ -1619,8 +1903,104 @@
         Frequently Bought
         <span class="view-all" onclick="showCategoryProducts('frequently-bought')">View All</span>
       </h2>
-      <div class="product-grid" id="frequentlyBought">
-        <!-- Products will be inserted here by JavaScript -->
+      <div class="product-row">
+        <div class="product-card">
+          <div class="card-header">
+            <span class="bestseller-tag">Bestseller</span>
+            <button class="wishlist-btn">♡</button>
+            <img src="https://m.media-amazon.com/images/I/61Lk8Z6sBIL._SL1500_.jpg" alt="Maggi Noodles" class="product-image" loading="lazy">
+          </div>
+          <div class="card-body">
+            <h3 class="product-name">Maggi 2-Minute Masala Noodles</h3>
+            <p class="product-weight">70g (Pack of 12)</p>
+            <div class="rating">
+              <span class="stars">★★★★☆</span>
+              <span class="review-count">(8.2k)</span>
+            </div>
+            <p class="delivery-time">15 MINS</p>
+          </div>
+          <div class="card-footer">
+            <div class="price">
+              <span class="current-price">₹120</span>
+              <span class="original-price">₹144</span>
+              <span class="discount">17% OFF</span>
+            </div>
+            <button class="add-btn"></button>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="card-header">
+            <button class="wishlist-btn">♡</button>
+            <img src="https://m.media-amazon.com/images/I/61Lk8Z6sBIL._SL1500_.jpg" alt="Lays Chips" class="product-image" loading="lazy">
+          </div>
+          <div class="card-body">
+            <h3 class="product-name">Lays India's Magic Masala</h3>
+            <p class="product-weight">52g</p>
+            <div class="rating">
+              <span class="stars">★★★★☆</span>
+              <span class="review-count">(5.7k)</span>
+            </div>
+            <p class="delivery-time">12 MINS</p>
+          </div>
+          <div class="card-footer">
+            <div class="price">
+              <span class="current-price">₹20</span>
+              <span class="original-price">₹25</span>
+              <span class="discount">20% OFF</span>
+            </div>
+            <button class="add-btn"></button>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="card-header">
+            <span class="bestseller-tag">Bestseller</span>
+            <button class="wishlist-btn">♡</button>
+            <img src="https://m.media-amazon.com/images/I/61Lk8Z6sBIL._SL1500_.jpg" alt="Parle-G Biscuits" class="product-image" loading="lazy">
+          </div>
+          <div class="card-body">
+            <h3 class="product-name">Parle-G Gold Biscuits</h3>
+            <p class="product-weight">100g</p>
+            <div class="rating">
+              <span class="stars">★★★★☆</span>
+              <span class="review-count">(9.3k)</span>
+            </div>
+            <p class="delivery-time">10 MINS</p>
+          </div>
+          <div class="card-footer">
+            <div class="price">
+              <span class="current-price">₹10</span>
+              <span class="original-price">₹12</span>
+              <span class="discount">17% OFF</span>
+            </div>
+            <button class="add-btn"></button>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="card-header">
+            <button class="wishlist-btn">♡</button>
+            <img src="https://m.media-amazon.com/images/I/61Lk8Z6sBIL._SL1500_.jpg" alt="Cadbury Dairy Milk" class="product-image" loading="lazy">
+          </div>
+          <div class="card-body">
+            <h3 class="product-name">Cadbury Dairy Milk Silk</h3>
+            <p class="product-weight">36g</p>
+            <div class="rating">
+              <span class="stars">★★★★☆</span>
+              <span class="review-count">(7.5k)</span>
+            </div>
+            <p class="delivery-time">15 MINS</p>
+          </div>
+          <div class="card-footer">
+            <div class="price">
+              <span class="current-price">₹30</span>
+              <span class="original-price">₹35</span>
+              <span class="discount">14% OFF</span>
+            </div>
+            <button class="add-btn"></button>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -1647,6 +2027,354 @@
           <div class="category-grid-name">Vegetables</div>
         </div>
         <div class="category-grid-card" onclick="showCategoryProducts('dairy')">
+          <div class="category-grid-icon">
+            <i class="fas fa-wine-bottle"></i>
+          </div>
+          <div class="category-grid-name">Dairy</div>
+        </div>
+        <div class="category-grid-card" onclick="showCategoryProducts('eggs-meat')">
+          <div class="category-grid-icon">
+            <i class="fas fa-egg"></i>
+          </div>
+          <div class="category-grid-name">Eggs & Meat</div>
+        </div>
+        <div class="category-grid-card" onclick="showCategoryProducts('snacks')">
+          <div class="category-grid-icon">
+            <i class="fas fa-cookie"></i>
+          </div>
+          <div class="category-grid-name">Snacks</div>
+        </div>
+        <div class="category-grid-card" onclick="showCategoryProducts('beverages')">
+          <div class="category-grid-icon">
+            <i class="fas fa-wine-glass-alt"></i>
+          </div>
+          <div class="category-grid-name">Beverages</div>
+        </div>
+        <div class="category-grid-card" onclick="showCategoryProducts('staples')">
+          <div class="category-grid-icon">
+            <i class="fas fa-bread-slice"></i>
+          </div>
+          <div class="category-grid-name">Staples</div>
+        </div>
+        <div class="category-grid-card" onclick="showCategoryProducts('bakery')">
+          <div class="category-grid-icon">
+            <i class="fas fa-birthday-cake"></i>
+          </div>
+          <div class="category-grid-name">Bakery</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Category Products Page (hidden by default) -->
+    <div id="categoryProductsPage" style="display: none;">
+      <div style="padding: 15px 0; display: flex; align-items: center; gap: 10px;">
+        <button class="back-btn" onclick="showPage('categories')">
+          <i class="fas fa-arrow-left"></i>
+        </button>
+        <h1 id="categoryTitle" style="font-size: 20px; font-weight: 600;">Category Products</h1>
+      </div>
+      
+      <div class="product-row" id="categoryProductsGrid">
+        <!-- Products will be loaded here -->
+      </div>
+    </div>
+
+    <!-- Product Detail Page (hidden by default) -->
+    <div id="productDetailPage" style="display: none;">
+      <div style="padding: 15px 0; display: flex; align-items: center; gap: 10px;">
+        <button class="back-btn" onclick="goBack()">
+          <i class="fas fa-arrow-left"></i>
+        </button>
+        <h1 style="font-size: 20px; font-weight: 600;">Product Details</h1>
+      </div>
+      
+      <div class="product-detail">
+        <div class="express-badge">Express Delivery</div>
+        <div class="product-detail-image">
+          <img id="detailImage" src="" alt="Product Image" loading="lazy">
+        </div>
+        <h2 class="product-detail-title" id="detailTitle"></h2>
+        <div class="product-detail-price" id="detailPrice"></div>
+        
+        <div class="weight-options" id="weightOptions">
+          <!-- Weight options will be inserted here -->
+        </div>
+        
+        <div class="stock-badge in-stock" id="detailStock">In Stock</div>
+        <div class="delivery-time" id="detailDelivery">Delivery in 19 min</div>
+        
+        <div class="product-detail-actions">
+          <button class="add-to-cart-btn" onclick="addToCartFromDetail()">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cart Page (hidden by default) -->
+    <div id="cartPage" style="display: none;">
+      <div style="padding: 15px 0; display: flex; align-items: center; gap: 10px;">
+        <button class="back-btn" onclick="showPage('home')">
+          <i class="fas fa-arrow-left"></i>
+        </button>
+        <h1 style="font-size: 20px; font-weight: 600;">My Cart</h1>
+      </div>
+      
+      <div id="cartItems">
+        <!-- Cart items will be inserted here by JavaScript -->
+      </div>
+      <div id="cartEmpty" style="text-align: center; padding: 40px 0;">
+        <p>Your cart is empty</p>
+      </div>
+      <div id="cartSummary" style="
+        background-color: var(--card-bg);
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        display: none;
+      ">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+          <span>Subtotal</span>
+          <span id="cartSubtotal">₹0</span>
+        </div>
+        <div id="cartDiscounts" class="order-summary-item">
+          <!-- Discounts will be inserted here -->
+        </div>
+        <div id="cartFees" class="order-summary-item">
+          <!-- Fees will be inserted here -->
+        </div>
+        <div class="order-total">
+          <span>Total</span>
+          <span id="cartTotal">₹0</span>
+        </div>
+      </div>
+      <button id="checkoutBtn" onclick="showPage('checkout')" style="
+        width: 100%;
+        padding: 15px;
+        background-color: var(--primary);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        margin-bottom: 20px;
+        display: none;
+      ">
+        Proceed to Checkout
+      </button>
+    </div>
+
+    <!-- Checkout Page (hidden by default) -->
+    <div id="checkoutPage" style="display: none;">
+      <div style="padding: 15px 0; display: flex; align-items: center; gap: 10px;">
+        <button class="back-btn" onclick="showPage('cart')">
+          <i class="fas fa-arrow-left"></i>
+        </button>
+        <h1 style="font-size: 20px; font-weight: 600;">Checkout</h1>
+      </div>
+      
+      <div class="checkout-page">
+        <div class="checkout-section">
+          <h3 class="section-title-checkout">Delivery Address</h3>
+          <div id="addressList">
+            <div class="address-card selected" data-id="home">
+              <div class="address-name">John Doe</div>
+              <div>123 Main Street, Apartment 4B</div>
+              <div>New Delhi, 110001</div>
+              <div>+91 9876543210</div>
+            </div>
+            <div class="address-card" data-id="work">
+              <div class="address-name">Work Address</div>
+              <div>456 Business Avenue, Floor 8</div>
+              <div>Gurgaon, 122002</div>
+              <div>+91 9876543210</div>
+            </div>
+          </div>
+          <button style="
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            background: none;
+            border: 1px dashed var(--primary);
+            color: var(--primary);
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+          " onclick="showPage('addAddress')">
+            + Add New Address
+          </button>
+        </div>
+        
+        <div class="checkout-section">
+          <h3 class="section-title-checkout">Payment Method</h3>
+          <div class="payment-method" onclick="selectPayment('wallet')" id="walletPayment">
+            <div class="payment-icon">
+              <i class="fas fa-wallet"></i>
+            </div>
+            <div class="payment-details">
+              <div class="payment-title">Wallet</div>
+              <div class="payment-desc">Pay using your QuickMart wallet</div>
+            </div>
+            <div class="payment-radio selected"></div>
+          </div>
+          <div class="payment-method" onclick="selectPayment('card')" id="cardPayment">
+            <div class="payment-icon">
+              <i class="fas fa-credit-card"></i>
+            </div>
+            <div class="payment-details">
+              <div class="payment-title">Credit/Debit Card</div>
+              <div class="payment-desc">Pay using your card</div>
+            </div>
+            <div class="payment-radio"></div>
+          </div>
+          <div class="payment-method" onclick="selectPayment('cod')" id="codPayment">
+            <div class="payment-icon">
+              <i class="fas fa-money-bill-wave"></i>
+            </div>
+            <div class="payment-details">
+              <div class="payment-title">Cash on Delivery</div>
+              <div class="payment-desc">Pay when you receive</div>
+            </div>
+            <div class="payment-radio"></div>
+          </div>
+        </div>
+        
+        <div class="checkout-section">
+          <h3 class="section-title-checkout">Order Summary</h3>
+          <div id="checkoutItems">
+            <!-- Order items will be inserted here -->
+          </div>
+          <div class="order-summary-item">
+            <span>Subtotal</span>
+            <span id="checkoutSubtotal">₹0</span>
+          </div>
+          <div class="order-summary-item">
+            <span>Product Discount</span>
+            <span id="checkoutDiscount">-₹0</span>
+          </div>
+          <div class="order-summary-item">
+            <span>Platform Fee</span>
+            <span id="checkoutPlatformFee">₹10</span>
+          </div>
+          <div class="order-summary-item">
+            <span>Handling Fee</span>
+            <span id="checkoutHandlingFee">₹15</span>
+          </div>
+          <div class="order-summary-item">
+            <span>Delivery Fee</span>
+            <span id="checkoutDeliveryFee">₹49</span>
+          </div>
+          <div class="order-total">
+            <span>Total</span>
+            <span id="checkoutTotal">₹0</span>
+          </div>
+        </div>
+        
+        <button class="place-order-btn" onclick="placeOrder()">Place Order</button>
+      </div>
+    </div>
+
+    <!-- Add Address Page (hidden by default) -->
+    <div id="addAddressPage" style="display: none;">
+      <div style="padding: 15px 0; display: flex; align-items: center; gap: 10px;">
+        <button class="back-btn" onclick="showPage('checkout')">
+          <i class="fas fa-arrow-left"></i>
+        </button>
+        <h1 style="font-size: 20px; font-weight: 600;">Add New Address</h1>
+      </div>
+      
+      <div style="padding: 15px 0;">
+        <div class="form-group">
+          <label class="form-label">Full Name *</label>
+          <input type="text" class="form-input" id="addressName" placeholder="Enter your full name" required>
+          <div class="form-error">Please enter your name</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Mobile Number *</label>
+          <input type="tel" class="form-input" id="addressPhone" placeholder="Enter your mobile number" pattern="[0-9]{10}" required>
+          <div class="form-error">Please enter a valid 10-digit phone number</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Address *</label>
+          <textarea class="form-input" id="addressStreet" rows="3" placeholder="Enter your full address" required></textarea>
+          <div class="form-error">Please enter your address</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">City *</label>
+          <input type="text" class="form-input" id="addressCity" placeholder="Enter your city" required>
+          <div class="form-error">Please enter your city</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">State *</label>
+          <input type="text" class="form-input" id="addressState" placeholder="Enter your state" required>
+          <div class="form-error">Please enter your state</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Pincode *</label>
+          <input type="text" class="form-input" id="addressZip" placeholder="Enter your pincode" pattern="[0-9]{6}" required>
+          <div class="form-error">Please enter a valid 6-digit pincode</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Address Type *</label>
+          <select class="form-input" id="addressType" required>
+            <option value="">Select type</option>
+            <option>Home</option>
+            <option>Work</option>
+            <option>Other</option>
+          </select>
+          <div class="form-error">Please select address type</div>
+        </div>
+        <button class="save-btn" onclick="saveAddress()">Save Address</button>
+      </div>
+    </div>
+
+    <!-- Order Confirmation Page (hidden by default) -->
+    <div id="orderConfirmationPage" style="display: none; text-align: center; padding: 40px 15px;">
+      <div style="font-size: 80px; color: var(--primary); margin-bottom: 20px;">
+        <i class="fas fa-check-circle"></i>
+      </div>
+      <h1 style="font-size: 24px; margin-bottom: 15px;">Order Placed Successfully!</h1>
+      <p style="margin-bottom: 30px; color: var(--text-light);">
+        Your order will be delivered in 15-30 minutes
+      </p>
+      <button onclick="showPage('home')" style="
+        background: var(--primary);
+        color: white;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 16px;
+        cursor: pointer;
+      ">
+        Continue Shopping
+      </button>
+    </div>
+
+    <!-- Account Page (hidden by default) -->
+    <div id="accountPage" style="display: none;">
+      <div style="padding: 15px 0; display: flex; align-items: center; gap: 10px;">
+        <button class="back-btn" onclick="showPage('home')">
+          <i class="fas fa-arrow-left"></i>
+        </button>
+        <h1 style="font-size: 20px; font-weight: 600;">My Account</h1>
+      </div>
+      
+      <div style="
+        background-color: var(--card-bg);
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 20px;
+      ">
+        <div style="
+          display: flex;
+          align-items: center;
+          padding: 10px 0;
+          border-bottom: 1px solid var(--border);
+        ">
+          <div style="
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
             background-color: var(--primary-light);
             display: flex;
             align-items: center;
@@ -1773,7 +2501,7 @@
         <h1 style="font-size: 20px; font-weight: 600;">Wishlist</h1>
       </div>
       
-      <div class="product-grid" id="wishlistItems">
+      <div class="product-row" id="wishlistItems">
         <!-- Wishlist items will be inserted here -->
       </div>
       <div id="wishlistEmpty" class="wishlist-empty">
@@ -1868,123 +2596,184 @@
     // Product data with working images
     const products = [
       {
-        id: 'apple',
-        title: 'Washington Apples',
-        price: 120,
-        originalPrice: 150,
-        image: 'https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YXBwbGV8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60',
-        category: 'fruits',
-        weightOptions: [
-          { value: 250, text: '250g', price: 30 },
-          { value: 500, text: '500g', price: 60 },
-          { value: 1000, text: '1kg', price: 120 }
-        ],
-        unitPrice: '₹120/kg',
-        stock: 'In Stock',
-        deliveryTime: 'Delivery in 19 min'
-      },
-      {
-        id: 'banana',
-        title: 'Fresh Bananas (6pcs)',
-        price: 45,
-        originalPrice: 50,
-        image: 'https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YmFuYW5hfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60',
-        category: 'fruits',
-        weightOptions: [
-          { value: 6, text: '6pcs', price: 45 }
-        ],
-        unitPrice: '₹7.50/pc',
-        stock: 'In Stock',
-        deliveryTime: 'Delivery in 19 min'
-      },
-      {
-        id: 'milk',
-        title: 'Fresh Cow Milk (1L)',
-        price: 68,
-        originalPrice: 80,
-        image: 'https://images.unsplash.com/photo-1563636619-e9143da7973b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bWlsa3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60',
-        category: 'dairy',
-        weightOptions: [
-          { value: 500, text: '500ml', price: 34 },
-          { value: 1000, text: '1L', price: 68 }
-        ],
-        unitPrice: '₹68/L',
-        stock: 'In Stock',
-        deliveryTime: 'Delivery in 19 min'
-      },
-      {
-        id: 'potato',
-        title: 'Fresh Potatoes',
-        price: 40,
-        originalPrice: 50,
-        image: 'https://images.unsplash.com/photo-1518977676601-b53f82aba655?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cG90YXRvfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60',
-        category: 'vegetables',
-        weightOptions: [
-          { value: 500, text: '500g', price: 20 },
-          { value: 1000, text: '1kg', price: 40 }
-        ],
-        unitPrice: '₹40/kg',
-        stock: 'Low Stock',
-        deliveryTime: 'Delivery in 25 min'
-      },
-      {
-        id: 'rice',
-        title: 'Basmati Rice (5kg)',
-        price: 375,
-        originalPrice: 500,
-        image: 'https://images.unsplash.com/photo-1598866594230-a7c12756260f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cmljZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60',
+        id: 'p1',
+        title: 'India Gate Basmati Rice - Premium',
         category: 'staples',
-        weightOptions: [
-          { value: 1000, text: '1kg', price: 75 },
-          { value: 5000, text: '5kg', price: 375 }
-        ],
-        unitPrice: '₹75/kg',
+        image: 'https://m.media-amazon.com/images/I/61Lk8Z6sBIL._SL1500_.jpg',
+        price: 125,
+        originalPrice: 145,
+        unitPrice: '₹125/kg',
         stock: 'In Stock',
-        deliveryTime: 'Delivery in 30 min'
+        deliveryTime: 'Delivery in 22 min',
+        weightOptions: [
+          { value: 1000, text: '1kg', price: 125 },
+          { value: 5000, text: '5kg', price: 575 }
+        ]
       },
       {
-        id: 'bread',
-        title: 'Whole Wheat Bread',
-        price: 45,
+        id: 'p2',
+        title: 'Fortune Sunflower Oil',
+        category: 'staples',
+        image: 'https://m.media-amazon.com/images/I/61lZzZzZ-ZL._SL1500_.jpg',
+        price: 175,
+        originalPrice: 195,
+        unitPrice: '₹175/L',
+        stock: 'In Stock',
+        deliveryTime: 'Delivery in 18 min',
+        weightOptions: [
+          { value: 1000, text: '1L', price: 175 },
+          { value: 5000, text: '5L', price: 825 }
+        ]
+      },
+      {
+        id: 'p3',
+        title: 'Tata Salt - Iodized',
+        category: 'staples',
+        image: 'https://m.media-amazon.com/images/I/71S7OtC3N5L._SL1500_.jpg',
+        price: 25,
+        originalPrice: 30,
+        unitPrice: '₹25/kg',
+        stock: 'In Stock',
+        deliveryTime: 'Delivery in 15 min',
+        weightOptions: [
+          { value: 1000, text: '1kg', price: 25 },
+          { value: 500, text: '500g', price: 15 }
+        ]
+      },
+      {
+        id: 'p4',
+        title: 'Aashirvaad Whole Wheat Atta',
+        category: 'staples',
+        image: 'https://m.media-amazon.com/images/I/71S7OtC3N5L._SL1500_.jpg',
+        price: 225,
+        originalPrice: 250,
+        unitPrice: '₹45/kg',
+        stock: 'In Stock',
+        deliveryTime: 'Delivery in 20 min',
+        weightOptions: [
+          { value: 5000, text: '5kg', price: 225 },
+          { value: 10000, text: '10kg', price: 425 }
+        ]
+      },
+      {
+        id: 'p5',
+        title: 'Amul Taaza Homogenized Toned Milk',
+        category: 'dairy',
+        image: 'https://m.media-amazon.com/images/I/61Lk8Z6sBIL._SL1500_.jpg',
+        price: 58,
+        originalPrice: 62,
+        unitPrice: '₹58/L',
+        stock: 'In Stock',
+        deliveryTime: 'Delivery in 10 min',
+        weightOptions: [
+          { value: 1000, text: '1L', price: 58 },
+          { value: 500, text: '500ml', price: 32 }
+        ]
+      },
+      {
+        id: 'p6',
+        title: 'Amul Salted Butter',
+        category: 'dairy',
+        image: 'https://m.media-amazon.com/images/I/61Lk8Z6sBIL._SL1500_.jpg',
+        price: 50,
         originalPrice: 55,
-        image: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YnJlYWR8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60',
+        unitPrice: '₹500/kg',
+        stock: 'In Stock',
+        deliveryTime: 'Delivery in 12 min',
+        weightOptions: [
+          { value: 100, text: '100g', price: 50 },
+          { value: 500, text: '500g', price: 225 }
+        ]
+      },
+      {
+        id: 'p7',
+        title: 'Nestle Classic Curd',
+        category: 'dairy',
+        image: 'https://m.media-amazon.com/images/I/61Lk8Z6sBIL._SL1500_.jpg',
+        price: 40,
+        originalPrice: 45,
+        unitPrice: '₹100/kg',
+        stock: 'In Stock',
+        deliveryTime: 'Delivery in 15 min',
+        weightOptions: [
+          { value: 400, text: '400g', price: 40 },
+          { value: 200, text: '200g', price: 22 }
+        ]
+      },
+      {
+        id: 'p8',
+        title: 'Britannia Whole Wheat Bread',
         category: 'bakery',
-        weightOptions: [
-          { value: 400, text: '400g', price: 45 }
-        ],
-        unitPrice: '₹45/pack',
-        stock: 'In Stock',
-        deliveryTime: 'Delivery in 15 min'
-      },
-      {
-        id: 'eggs',
-        title: 'Farm Fresh Eggs (12)',
-        price: 99,
-        originalPrice: 120,
-        image: 'https://images.unsplash.com/photo-1586802990180-41de3d9b1d20?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZWdnc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60',
-        category: 'eggs-meat',
-        weightOptions: [
-          { value: 6, text: '6pcs', price: 50 },
-          { value: 12, text: '12pcs', price: 99 }
-        ],
-        unitPrice: '₹8.25/egg',
-        stock: 'In Stock',
-        deliveryTime: 'Delivery in 20 min'
-      },
-      {
-        id: 'chips',
-        title: 'Potato Chips (100g)',
+        image: 'https://m.media-amazon.com/images/I/61Lk8Z6sBIL._SL1500_.jpg',
         price: 35,
-        originalPrice: 50,
-        image: 'https://images.unsplash.com/photo-1621447504864-d8686e12698c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y2hpcHN8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60',
-        category: 'snacks',
+        originalPrice: 40,
+        unitPrice: '₹87.5/kg',
+        stock: 'In Stock',
+        deliveryTime: 'Delivery in 18 min',
         weightOptions: [
-          { value: 50, text: '50g', price: 20 },
-          { value: 100, text: '100g', price: 35 }
-        ],
-        unitPrice: '₹35/100g',
-        stock: 'Out of Stock',
-        deliveryTime: 'Delivery in 15 min'
+          { value: 400, text: '400g', price: 35 },
+          { value: 200, text: '200g', price: 20 }
+        ]
+      },
+      {
+        id: 'p9',
+        title: 'Maggi 2-Minute Masala Noodles',
+        category: 'snacks',
+        image: 'https://m.media-amazon.com/images/I/61Lk8Z6sBIL._SL1500_.jpg',
+        price: 120,
+        originalPrice: 144,
+        unitPrice: '₹14.28/70g',
+        stock: 'In Stock',
+        deliveryTime: 'Delivery in 15 min',
+        weightOptions: [
+          { value: 840, text: '70g (Pack of 12)', price: 120 },
+          { value: 280, text: '70g (Pack of 4)', price: 45 }
+        ]
+      },
+      {
+        id: 'p10',
+        title: 'Lays India\'s Magic Masala',
+        category: 'snacks',
+        image: 'https://m.media-amazon.com/images/I/61Lk8Z6sBIL._SL1500_.jpg',
+        price: 20,
+        originalPrice: 25,
+        unitPrice: '₹38.46/kg',
+        stock: 'In Stock',
+        deliveryTime: 'Delivery in 12 min',
+        weightOptions: [
+          { value: 52, text: '52g', price: 20 },
+          { value: 104, text: '52g (Pack of 2)', price: 38 }
+        ]
+      },
+      {
+        id: 'p11',
+        title: 'Parle-G Gold Biscuits',
+        category: 'snacks',
+        image: 'https://m.media-amazon.com/images/I/61Lk8Z6sBIL._SL1500_.jpg',
+        price: 10,
+        originalPrice: 12,
+        unitPrice: '₹100/kg',
+        stock: 'In Stock',
+        deliveryTime: 'Delivery in 10 min',
+        weightOptions: [
+          { value: 100, text: '100g', price: 10 },
+          { value: 500, text: '500g', price: 45 }
+        ]
+      },
+      {
+        id: 'p12',
+        title: 'Cadbury Dairy Milk Silk',
+        category: 'snacks',
+        image: 'https://m.media-amazon.com/images/I/61Lk8Z6sBIL._SL1500_.jpg',
+        price: 30,
+        originalPrice: 35,
+        unitPrice: '₹833.33/kg',
+        stock: 'In Stock',
+        deliveryTime: 'Delivery in 15 min',
+        weightOptions: [
+          { value: 36, text: '36g', price: 30 },
+          { value: 72, text: '36g (Pack of 2)', price: 55 }
+        ]
       }
     ];
 
@@ -2045,11 +2834,6 @@
         },
       });
 
-      // Render product sections
-      renderProductSection('topDeals', getTopDeals());
-      renderProductSection('dailyEssentials', getDailyEssentials());
-      renderProductSection('frequentlyBought', getFrequentlyBought());
-      
       // Update counts
       updateCartCount();
       updateWishlistCount();
@@ -2093,103 +2877,6 @@
       document.querySelector('.login-btn span').textContent = 'Hi, User';
     }
 
-    // Render product section
-    function renderProductSection(sectionId, products) {
-      const section = document.getElementById(sectionId);
-      section.innerHTML = '';
-      
-      products.forEach(product => {
-        const discount = Math.round((1 - product.price / product.originalPrice) * 100);
-        const isInWishlist = wishlist.some(item => item.id === product.id);
-        
-        const productEl = document.createElement('div');
-        productEl.className = 'product-card';
-        productEl.innerHTML = `
-          <div class="express-badge">Express Delivery</div>
-          <div class="product-image">
-            <img src="${product.image}" alt="${product.title}" loading="lazy">
-            <button class="wishlist-btn ${isInWishlist ? 'active' : ''}" onclick="toggleWishlist('${product.id}', event)">
-              <i class="fas fa-heart"></i>
-            </button>
-          </div>
-          <div class="product-info">
-            <h3 class="product-title">${product.title}</h3>
-            <div class="product-price">
-              ₹${product.price.toLocaleString('en-IN')}
-              ${product.originalPrice > product.price ? `
-                <span style="
-                  text-decoration: line-through;
-                  color: var(--text-light);
-                  font-size: 12px;
-                  margin-left: 5px;
-                ">
-                  ₹${product.originalPrice.toLocaleString('en-IN')}
-                </span>
-              ` : ''}
-              ${discount > 0 ? `
-                <span class="discount-badge" style="margin-left: 5px;">${discount}% OFF</span>
-              ` : ''}
-            </div>
-            <div class="product-unit-price">${product.unitPrice}</div>
-            <select class="weight-selector" style="
-              width: 100%;
-              padding: 5px;
-              margin: 5px 0;
-              border-radius: 4px;
-              border: 1px solid var(--border);
-              background-color: var(--card-bg);
-              color: var(--text);
-            ">
-              ${product.weightOptions.map(option => `
-                <option value="${option.value}">
-                  ${option.text} - ₹${option.price.toLocaleString('en-IN')}
-                </option>
-              `).join('')}
-            </select>
-            <div class="stock-badge ${product.stock === 'In Stock' ? 'in-stock' : product.stock === 'Low Stock' ? 'low-stock' : 'out-of-stock'}">
-              ${product.stock}
-            </div>
-            <div class="delivery-time">${product.deliveryTime}</div>
-            <div class="product-actions">
-              <button class="add-btn" onclick="addToCart('${product.id}', event)" ${product.stock === 'Out of Stock' ? 'disabled' : ''}>
-                Add to Cart
-              </button>
-            </div>
-          </div>
-        `;
-        
-        // Add click event for product detail
-        productEl.addEventListener('click', function(e) {
-          if (!e.target.closest('.wishlist-btn') && !e.target.closest('.product-actions')) {
-            showProductDetail(product.id);
-          }
-        });
-        
-        section.appendChild(productEl);
-      });
-    }
-
-    // Get top deals (products with highest discount)
-    function getTopDeals() {
-      return [...products]
-        .sort((a, b) => (b.originalPrice - b.price) - (a.originalPrice - a.price))
-        .slice(0, 4);
-    }
-
-    // Get daily essentials (staples, dairy, etc.)
-    function getDailyEssentials() {
-      return products.filter(product => 
-        ['staples', 'dairy', 'eggs-meat'].includes(product.category)
-      );
-    }
-
-    // Get frequently bought (random selection)
-    function getFrequentlyBought() {
-      return [...products]
-        .sort(() => 0.5 - Math.random())
-        .slice(0, 4);
-    }
-
     // Filter products by category
     function filterProducts(category) {
       // Update active category
@@ -2202,9 +2889,9 @@
       
       // Show all products if 'all' is selected
       if (category === 'all') {
-        document.getElementById('topDeals').style.display = 'grid';
-        document.getElementById('dailyEssentials').style.display = 'grid';
-        document.getElementById('frequentlyBought').style.display = 'grid';
+        document.getElementById('topDeals').style.display = 'flex';
+        document.getElementById('dailyEssentials').style.display = 'flex';
+        document.getElementById('frequentlyBought').style.display = 'flex';
         return;
       }
       
@@ -2218,7 +2905,7 @@
       
       // Create a temporary container for the filtered products
       const tempContainer = document.createElement('div');
-      tempContainer.className = 'product-grid';
+      tempContainer.className = 'product-row';
       tempContainer.id = 'categoryProducts';
       
       // Remove existing category products if any
@@ -2254,6 +2941,78 @@
       document.getElementById('categoryTitle').textContent = categoryName;
       renderProductSection('categoryProductsGrid', filteredProducts);
       showPage('categoryProducts');
+    }
+
+    // Get top deals (products with highest discount)
+    function getTopDeals() {
+      return [...products]
+        .sort((a, b) => (b.originalPrice - b.price) - (a.originalPrice - a.price))
+        .slice(0, 4);
+    }
+
+    // Get daily essentials (staples, dairy, etc.)
+    function getDailyEssentials() {
+      return products.filter(product => 
+        ['staples', 'dairy', 'eggs-meat'].includes(product.category)
+      );
+    }
+
+    // Get frequently bought (random selection)
+    function getFrequentlyBought() {
+      return [...products]
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 4);
+    }
+
+    // Render product section
+    function renderProductSection(sectionId, products) {
+      const section = document.getElementById(sectionId);
+      section.innerHTML = '';
+      
+      products.forEach(product => {
+        const discount = Math.round((1 - product.price / product.originalPrice) * 100);
+        const isInWishlist = wishlist.some(item => item.id === product.id);
+        
+        const productEl = document.createElement('div');
+        productEl.className = 'product-card';
+        productEl.innerHTML = `
+          <div class="card-header">
+            ${discount > 15 ? '<span class="bestseller-tag">Bestseller</span>' : ''}
+            <button class="wishlist-btn ${isInWishlist ? 'active' : ''}" onclick="toggleWishlist('${product.id}', event)">
+              <i class="fas fa-heart"></i>
+            </button>
+            <img src="${product.image}" alt="${product.title}" class="product-image" loading="lazy">
+          </div>
+          <div class="card-body">
+            <h3 class="product-name">${product.title}</h3>
+            <p class="product-weight">${product.weightOptions[0].text}</p>
+            <div class="rating">
+              <span class="stars">★★★★☆</span>
+              <span class="review-count">(${Math.floor(Math.random() * 9000) + 1000})</span>
+            </div>
+            <p class="delivery-time">${product.deliveryTime}</p>
+          </div>
+          <div class="card-footer">
+            <div class="price">
+              <span class="current-price">₹${product.price.toLocaleString('en-IN')}</span>
+              <span class="original-price">₹${product.originalPrice.toLocaleString('en-IN')}</span>
+              ${discount > 0 ? `<span class="discount">${discount}% OFF</span>` : ''}
+            </div>
+            <button class="add-btn" onclick="addToCart('${product.id}', event)" ${product.stock === 'Out of Stock' ? 'disabled' : ''}>
+              ${product.stock === 'Out of Stock' ? 'OUT OF STOCK' : ''}
+            </button>
+          </div>
+        `;
+        
+        // Add click event for product detail
+        productEl.addEventListener('click', function(e) {
+          if (!e.target.closest('.wishlist-btn') && !e.target.closest('.add-btn')) {
+            showProductDetail(product.id);
+          }
+        });
+        
+        section.appendChild(productEl);
+      });
     }
 
     // Show product details
@@ -2386,9 +3145,7 @@
       if (!product) return;
       
       const productCard = event ? event.target.closest('.product-card') : document.querySelector(`.product-card[data-id="${productId}"]`);
-      const weightSelector = productCard.querySelector('.weight-selector');
-      const selectedWeightValue = parseInt(weightSelector.value);
-      const selectedWeight = product.weightOptions.find(opt => opt.value === selectedWeightValue);
+      const selectedWeight = product.weightOptions[0];
       
       // Check if product already exists in cart with same weight
       const existingItem = cart.find(item => 
@@ -2888,1304 +3645,91 @@
   </script>
 </body>
 </html>
+ya sara chij add kar do 
+1. Product Image Section
 
+High-quality image of the product
 
-is code ma ya wala update kar do to  
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E-Commerce Product Cards with Temporary Feedback</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-        }
-
-        body {
-            padding: 16px;
-            background-color: #f5f5f5;
-        }
-
-        .section-title {
-            font-size: 20px;
-            font-weight: 600;
-            margin: 24px 0 16px;
-            color: #333;
-            padding-left: 8px;
-        }
-
-        .product-row {
-            display: flex;
-            gap: 16px;
-            overflow-x: auto;
-            padding-bottom: 16px;
-            scrollbar-width: none;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .product-row::-webkit-scrollbar {
-            display: none;
-        }
-
-        .product-card {
-            width: 180px;
-            min-width: 180px;
-            height: 270px;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .product-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
-        }
-
-        .card-header {
-            position: relative;
-            height: 110px;
-            background-color: #f9f9f9;
-        }
-
-        .product-image {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            padding: 10px;
-            transition: transform 0.3s;
-        }
-
-        .product-image:hover {
-            transform: scale(1.05);
-        }
-
-        .bestseller-tag {
-            position: absolute;
-            top: 8px;
-            left: 8px;
-            background-color: #FFD700;
-            color: #333;
-            font-size: 10px;
-            font-weight: bold;
-            padding: 3px 8px;
-            border-radius: 4px;
-            z-index: 1;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        }
-
-        .wishlist-btn {
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            background: white;
-            border: none;
-            width: 26px;
-            height: 26px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-            z-index: 1;
-            color: #666;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .wishlist-btn:hover {
-            transform: scale(1.1);
-        }
-
-        .wishlist-btn.active {
-            color: #ff4757;
-        }
-
-        .card-body {
-            padding: 12px;
-            flex-grow: 1;
-        }
-
-        .product-name {
-            font-size: 13px;
-            font-weight: 500;
-            color: #333;
-            margin-bottom: 6px;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            height: 36px;
-            line-height: 18px;
-        }
-
-        .product-weight {
-            font-size: 11px;
-            color: #666;
-            margin-bottom: 8px;
-        }
-
-        .rating {
-            display: flex;
-            align-items: center;
-            font-size: 11px;
-            color: #FF9529;
-            margin-bottom: 8px;
-        }
-
-        .stars {
-            margin-right: 4px;
-            letter-spacing: 1px;
-        }
-
-        .review-count {
-            color: #666;
-        }
-
-        .delivery-time {
-            font-size: 11px;
-            color: #388E3C;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-        }
-
-        .delivery-time::before {
-            content: "🛵";
-            margin-right: 4px;
-            font-size: 10px;
-        }
-
-        .card-footer {
-            padding: 0 12px 12px;
-        }
-
-        .price {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            margin-bottom: 10px;
-            flex-wrap: wrap;
-        }
-
-        .current-price {
-            font-weight: bold;
-            font-size: 15px;
-            color: #333;
-        }
-
-        .original-price {
-            font-size: 12px;
-            color: #999;
-            text-decoration: line-through;
-        }
-
-        .discount {
-            font-size: 11px;
-            color: #388E3C;
-            font-weight: 600;
-            background: #e8f5e9;
-            padding: 2px 6px;
-            border-radius: 4px;
-        }
-
-        .add-btn {
-            width: 100%;
-            background: transparent;
-            border: 1px solid #388E3C;
-            color: #388E3C;
-            border-radius: 20px;
-            padding: 7px 0;
-            font-weight: 600;
-            font-size: 13px;
-            cursor: pointer;
-            transition: all 0.2s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .add-btn:hover {
-            background: rgba(56, 142, 60, 0.1);
-        }
-
-        .add-btn.added {
-            background: #388E3C;
-            color: white;
-            border-color: #388E3C;
-        }
-
-        .add-btn::after {
-            content: "ADD";
-            display: block;
-            transition: opacity 0.2s;
-        }
-
-        .add-btn.added::after {
-            content: "✓ ADDED";
-        }
-
-        /* Loading state for images */
-        .product-image {
-            background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
-            background-size: 200% 100%;
-            animation: 1.5s shine linear infinite;
-        }
-
-        @keyframes shine {
-            to {
-                background-position-x: -200%;
-            }
-        }
-
-        /* Subcategory styling */
-        .subcategory-title {
-            font-size: 16px; 
-            margin: 16px 0 8px 12px;
-            color: #444;
-            font-weight: 500;
-            position: relative;
-            padding-left: 8px;
-        }
-
-        .subcategory-title::before {
-            content: "";
-            position: absolute;
-            left: 0;
-            top: 2px;
-            height: 16px;
-            width: 4px;
-            background: #388E3C;
-            border-radius: 2px;
-        }
-    </style>
-</head>
-<body>
-    <!-- Grocery & Everyday Essentials -->
-    <h2 class="section-title">Grocery & Everyday Essentials</h2>
-    
-    <!-- Grains & Staples -->
-    <h3 class="subcategory-title">Grains & Staples</h3>
-    <div class="product-row">
-        <div class="product-card">
-            <div class="card-header">
-                <span class="bestseller-tag">Bestseller</span>
-                <button class="wishlist-btn">♡</button>
-                <img src="https://m.media-amazon.com/images/I/61Lk8Z6sBIL._SL1500_.jpg" alt="Basmati Rice" class="product-image" loading="lazy">
-            </div>
-            <div class="card-body">
-                <h3 class="product-name">India Gate Basmati Rice - Premium</h3>
-                <p class="product-weight">1kg</p>
-                <div class="rating">
-                    <span class="stars">★★★★☆</span>
-                    <span class="review-count">(4.2k)</span>
-                </div>
-                <p class="delivery-time">22 MINS</p>
-            </div>
-            <div class="card-footer">
-                <div class="price">
-                    <span class="current-price">₹125</span>
-                    <span class="original-price">₹145</span>
-                    <span class="discount">14% OFF</span>
-                </div>
-                <button class="add-btn"></button>
-            </div>
-        </div>
-
-        <div class="product-card">
-            <div class="card-header">
-                <button class="wishlist-btn">♡</button>
-                <img src="https://m.media-amazon.com/images/I/71vU2+UYrQL._SL1500_.jpg" alt="Wheat Flour" class="product-image" loading="lazy">
-            </div>
-            <div class="card-body">
-                <h3 class="product-name">Aashirvaad Whole Wheat Atta</h3>
-                <p class="product-weight">5kg</p>
-                <div class="rating">
-                    <span class="stars">★★★★★</span>
-                    <span class="review-count">(12.5k)</span>
-                </div>
-                <p class="delivery-time">18 MINS</p>
-            </div>
-            <div class="card-footer">
-                <div class="price">
-                    <span class="current-price">₹235</span>
-                    <span class="original-price">₹260</span>
-                    <span class="discount">10% OFF</span>
-                </div>
-                <button class="add-btn"></button>
-            </div>
-        </div>
-
-        <div class="product-card">
-            <div class="card-header">
-                <span class="bestseller-tag">Bestseller</span>
-                <button class="wishlist-btn">♡</button>
-                <img src="https://m.media-amazon.com/images/I/71YHtY9WmwL._SL1500_.jpg" alt="Besan" class="product-image" loading="lazy">
-            </div>
-            <div class="card-body">
-                <h3 class="product-name">Tata Sampann Chana Besan</h3>
-                <p class="product-weight">500g</p>
-                <div class="rating">
-                    <span class="stars">★★★★☆</span>
-                    <span class="review-count">(3.8k)</span>
-                </div>
-                <p class="delivery-time">25 MINS</p>
-            </div>
-            <div class="card-footer">
-                <div class="price">
-                    <span class="current-price">₹55</span>
-                    <span class="original-price">₹65</span>
-                    <span class="discount">15% OFF</span>
-                </div>
-                <button class="add-btn"></button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Pulses & Legumes -->
-    <h3 class="subcategory-title">Pulses & Legumes</h3>
-    <div class="product-row">
-        <div class="product-card">
-            <div class="card-header">
-                <span class="bestseller-tag">Bestseller</span>
-                <button class="wishlist-btn">♡</button>
-                <img src="https://m.media-amazon.com/images/I/71Cx4LhX8eL._SL1500_.jpg" alt="Toor Dal" class="product-image" loading="lazy">
-            </div>
-            <div class="card-body">
-                <h3 class="product-name">Fortune Premium Toor Dal</h3>
-                <p class="product-weight">1kg</p>
-                <div class="rating">
-                    <span class="stars">★★★★☆</span>
-                    <span class="review-count">(5.3k)</span>
-                </div>
-                <p class="delivery-time">24 MINS</p>
-            </div>
-            <div class="card-footer">
-                <div class="price">
-                    <span class="current-price">₹140</span>
-                    <span class="original-price">₹160</span>
-                    <span class="discount">12% OFF</span>
-                </div>
-                <button class="add-btn"></button>
-            </div>
-        </div>
-
-        <div class="product-card">
-            <div class="card-header">
-                <button class="wishlist-btn">♡</button>
-                <img src="https://m.media-amazon.com/images/I/71lQ1gQyVWL._SL1500_.jpg" alt="Masoor Dal" class="product-image" loading="lazy">
-            </div>
-            <div class="card-body">
-                <h3 class="product-name">Tata Sampann Masoor Dal</h3>
-                <p class="product-weight">1kg</p>
-                <div class="rating">
-                    <span class="stars">★★★★☆</span>
-                    <span class="review-count">(4.7k)</span>
-                </div>
-                <p class="delivery-time">20 MINS</p>
-            </div>
-            <div class="card-footer">
-                <div class="price">
-                    <span class="current-price">₹115</span>
-                    <span class="original-price">₹130</span>
-                    <span class="discount">12% OFF</span>
-                </div>
-                <button class="add-btn"></button>
-            </div>
-        </div>
-
-        <div class="product-card">
-            <div class="card-header">
-                <span class="bestseller-tag">Bestseller</span>
-                <button class="wishlist-btn">♡</button>
-                <img src="https://m.media-amazon.com/images/I/61O0zJv9j2L._SL1200_.jpg" alt="Moong Dal" class="product-image" loading="lazy">
-            </div>
-            <div class="card-body">
-                <h3 class="product-name">Daawat Moong Dal</h3>
-                <p class="product-weight">500g</p>
-                <div class="rating">
-                    <span class="stars">★★★★☆</span>
-                    <span class="review-count">(3.1k)</span>
-                </div>
-                <p class="delivery-time">22 MINS</p>
-            </div>
-            <div class="card-footer">
-                <div class="price">
-                    <span class="current-price">₹85</span>
-                    <span class="original-price">₹95</span>
-                    <span class="discount">11% OFF</span>
-                </div>
-                <button class="add-btn"></button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Cooking Oils & Fats -->
-    <h3 class="subcategory-title">Cooking Oils & Fats</h3>
-    <div class="product-row">
-        <div class="product-card">
-            <div class="card-header">
-                <span class="bestseller-tag">Bestseller</span>
-                <button class="wishlist-btn">♡</button>
-                <img src="https://m.media-amazon.com/images/I/61nZvXzDkqL._SL1500_.jpg" alt="Mustard Oil" class="product-image" loading="lazy">
-            </div>
-            <div class="card-body">
-                <h3 class="product-name">Fortune Kachi Ghani Mustard Oil</h3>
-                <p class="product-weight">1L</p>
-                <div class="rating">
-                    <span class="stars">★★★★★</span>
-                    <span class="review-count">(8.2k)</span>
-                </div>
-                <p class="delivery-time">25 MINS</p>
-            </div>
-            <div class="card-footer">
-                <div class="price">
-                    <span class="current-price">₹195</span>
-                    <span class="original-price">₹220</span>
-                    <span class="discount">11% OFF</span>
-                </div>
-                <button class="add-btn"></button>
-            </div>
-        </div>
-
-        <div class="product-card">
-            <div class="card-header">
-                <button class="wishlist-btn">♡</button>
-                <img src="https://m.media-amazon.com/images/I/71aHmQrGvGL._SL1500_.jpg" alt="Sunflower Oil" class="product-image" loading="lazy">
-            </div>
-            <div class="card-body">
-                <h3 class="product-name">Saffola Gold Refined Sunflower Oil</h3>
-                <p class="product-weight">1L</p>
-                <div class="rating">
-                    <span class="stars">★★★★☆</span>
-                    <span class="review-count">(6.3k)</span>
-                </div>
-                <p class="delivery-time">18 MINS</p>
-            </div>
-            <div class="card-footer">
-                <div class="price">
-                    <span class="current-price">₹185</span>
-                    <span class="original-price">₹205</span>
-                    <span class="discount">10% OFF</span>
-                </div>
-                <button class="add-btn"></button>
-            </div>
-        </div>
-
-        <div class="product-card">
-            <div class="card-header">
-                <span class="bestseller-tag">Bestseller</span>
-                <button class="wishlist-btn">♡</button>
-                <img src="https://m.media-amazon.com/images/I/61wYqFZb8bL._SL1200_.jpg" alt="Coconut Oil" class="product-image" loading="lazy">
-            </div>
-            <div class="card-body">
-                <h3 class="product-name">Parachute Coconut Oil</h3>
-                <p class="product-weight">500ml</p>
-                <div class="rating">
-                    <span class="stars">★★★★☆</span>
-                    <span class="review-count">(7.5k)</span>
-                </div>
-                <p class="delivery-time">30 MINS</p>
-            </div>
-            <div class="card-footer">
-                <div class="price">
-                    <span class="current-price">₹175</span>
-                    <span class="original-price">₹195</span>
-                    <span class="discount">10% OFF</span>
-                </div>
-                <button class="add-btn"></button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Spices & Seasonings -->
-    <h3 class="subcategory-title">Spices & Seasonings</h3>
-    <div class="product-row">
-        <div class="product-card">
-            <div class="card-header">
-                <span class="bestseller-tag">Bestseller</span>
-                <button class="wishlist-btn">♡</button>
-                <img src="https://m.media-amazon.com/images/I/71iCQZq6VjL._SL1500_.jpg" alt="Turmeric Powder" class="product-image" loading="lazy">
-            </div>
-            <div class="card-body">
-                <h3 class="product-name">Everest Turmeric Powder</h3>
-                <p class="product-weight">200g</p>
-                <div class="rating">
-                    <span class="stars">★★★★★</span>
-                    <span class="review-count">(9.8k)</span>
-                </div>
-                <p class="delivery-time">22 MINS</p>
-            </div>
-            <div class="card-footer">
-                <div class="price">
-                    <span class="current-price">₹65</span>
-                    <span class="original-price">₹75</span>
-                    <span class="discount">13% OFF</span>
-                </div>
-                <button class="add-btn"></button>
-            </div>
-        </div>
-
-        <div class="product-card">
-            <div class="card-header">
-                <button class="wishlist-btn">♡</button>
-                <img src="https://m.media-amazon.com/images/I/71b4d1f7l5L._SL1500_.jpg" alt="Red Chilli Powder" class="product-image" loading="lazy">
-            </div>
-            <div class="card-body">
-                <h3 class="product-name">MDH Degi Mirch Powder</h3>
-                <p class="product-weight">100g</p>
-                <div class="rating">
-                    <span class="stars">★★★★☆</span>
-                    <span class="review-count">(4.2k)</span>
-                </div>
-                <p class="delivery-time">20 MINS</p>
-            </div>
-            <div class="card-footer">
-                <div class="price">
-                    <span class="current-price">₹45</span>
-                    <span class="original-price">₹50</span>
-                    <span class="discount">10% OFF</span>
-                </div>
-                <button class="add-btn"></button>
-            </div>
-        </div>
-
-        <div class="product-card">
-            <div class="card-header">
-                <span class="bestseller-tag">Bestseller</span>
-                <button class="wishlist-btn">♡</button>
-                <img src="https://m.media-amazon.com/images/I/71jX1M3Xm6L._SL1500_.jpg" alt="Garam Masala" class="product-image" loading="lazy">
-            </div>
-            <div class="card-body">
-                <h3 class="product-name">Everest Garam Masala</h3>
-                <p class="product-weight">100g</p>
-                <div class="rating">
-                    <span class="stars">★★★★☆</span>
-                    <span class="review-count">(7.1k)</span>
-                </div>
-                <p class="delivery-time">25 MINS</p>
-            </div>
-            <div class="card-footer">
-                <div class="price">
-                    <span class="current-price">₹55</span>
-                    <span class="original-price">₹65</span>
-                    <span class="discount">15% OFF</span>
-                </div>
-                <button class="add-btn"></button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Snacks & Confectionery -->
-    <h2 class="section-title">Snacks & Confectionery</h2>
-    <div class="product-row">
-        <div class="product-card">
-            <div class="card-header">
-                <span class="bestseller-tag">Bestseller</span>
-                <button class="wishlist-btn">♡</button>
-                <img src="https://m.media-amazon.com/images/I/61uFrcoJ8FL._SL1500_.jpg" alt="Lays Chips" class="product-image" loading="lazy">
-            </div>
-            <div class="card-body">
-                <h3 class="product-name">Lays Potato Chips - Classic Salted</h3>
-                <p class="product-weight">52g</p>
-                <div class="rating">
-                    <span class="stars">★★★★☆</span>
-                    <span class="review-count">(12.5k)</span>
-                </div>
-                <p class="delivery-time">20 MINS</p>
-            </div>
-            <div class="card-footer">
-                <div class="price">
-                    <span class="current-price">₹20</span>
-                    <span class="original-price">₹25</span>
-                    <span class="discount">20% OFF</span>
-                </div>
-                <button class="add-btn"></button>
-            </div>
-        </div>
-
-        <div class="product-card">
-            <div class="card-header">
-                <button class="wishlist-btn">♡</button>
-                <img src="https://m.media-amazon.com/images/I/71VzQZqv9BL._SL1500_.jpg" alt="Marie Biscuits" class="product-image" loading="lazy">
-            </div>
-            <div class="card-body">
-                <h3 class="product-name">Britannia Marie Gold Biscuits</h3>
-                <p class="product-weight">300g</p>
-                <div class="rating">
-                    <span class="stars">★★★★☆</span>
-                    <span class="review-count">(8.9k)</span>
-                </div>
-                <p class="delivery-time">25 MINS</p>
-            </div>
-            <div class="card-footer">
-                <div class="price">
-                    <span class="current-price">₹45</span>
-                    <span class="original-price">₹50</span>
-                    <span class="discount">10% OFF</span>
-                </div>
-                <button class="add-btn"></button>
-            </div>
-        </div>
-
-        <div class="product-card">
-            <div class="card-header">
-                <span class="bestseller-tag">Bestseller</span>
-                <button class="wishlist-btn">♡</button>
-                <img src="https://m.media-amazon.com/images/I/61YVjHSdpHL._SL1500_.jpg" alt="Dairy Milk" class="product-image" loading="lazy">
-            </div>
-            <div class="card-body">
-                <h3 class="product-name">Cadbury Dairy Milk Chocolate</h3>
-                <p class="product-weight">55g</p>
-                <div class="rating">
-                    <span class="stars">★★★★★</span>
-                    <span class="review-count">(15.2k)</span>
-                </div>
-                <p class="delivery-time">18 MINS</p>
-            </div>
-            <div class="card-footer">
-                <div class="price">
-                    <span class="current-price">₹30</span>
-                    <span class="original-price">₹35</span>
-                    <span class="discount">14% OFF</span>
-                </div>
-                <button class="add-btn"></button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Clothing & Accessories -->
-    <h2 class="section-title">Clothing & Accessories</h2>
-    
-    <!-- Men's Clothing -->
-    <h3 class="subcategory-title">Men's Clothing</h3>
-    <div class="product-row">
-        <div class="product-card">
-            <div class="card-header">
-                <span class="bestseller-tag">Bestseller</span>
-                <button class="wishlist-btn">♡</button>
-                <img src="https://m.media-amazon.com/images/I/61aUY2J3DqL._UL1500_.jpg" alt="Men T-Shirt" class="product-image" loading="lazy">
-            </div>
-            <div class="card-body">
-                <h3 class="product-name">HRX Men's Cotton T-Shirt</h3>
-                <p class="product-weight">M Size</p>
-                <div class="rating">
-                    <span class="stars">★★★★☆</span>
-                    <span class="review-count">(2.3k)</span>
-                </div>
-                <p class="delivery-time">2 DAYS</p>
-            </div>
-            <div class="card-footer">
-                <div class="price">
-                    <span class="current-price">₹399</span>
-                    <span class="original-price">₹799</span>
-                    <span class="discount">50% OFF</span>
-                </div>
-                <button class="add-btn"></button>
-            </div>
-        </div>
-
-        <div class="product-card">
-            <div class="card-header">
-                <button class="wishlist-btn">♡</button>
-                <img src="https://m.media-amazon.com/images/I/71QN1W2dGkL._UL1500_.jpg" alt="Men Jeans" class="product-image" loading="lazy">
-            </div>
-            <div class="card-body">
-                <h3 class="product-name">WROGN Slim Fit Jeans</h3>
-                <p class="product-weight">32 Size</p>
-                <div class="rating">
-                    <span class="stars">★★★★★</span>
-                    <span class="review-count">(4.7k)</span>
-                </div>
-                <p class="delivery-time">2 DAYS</p>
-            </div>
-            <div class="card-footer">
-                <div class="price">
-                    <span class="current-price">₹1,299</span>
-                    <span class="original-price">₹2,499</span>
-                    <span class="discount">48% OFF</span>
-                </div>
-                <button class="add-btn"></button>
-            </div>
-        </div>
-
-        <div class="product-card">
-            <div class="card-header">
-                <span class="bestseller-tag">Bestseller</span>
-                <button class="wishlist-btn">♡</button>
-                <img src="https://m.media-amazon.com/images/I/71xU1uQb5GL._UL1500_.jpg" alt="Men Shirt" class="product-image" loading="lazy">
-            </div>
-            <div class="card-body">
-                <h3 class="product-name">Arrow Men's Formal Shirt</h3>
-                <p class="product-weight">L Size</p>
-                <div class="rating">
-                    <span class="stars">★★★★☆</span>
-                    <span class="review-count">(3.1k)</span>
-                </div>
-                <p class="delivery-time">3 DAYS</p>
-            </div>
-            <div class="card-footer">
-                <div class="price">
-                    <span class="current-price">₹1,199</span>
-                    <span class="original-price">₹2,199</span>
-                    <span class="discount">45% OFF</span>
-                </div>
-                <button class="add-btn"></button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Women's Clothing -->
-    <h3 class="subcategory-title">Women's Clothing</h3>
-    <div class="product-row">
-        <div class="product-card">
-            <div class="card-header">
-                <span class="bestseller-tag">Bestseller</span>
-                <button class="wishlist-btn">♡</button>
-                <img src="https://m.media-amazon.com/images/I/71c1LBSBTOL._UL1500_.jpg" alt="Women Dress" class="product-image" loading="lazy">
-            </div>
-            <div class="card-body">
-                <h3 class="product-name">H&M Women's Summer Dress</h3>
-                <p class="product-weight">M Size</p>
-                <div class="rating">
-                    <span class="stars">★★★★★</span>
-                    <span class="review-count">(5.4k)</span>
-                </div>
-                <p class="delivery-time">2 DAYS</p>
-            </div>
-            <div class="card-footer">
-                <div class="price">
-                    <span class="current-price">₹999</span>
-                    <span class="original-price">₹1,999</span>
-                    <span class="discount">50% OFF</span>
-                </div>
-                <button class="add-btn"></button>
-            </div>
-        </div>
-
-        <div class="product-card">
-            <div class="card-header">
-                <button class="wishlist-btn">♡</button>
-                <img src="https://m.media-amazon.com/images/I/61z4s6W0s-L._UL1500_.jpg" alt="Women Top" class="product-image" loading="lazy">
-            </div>
-            <div class="card-body">
-                <h3 class="product-name">ZARA Women's Casual Top</h3>
-                <p class="product-weight">S Size</p>
-                <div class="rating">
-                    <span class="stars">★★★★☆</span>
-                    <span class="review-count">(2.8k)</span>
-                </div>
-                <p class="delivery-time">3 DAYS</p>
-            </div>
-            <div class="card-footer">
-                <div class="price">
-                    <span class="current-price">₹799</span>
-                    <span class="original-price">₹1,299</span>
-                    <span class="discount">38% OFF</span>
-                </div>
-                <button class="add-btn"></button>
-            </div>
-        </div>
-
-        <div class="product-card">
-            <div class="card-header">
-                <span class="bestseller-tag">Bestseller</span>
-                <button class="wishlist-btn">♡</button>
-                <img src="https://m.media-amazon.com/images/I/71Vc0PZ0JjL._UL1500_.jpg" alt="Women Jeans" class="product-image" loading="lazy">
-            </div>
-            <div class="card-body">
-                <h3 class="product-name">Levi's Women's Skinny Jeans</h3>
-                <p class="product-weight">28 Size</p>
-                <div class="rating">
-                    <span class="stars">★★★★☆</span>
-                    <span class="review-count">(3.9k)</span>
-                </div>
-                <p class="delivery-time">2 DAYS</p>
-            </div>
-            <div class="card-footer">
-                <div class="price">
-                    <span class="current-price">₹1,799</span>
-                    <span class="original-price">₹2,999</span>
-                    <span class="discount">40% OFF</span>
-                </div>
-                <button class="add-btn"></button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Electronics & Appliances -->
-    <h2 class="section-title">Electronics & Appliances</h2>
-    
-    <!-- Mobile & Audio -->
-    <h3 class="subcategory-title">Mobile & Audio</h3>
-    <div class="product-row">
-        <div class="product-card">
-            <div class="card-header">
-                <span class="bestseller-tag">Bestseller</span>
-                <button class="wishlist-btn">♡</button>
-                <img src="https://m.media-amazon.com/images/I/71I2ACq2H0L._SL1500_.jpg" alt="Smartphone" class="product-image" loading="lazy">
-            </div>
-            <div class="card-body">
-                <h3 class="product-name">Samsung Galaxy S21 FE 5G</h3>
-                <p class="product-weight">128GB, 8GB RAM</p>
-                <div class="rating">
-                    <span class="stars">★★★★☆</span>
-                    <span class="review-count">(24.7k)</span>
-                </div>
-                <p class="delivery-time">3 DAYS</p>
-            </div>
-            <div class="card-footer">
-                <div class="price">
-                    <span class="current-price">₹39,999</span>
-                    <span class="original-price">₹54,999</span>
-                    <span class="discount">27% OFF</span>
-                </div>
-                <button class="add-btn"></button>
-            </div>
-        </div>
-
-        <div class="product-card">
-            <div class="card-header">
-                <button class="wishlist-btn">♡</button>
-                <img src="https://m.media-amazon.com/images/I/61CInQa3rPL._SL1500_.jpg" alt="Earphones" class="product-image" loading="lazy">
-            </div>
-            <div class="card-body">
-                <h3 class="product-name">Boat Airdopes 441</h3>
-                <p class="product-weight">Wireless Earbuds</p>
-                <div class="rating">
-                    <span class="stars">★★★★☆</span>
-                    <span class="review-count">(1.2L)</span>
-                </div>
-                <p class="delivery-time">1 DAY</p>
-            </div>
-            <div class="card-footer">
-                <div class="price">
-                    <span class="current-price">₹1,299</span>
-                    <span class="original-price">₹3,990</span>
-                    <span class="discount">67% OFF</span>
-                </div>
-                <button class="add-btn"></button>
-            </div>
-        </div>
-
-        <div class="product-card">
-            <div class="card-header">
-                <span class="bestseller-tag">Bestseller</span>
-                <button class="wishlist-btn">♡</button>
-                <img src="https://m.media-amazon.com/images/I/61+Q6Rh9KtL._SL1500_.jpg" alt="Power Bank" class="product-image" loading="lazy">
-            </div>
-            <div class="card-body">
-                <h3 class="product-name">Mi 20000mAh Power Bank</h3>
-                <p class="product-weight">18W Fast Charging</p>
-                <div class="rating">
-                    <span class="stars">★★★★★</span>
-                    <span class="review-count">(98.4k)</span>
-                </div>
-                <p class="delivery-time">1 DAY</p>
-            </div>
-            <div class="card-footer">
-                <div class="price">
-                    <span class="current-price">₹1,499</span>
-                    <span class="original-price">₹2,499</span>
-                    <span class="discount">40% OFF</span>
-                </div>
-                <button class="add-btn"></button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Beauty & Personal Care -->
-    <h2 class="section-title">Beauty & Personal Care</h2>
-    
-    <!-- Skin Care -->
-    <h3 class="subcategory-title">Skin Care</h3>
-    <div class="product-row">
-        <div class="product-card">
-            <div class="card-header">
-                <span class="bestseller-tag">Bestseller</span>
-                <button class="wishlist-btn">♡</button>
-                <img src="https://m.media-amazon.com/images/I/61g+kh+WnQL._SL1500_.jpg" alt="Face Wash" class="product-image" loading="lazy">
-            </div>
-            <div class="card-body">
-                <h3 class="product-name">Lakme Perfect Radiance Face Wash</h3>
-                <p class="product-weight">100ml</p>
-                <div class="rating">
-                    <span class="stars">★★★★☆</span>
-                    <span class="review-count">(45.2k)</span>
-                </div>
-                <p class="delivery-time">1 DAY</p>
-            </div>
-            <div class="card-footer">
-                <div class="price">
-                    <span class="current-price">₹175</span>
-                    <span class="original-price">₹225</span>
-                    <span class="discount">22% OFF</span>
-                </div>
-                <button class="add-btn"></button>
-            </div>
-        </div>
-
-        <div class="product-card">
-            <div class="card-header">
-                <button class="wishlist-btn">♡</button>
-                <img src="https://m.media-amazon.com/images/I/61U4j6cTbZL._SL1500_.jpg" alt="Moisturizer" class="product-image" loading="lazy">
-            </div>
-            <div class="card-body">
-                <h3 class="product-name">Pond's Light Moisturizer</h3>
-                <p class="product-weight">150ml</p>
-                <div class="rating">
-                    <span class="stars">★★★★★</span>
-                    <span class="review-count">(32.7k)</span>
-                </div>
-                <p class="delivery-time">1 DAY</p>
-            </div>
-            <div class="card-footer">
-                <div class="price">
-                    <span class="current-price">₹230</span>
-                    <span class="original-price">₹290</span>
-                    <span class="discount">21% OFF</span>
-                </div>
-                <button class="add-btn"></button>
-            </div>
-        </div>
-
-        <div class="product-card">
-            <div class="card-header">
-                <span class="bestseller-tag">Bestseller</span>
-                <button class="wishlist-btn">♡</button>
-                <img src="https://m.media-amazon.com/images/I/71lVWb1HfUL._SL1500_.jpg" alt="Sunscreen" class="product-image" loading="lazy">
-            </div>
-            <div class="card-body">
-                <h3 class="product-name">Lotus Herbals Safe Sun SPF 50</h3>
-                <p class="product-weight">100g</p>
-                <div class="rating">
-                    <span class="stars">★★★★☆</span>
-                    <span class="review-count">(21.4k)</span>
-                </div>
-                <p class="delivery-time">1 DAY</p>
-            </div>
-            <div class="card-footer">
-                <div class="price">
-                    <span class="current-price">₹325</span>
-                    <span class="original-price">₹425</span>
-                    <span class="discount">24% OFF</span>
-                </div>
-                <button class="add-btn"></button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Baby Care -->
-    <h2 class="section-title">Baby Care</h2>
-    
-    <!-- Diapering -->
-    <h3 class="subcategory-title">Diapering</h3>
-    <div class="product-row">
-        <div class="product-card">
-            <div class="card-header">
-                <span class="bestseller-tag">Bestseller</span>
-                <button class="wishlist-btn">♡</button>
-                <img src="https://m.media-amazon.com/images/I/71tXUzq2kXL._SL1500_.jpg" alt="Diapers" class="product-image" loading="lazy">
-            </div>
-            <div class="card-body">
-                <h3 class="product-name">Pampers Premium Care Pants</h3>
-                <p class="product-weight">XL Size, 44 Count</p>
-                <div class="rating">
-                    <span class="stars">★★★★★</span>
-                    <span class="review-count">(34.8k)</span>
-                </div>
-                <p class="delivery-time">1 DAY</p>
-            </div>
-            <div class="card-footer">
-                <div class="price">
-                    <span class="current-price">₹999</span>
-                    <span class="original-price">₹1,299</span>
-                    <span class="discount">23% OFF</span>
-                </div>
-                <button class="add-btn"></button>
-            </div>
-        </div>
-
-        <div class="product-card">
-            <div class="card-header">
-                <button class="wishlist-btn">♡</button>
-                <img src="https://m.media-amazon.com/images/I/61M8JxH4U1L._SL1200_.jpg" alt="Baby Wipes" class="product-image" loading="lazy">
-            </div>
-            <div class="card-body">
-                <h3 class="product-name">Johnson's Baby Wipes</h3>
-                <p class="product-weight">72 Wipes</p>
-                <div class="rating">
-                    <span class="stars">★★★★☆</span>
-                    <span class="review-count">(28.3k)</span>
-                </div>
-                <p class="delivery-time">1 DAY</p>
-            </div>
-            <div class="card-footer">
-                <div class="price">
-                    <span class="current-price">₹225</span>
-                    <span class="original-price">₹299</span>
-                    <span class="discount">25% OFF</span>
-                </div>
-                <button class="add-btn"></button>
-            </div>
-        </div>
-
-        <div class="product-card">
-            <div class="card-header">
-                <span class="bestseller-tag">Bestseller</span>
-                <button class="wishlist-btn">♡</button>
-                <img src="https://m.media-amazon.com/images/I/71b5fUcU5hL._SL1500_.jpg" alt="Diaper Rash Cream" class="product-image" loading="lazy">
-            </div>
-            <div class="card-body">
-                <h3 class="product-name">Sebamed Rash Cream</h3>
-                <p class="product-weight">100ml</p>
-                <div class="rating">
-                    <span class="stars">★★★★★</span>
-                    <span class="review-count">(12.6k)</span>
-                </div>
-                <p class="delivery-time">1 DAY</p>
-            </div>
-            <div class="card-footer">
-                <div class="price">
-                    <span class="current-price">₹499</span>
-                    <span class="original-price">₹699</span>
-                    <span class="discount">29% OFF</span>
-                </div>
-                <button class="add-btn"></button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Pet Care -->
-    <h2 class="section-title">Pet Care</h2>
-    
-    <!-- Food & Treats -->
-    <h3 class="subcategory-title">Food & Treats</h3>
-    <div class="product-row">
-        <div class="product-card">
-            <div class="card-header">
-                <span class="bestseller-tag">Bestseller</span>
-                <button class="wishlist-btn">♡</button>
-                <img src="https://m.media-amazon.com/images/I/61dJQY0U2NL._SL1000_.jpg" alt="Dog Food" class="product-image" loading="lazy">
-            </div>
-            <div class="card-body">
-                <h3 class="product-name">Pedigree Adult Dry Dog Food</h3>
-                <p class="product-weight">3kg Pack</p>
-                <div class="rating">
-                    <span class="stars">★★★★☆</span>
-                    <span class="review-count">(8.4k)</span>
-                </div>
-                <p class="delivery-time">1 DAY</p>
-            </div>
-            <div class="card-footer">
-                <div class="price">
-                    <span class="current-price">₹599</span>
-                    <span class="original-price">₹799</span>
-                    <span class="discount">25% OFF</span>
-                </div>
-                <button class="add-btn"></button>
-            </div>
-        </div>
-
-        <div class="product-card">
-            <div class="card-header">
-                <button class="wishlist-btn">♡</button>
-                <img src="https://m.media-amazon.com/images/I/71yX6Ht3YJL._SL1500_.jpg" alt="Cat Food" class="product-image" loading="lazy">
-            </div>
-            <div class="card-body">
-                <h3 class="product-name">Whiskas Wet Cat Food</h3>
-                <p class="product-weight">12 Pouches</p>
-                <div class="rating">
-                    <span class="stars">★★★★★</span>
-                    <span class="review-count">(6.3k)</span>
-                </div>
-                <p class="delivery-time">1 DAY</p>
-            </div>
-            <div class="card-footer">
-                <div class="price">
-                    <span class="current-price">₹299</span>
-                    <span class="original-price">₹399</span>
-                    <span class="discount">25% OFF</span>
-                </div>
-                <button class="add-btn"></button>
-            </div>
-        </div>
-
-        <div class="product-card">
-            <div class="card-header">
-                <span class="bestseller-tag">Bestseller</span>
-                <button class="wishlist-btn">♡</button>
-                <img src="https://m.media-amazon.com/images/I/71pXqkKdWjL._SL1500_.jpg" alt="Dog Treats" class="product-image" loading="lazy">
-            </div>
-            <div class="card-body">
-                <h3 class="product-name">Drools Chicken Jerky</h3>
-                <p class="product-weight">150g</p>
-                <div class="rating">
-                    <span class="stars">★★★★☆</span>
-                    <span class="review-count">(4.8k)</span>
-                </div>
-                <p class="delivery-time">1 DAY</p>
-            </div>
-            <div class="card-footer">
-                <div class="price">
-                    <span class="current-price">₹249</span>
-                    <span class="original-price">₹349</span>
-                    <span class="discount">29% OFF</span>
-                </div>
-                <button class="add-btn"></button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Kitchenware & Utensils -->
-    <h2 class="section-title">Kitchenware & Utensils</h2>
-    
-    <!-- Cookware -->
-    <h3 class="subcategory-title">Cookware</h3>
-    <div class="product-row">
-        <div class="product-card">
-            <div class="card-header">
-                <span class="bestseller-tag">Bestseller</span>
-                <button class="wishlist-btn">♡</button>
-                <img src="https://m.media-amazon.com/images/I/61DxXeLgUQL._SL1500_.jpg" alt="Non-stick Pan" class="product-image" loading="lazy">
-            </div>
-            <div class="card-body">
-                <h3 class="product-name">Hawkins Futura Non-Stick Pan</h3>
-                <p class="product-weight">24cm</p>
-                <div class="rating">
-                    <span class="stars">★★★★★</span>
-                    <span class="review-count">(18.7k)</span>
-                </div>
-                <p class="delivery-time">2 DAYS</p>
-            </div>
-            <div class="card-footer">
-                <div class="price">
-                    <span class="current-price">₹1,099</span>
-                    <span class="original-price">₹1,799</span>
-                    <span class="discount">39% OFF</span>
-                </div>
-                <button class="add-btn"></button>
-            </div>
-        </div>
-
-        <div class="product-card">
-            <div class="card-header">
-                <button class="wishlist-btn">♡</button>
-                <img src="https://m.media-amazon.com/images/I/61T8JbK+0DL._SL1500_.jpg" alt="Pressure Cooker" class="product-image" loading="lazy">
-            </div>
-            <div class="card-body">
-                <h3 class="product-name">Prestige Popular Aluminium Cooker</h3>
-                <p class="product-weight">3 Litre</p>
-                <div class="rating">
-                    <span class="stars">★★★★☆</span>
-                    <span class="review-count">(12.4k)</span>
-                </div>
-                <p class="delivery-time">2 DAYS</p>
-            </div>
-            <div class="card-footer">
-                <div class="price">
-                    <span class="current-price">₹899</span>
-                    <span class="original-price">₹1,299</span>
-                    <span class="discount">31% OFF</span>
-                </div>
-                <button class="add-btn"></button>
-            </div>
-        </div>
-
-        <div class="product-card">
-            <div class="card-header">
-                <span class="bestseller-tag">Bestseller</span>
-                <button class="wishlist-btn">♡</button>
-                <img src="https://m.media-amazon.com/images/I/71XW4Qq7HBL._SL1500_.jpg" alt="Kitchen Knife" class="product-image" loading="lazy">
-            </div>
-            <div class="card-body">
-                <h3 class="product-name">Milton Pro Chef Knife Set</h3>
-                <p class="product-weight">3 Pieces</p>
-                <div class="rating">
-                    <span class="stars">★★★★☆</span>
-                    <span class="review-count">(9.3k)</span>
-                </div>
-                <p class="delivery-time">2 DAYS</p>
-            </div>
-            <div class="card-footer">
-                <div class="price">
-                    <span class="current-price">₹1,299</span>
-                    <span class="original-price">₹1,999</span>
-                    <span class="discount">35% OFF</span>
-                </div>
-                <button class="add-btn"></button>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // Improved add to cart functionality with temporary feedback
-        document.querySelectorAll('.add-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                // Immediately show the "ADDED" state
-                this.classList.add('added');
-                
-                // Get product info
-                const productCard = this.closest('.product-card');
-                const productName = productCard.querySelector('.product-name').textContent;
-                const productPrice = productCard.querySelector('.current-price').textContent;
-                
-                console.log(`Added to cart: ${productName} - ${productPrice}`);
-                
-                // Set timeout to revert back to "ADD" after 2 seconds
-                setTimeout(() => {
-                    this.classList.remove('added');
-                }, 2000);
-            });
-        });
-
-        // Wishlist functionality
-        document.querySelectorAll('.wishlist-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                this.classList.toggle('active');
-                this.textContent = this.classList.contains('active') ? '♥' : '♡';
-                
-                const productCard = this.closest('.product-card');
-                const productName = productCard.querySelector('.product-name').textContent;
-                
-                if (this.classList.contains('active')) {
-                    console.log(`Added to wishlist: ${productName}`);
-                } else {
-                    console.log(`Removed from wishlist: ${productName}`);
-                }
-            });
-        });
-
-        // Lazy loading for images
-        document.addEventListener("DOMContentLoaded", function() {
-            const lazyImages = [].slice.call(document.querySelectorAll("img[loading='lazy']"));
-            
-            if ("IntersectionObserver" in window) {
-                let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
-                    entries.forEach(function(entry) {
-                        if (entry.isIntersecting) {
-                            let lazyImage = entry.target;
-                            lazyImage.src = lazyImage.dataset.src;
-                            lazyImage.classList.remove("lazy");
-                            lazyImageObserver.unobserve(lazyImage);
-                        }
-                    });
-                });
-
-                lazyImages.forEach(function(lazyImage) {
-                    lazyImageObserver.observe(lazyImage);
-                });
-            }
-        });
-    </script>
-</body>
-</html>
+Option for multiple image views or zoom
+
+
+
+2. Product Title
+
+Full name of the product (e.g., "Tata Sampann Unpolished Toor Dal 1kg")
+
+
+
+3. Pricing & Offer Section
+
+Final selling price (e.g., ₹95)
+
+Original MRP (e.g., ₹120) with strikethrough
+
+Discount percentage badge (e.g., 21% OFF)
+
+
+
+4. Weight/Quantity Info
+
+e.g., "1 kg", "500 ml", "Pack of 2"
+
+
+
+5. Delivery Info Section
+
+Estimated delivery time (e.g., "Delivery in 10 mins")
+
+Serviceability checker (Enter PIN code)
+
+
+
+6. Add to Cart & Quantity Selector
+
+Interactive quantity control (plus/minus buttons)
+
+“Add to Cart” or “Buy Now” buttons
+
+
+
+7. Product Highlights
+
+Key features in bullet format (e.g., "Rich in protein", "No preservatives")
+
+
+
+8. Ingredients (if applicable)
+
+List of ingredients for food or personal care items
+
+
+
+9. Nutritional Information Table
+
+Per 100g values: Calories, Protein, Carbohydrates, Fat
+
+
+
+10. Manufacturer & Brand Info
+
+Brand name, manufacturer details, country of origin
+
+
+
+11. Packaging Info
+
+MRP, Packaging date, Expiry date, Batch number
+
+
+
+12. Customer Ratings & Reviews
+
+Star ratings (e.g., 4.2/5 based on 500+ reviews)
+
+User comments and verified buyer tags
+
+
+
+13. Similar or Related Products Section
+
+Scrollable carousel or grid with images, names, prices of other products
