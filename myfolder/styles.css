@@ -1,4 +1,4 @@
-'Sahi sa work nahi kar raha ha function ham cart nahi kar pa raha h aaur product ,a click karaga to uska detail dikhaya ga <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -3645,91 +3645,4 @@
   </script>
 </body>
 </html>
-ya sara chij add kar do 
-1. Product Image Section
-
-High-quality image of the product
-
-Option for multiple image views or zoom
-
-
-
-2. Product Title
-
-Full name of the product (e.g., "Tata Sampann Unpolished Toor Dal 1kg")
-
-
-
-3. Pricing & Offer Section
-
-Final selling price (e.g., ₹95)
-
-Original MRP (e.g., ₹120) with strikethrough
-
-Discount percentage badge (e.g., 21% OFF)
-
-
-
-4. Weight/Quantity Info
-
-e.g., "1 kg", "500 ml", "Pack of 2"
-
-
-
-5. Delivery Info Section
-
-Estimated delivery time (e.g., "Delivery in 10 mins")
-
-Serviceability checker (Enter PIN code)
-
-
-
-6. Add to Cart & Quantity Selector
-
-Interactive quantity control (plus/minus buttons)
-
-“Add to Cart” or “Buy Now” buttons
-
-
-
-7. Product Highlights
-
-Key features in bullet format (e.g., "Rich in protein", "No preservatives")
-
-
-
-8. Ingredients (if applicable)
-
-List of ingredients for food or personal care items
-
-
-
-9. Nutritional Information Table
-
-Per 100g values: Calories, Protein, Carbohydrates, Fat
-
-
-
-10. Manufacturer & Brand Info
-
-Brand name, manufacturer details, country of origin
-
-
-
-11. Packaging Info
-
-MRP, Packaging date, Expiry date, Batch number
-
-
-
-12. Customer Ratings & Reviews
-
-Star ratings (e.g., 4.2/5 based on 500+ reviews)
-
-User comments and verified buyer tags
-
-
-
-13. Similar or Related Products Section
-
-Scrollable carousel or grid with images, names, prices of other products
+Is ma ham add to cart nahi kar pa raha ha aur order bhi kar paya  usa sahi kar ka full code do
