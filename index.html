@@ -1693,7 +1693,7 @@
         Top Deals
         <span class="view-all" onclick="showCategoryProducts('top-deals')">View All</span>
       </h2>
-      <div class="product-row">
+      <div class="product-row" id="topDeals">
         <div class="product-card">
           <div class="card-header">
             <span class="bestseller-tag">Bestseller</span>
@@ -1715,7 +1715,7 @@
               <span class="original-price">₹145</span>
               <span class="discount">14% OFF</span>
             </div>
-            <button class="add-btn"></button>
+            <button class="add-btn" onclick="addToCart('p1', event)"></button>
           </div>
         </div>
 
@@ -1739,7 +1739,7 @@
               <span class="original-price">₹195</span>
               <span class="discount">10% OFF</span>
             </div>
-            <button class="add-btn"></button>
+            <button class="add-btn" onclick="addToCart('p2', event)"></button>
           </div>
         </div>
 
@@ -1747,7 +1747,7 @@
           <div class="card-header">
             <span class="bestseller-tag">Bestseller</span>
             <button class="wishlist-btn">♡</button>
-            <img src="https://m.media-amazon.com/images/I/61Lk8Z6sBIL._SL1500_.jpg" alt="Tata Salt" class="product-image" loading="lazy">
+            <img src="https://m.media-amazon.com/images/I/71S7OtC3N5L._SL1500_.jpg" alt="Tata Salt" class="product-image" loading="lazy">
           </div>
           <div class="card-body">
             <h3 class="product-name">Tata Salt - Iodized</h3>
@@ -1764,14 +1764,14 @@
               <span class="original-price">₹30</span>
               <span class="discount">17% OFF</span>
             </div>
-            <button class="add-btn"></button>
+            <button class="add-btn" onclick="addToCart('p3', event)"></button>
           </div>
         </div>
 
         <div class="product-card">
           <div class="card-header">
             <button class="wishlist-btn">♡</button>
-            <img src="https://m.media-amazon.com/images/I/61Lk8Z6sBIL._SL1500_.jpg" alt="Aashirvaad Atta" class="product-image" loading="lazy">
+            <img src="https://m.media-amazon.com/images/I/71S7OtC3N5L._SL1500_.jpg" alt="Aashirvaad Atta" class="product-image" loading="lazy">
           </div>
           <div class="card-body">
             <h3 class="product-name">Aashirvaad Whole Wheat Atta</h3>
@@ -1788,7 +1788,7 @@
               <span class="original-price">₹250</span>
               <span class="discount">10% OFF</span>
             </div>
-            <button class="add-btn"></button>
+            <button class="add-btn" onclick="addToCart('p4', event)"></button>
           </div>
         </div>
       </div>
@@ -1798,7 +1798,7 @@
         Daily Essentials
         <span class="view-all" onclick="showCategoryProducts('daily-essentials')">View All</span>
       </h2>
-      <div class="product-row">
+      <div class="product-row" id="dailyEssentials">
         <div class="product-card">
           <div class="card-header">
             <span class="bestseller-tag">Bestseller</span>
@@ -1820,7 +1820,7 @@
               <span class="original-price">₹62</span>
               <span class="discount">6% OFF</span>
             </div>
-            <button class="add-btn"></button>
+            <button class="add-btn" onclick="addToCart('p5', event)"></button>
           </div>
         </div>
 
@@ -1844,7 +1844,7 @@
               <span class="original-price">₹55</span>
               <span class="discount">9% OFF</span>
             </div>
-            <button class="add-btn"></button>
+            <button class="add-btn" onclick="addToCart('p6', event)"></button>
           </div>
         </div>
 
@@ -1869,7 +1869,7 @@
               <span class="original-price">₹45</span>
               <span class="discount">11% OFF</span>
             </div>
-            <button class="add-btn"></button>
+            <button class="add-btn" onclick="addToCart('p7', event)"></button>
           </div>
         </div>
 
@@ -1893,7 +1893,7 @@
               <span class="original-price">₹40</span>
               <span class="discount">13% OFF</span>
             </div>
-            <button class="add-btn"></button>
+            <button class="add-btn" onclick="addToCart('p8', event)"></button>
           </div>
         </div>
       </div>
@@ -1903,7 +1903,7 @@
         Frequently Bought
         <span class="view-all" onclick="showCategoryProducts('frequently-bought')">View All</span>
       </h2>
-      <div class="product-row">
+      <div class="product-row" id="frequentlyBought">
         <div class="product-card">
           <div class="card-header">
             <span class="bestseller-tag">Bestseller</span>
@@ -1925,7 +1925,7 @@
               <span class="original-price">₹144</span>
               <span class="discount">17% OFF</span>
             </div>
-            <button class="add-btn"></button>
+            <button class="add-btn" onclick="addToCart('p9', event)"></button>
           </div>
         </div>
 
@@ -1949,7 +1949,7 @@
               <span class="original-price">₹25</span>
               <span class="discount">20% OFF</span>
             </div>
-            <button class="add-btn"></button>
+            <button class="add-btn" onclick="addToCart('p10', event)"></button>
           </div>
         </div>
 
@@ -1974,7 +1974,7 @@
               <span class="original-price">₹12</span>
               <span class="discount">17% OFF</span>
             </div>
-            <button class="add-btn"></button>
+            <button class="add-btn" onclick="addToCart('p11', event)"></button>
           </div>
         </div>
 
@@ -1998,7 +1998,7 @@
               <span class="original-price">₹35</span>
               <span class="discount">14% OFF</span>
             </div>
-            <button class="add-btn"></button>
+            <button class="add-btn" onclick="addToCart('p12', event)"></button>
           </div>
         </div>
       </div>
@@ -3144,7 +3144,6 @@
       const product = products.find(p => p.id === productId);
       if (!product) return;
       
-      const productCard = event ? event.target.closest('.product-card') : document.querySelector(`.product-card[data-id="${productId}"]`);
       const selectedWeight = product.weightOptions[0];
       
       // Check if product already exists in cart with same weight
