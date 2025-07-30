@@ -1468,7 +1468,7 @@
     .mobile-cart-btn {
       position: fixed;
       bottom: 20px;
-      left: 20px;
+      right: 20px; /* Changed from left to right */
       width: 60px;
       height: 60px;
       background: var(--primary);
@@ -1519,6 +1519,42 @@
     /* Back button navigation history */
     .page-history {
       display: none;
+    }
+    
+    /* Quantity buttons */
+    .quantity-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--primary-light);
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    /* New order confirmation animation */
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background: #f00;
+      border-radius: 50%;
+      z-index: 10000;
+      animation: confetti-fall 5s linear forwards;
+    }
+    
+    @keyframes confetti-fall {
+      0% {
+        transform: translateY(-100vh) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+      }
     }
   </style>
 </head>
@@ -1738,7 +1774,7 @@
           <div class="card-header">
             <span class="bestseller-tag">Bestseller</span>
             <button class="wishlist-btn">♡</button>
-            <img src="https://m.media-amazon.com/images/I/61Lk8Z6sBIL._SL1500_.jpg" alt="Basmati Rice" class="product-image" loading="lazy">
+            <img src="https://images.unsplash.com/photo-1592924687770-8c9c8d6d6c5d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Basmati Rice" class="product-image" loading="lazy">
           </div>
           <div class="card-body">
             <h3 class="product-name">India Gate Basmati Rice - Premium</h3>
@@ -1762,7 +1798,7 @@
         <div class="product-card">
           <div class="card-header">
             <button class="wishlist-btn">♡</button>
-            <img src="https://m.media-amazon.com/images/I/61lZzZzZ-ZL._SL1500_.jpg" alt="Fortune Sunflower Oil" class="product-image" loading="lazy">
+            <img src="https://images.unsplash.com/photo-1587049633312-d628ae50a8ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Fortune Sunflower Oil" class="product-image" loading="lazy">
           </div>
           <div class="card-body">
             <h3 class="product-name">Fortune Sunflower Oil</h3>
@@ -1787,7 +1823,7 @@
           <div class="card-header">
             <span class="bestseller-tag">Bestseller</span>
             <button class="wishlist-btn">♡</button>
-            <img src="https://m.media-amazon.com/images/I/71S7OtC3N5L._SL1500_.jpg" alt="Tata Salt" class="product-image" loading="lazy">
+            <img src="https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Tata Salt" class="product-image" loading="lazy">
           </div>
           <div class="card-body">
             <h3 class="product-name">Tata Salt - Iodized</h3>
@@ -1811,7 +1847,7 @@
         <div class="product-card">
           <div class="card-header">
             <button class="wishlist-btn">♡</button>
-            <img src="https://m.media-amazon.com/images/I/71S7OtC3N5L._SL1500_.jpg" alt="Aashirvaad Atta" class="product-image" loading="lazy">
+            <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Aashirvaad Atta" class="product-image" loading="lazy">
           </div>
           <div class="card-body">
             <h3 class="product-name">Aashirvaad Whole Wheat Atta</h3>
@@ -1843,7 +1879,7 @@
           <div class="card-header">
             <span class="bestseller-tag">Bestseller</span>
             <button class="wishlist-btn">♡</button>
-            <img src="https://m.media-amazon.com/images/I/61Lk8Z6sBIL._SL1500_.jpg" alt="Amul Milk" class="product-image" loading="lazy">
+            <img src="https://images.unsplash.com/photo-1563636619-e9143da7973b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Amul Milk" class="product-image" loading="lazy">
           </div>
           <div class="card-body">
             <h3 class="product-name">Amul Taaza Homogenized Toned Milk</h3>
@@ -1867,7 +1903,7 @@
         <div class="product-card">
           <div class="card-header">
             <button class="wishlist-btn">♡</button>
-            <img src="https://m.media-amazon.com/images/I/61Lk8Z6sBIL._SL1500_.jpg" alt="Amul Butter" class="product-image" loading="lazy">
+            <img src="https://images.unsplash.com/photo-1598209257853-2e1cf0e3d0b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Amul Butter" class="product-image" loading="lazy">
           </div>
           <div class="card-body">
             <h3 class="product-name">Amul Salted Butter</h3>
@@ -1892,7 +1928,7 @@
           <div class="card-header">
             <span class="bestseller-tag">Bestseller</span>
             <button class="wishlist-btn">♡</button>
-            <img src="https://m.media-amazon.com/images/I/61Lk8Z6sBIL._SL1500_.jpg" alt="Nestle Curd" class="product-image" loading="lazy">
+            <img src="https://images.unsplash.com/photo-1598209257853-2e1cf0e3d0b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Nestle Curd" class="product-image" loading="lazy">
           </div>
           <div class="card-body">
             <h3 class="product-name">Nestle Classic Curd</h3>
@@ -1916,7 +1952,7 @@
         <div class="product-card">
           <div class="card-header">
             <button class="wishlist-btn">♡</button>
-            <img src="https://m.media-amazon.com/images/I/61Lk8Z6sBIL._SL1500_.jpg" alt="Britannia Bread" class="product-image" loading="lazy">
+            <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Britannia Bread" class="product-image" loading="lazy">
           </div>
           <div class="card-body">
             <h3 class="product-name">Britannia Whole Wheat Bread</h3>
@@ -1948,7 +1984,7 @@
           <div class="card-header">
             <span class="bestseller-tag">Bestseller</span>
             <button class="wishlist-btn">♡</button>
-            <img src="https://m.media-amazon.com/images/I/61Lk8Z6sBIL._SL1500_.jpg" alt="Maggi Noodles" class="product-image" loading="lazy">
+            <img src="https://images.unsplash.com/photo-1633113215848-40f34e0c7c1b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Maggi Noodles" class="product-image" loading="lazy">
           </div>
           <div class="card-body">
             <h3 class="product-name">Maggi 2-Minute Masala Noodles</h3>
@@ -1972,7 +2008,7 @@
         <div class="product-card">
           <div class="card-header">
             <button class="wishlist-btn">♡</button>
-            <img src="https://m.media-amazon.com/images/I/61Lk8Z6sBIL._SL1500_.jpg" alt="Lays Chips" class="product-image" loading="lazy">
+            <img src="https://images.unsplash.com/photo-1621447504864-d8686e12698c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Lays Chips" class="product-image" loading="lazy">
           </div>
           <div class="card-body">
             <h3 class="product-name">Lays India's Magic Masala</h3>
@@ -1997,7 +2033,7 @@
           <div class="card-header">
             <span class="bestseller-tag">Bestseller</span>
             <button class="wishlist-btn">♡</button>
-            <img src="https://m.media-amazon.com/images/I/61Lk8Z6sBIL._SL1500_.jpg" alt="Parle-G Biscuits" class="product-image" loading="lazy">
+            <img src="https://images.unsplash.com/photo-1587241321921-91a834d6d191?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Parle-G Biscuits" class="product-image" loading="lazy">
           </div>
           <div class="card-body">
             <h3 class="product-name">Parle-G Gold Biscuits</h3>
@@ -2021,7 +2057,7 @@
         <div class="product-card">
           <div class="card-header">
             <button class="wishlist-btn">♡</button>
-            <img src="https://m.media-amazon.com/images/I/61Lk8Z6sBIL._SL1500_.jpg" alt="Cadbury Dairy Milk" class="product-image" loading="lazy">
+            <img src="https://images.unsplash.com/photo-1575377427642-087cf684f29d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Cadbury Dairy Milk" class="product-image" loading="lazy">
           </div>
           <div class="card-body">
             <h3 class="product-name">Cadbury Dairy Milk Silk</h3>
@@ -2617,7 +2653,7 @@
         id: 'p1',
         title: 'India Gate Basmati Rice - Premium',
         category: 'staples',
-        image: 'https://m.media-amazon.com/images/I/61Lk8Z6sBIL._SL1500_.jpg',
+        image: 'https://images.unsplash.com/photo-1592924687770-8c9c8d6d6c5d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
         price: 125,
         originalPrice: 145,
         unitPrice: '₹125/kg',
@@ -2632,7 +2668,7 @@
         id: 'p2',
         title: 'Fortune Sunflower Oil',
         category: 'staples',
-        image: 'https://m.media-amazon.com/images/I/61lZzZzZ-ZL._SL1500_.jpg',
+        image: 'https://images.unsplash.com/photo-1587049633312-d628ae50a8ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
         price: 175,
         originalPrice: 195,
         unitPrice: '₹175/L',
@@ -2647,7 +2683,7 @@
         id: 'p3',
         title: 'Tata Salt - Iodized',
         category: 'staples',
-        image: 'https://m.media-amazon.com/images/I/71S7OtC3N5L._SL1500_.jpg',
+        image: 'https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
         price: 25,
         originalPrice: 30,
         unitPrice: '₹25/kg',
@@ -2662,7 +2698,7 @@
         id: 'p4',
         title: 'Aashirvaad Whole Wheat Atta',
         category: 'staples',
-        image: 'https://m.media-amazon.com/images/I/71S7OtC3N5L._SL1500_.jpg',
+        image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
         price: 225,
         originalPrice: 250,
         unitPrice: '₹45/kg',
@@ -2677,7 +2713,7 @@
         id: 'p5',
         title: 'Amul Taaza Homogenized Toned Milk',
         category: 'dairy',
-        image: 'https://m.media-amazon.com/images/I/61Lk8Z6sBIL._SL1500_.jpg',
+        image: 'https://images.unsplash.com/photo-1563636619-e9143da7973b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
         price: 58,
         originalPrice: 62,
         unitPrice: '₹58/L',
@@ -2692,7 +2728,7 @@
         id: 'p6',
         title: 'Amul Salted Butter',
         category: 'dairy',
-        image: 'https://m.media-amazon.com/images/I/61Lk8Z6sBIL._SL1500_.jpg',
+        image: 'https://images.unsplash.com/photo-1598209257853-2e1cf0e3d0b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
         price: 50,
         originalPrice: 55,
         unitPrice: '₹500/kg',
@@ -2707,7 +2743,7 @@
         id: 'p7',
         title: 'Nestle Classic Curd',
         category: 'dairy',
-        image: 'https://m.media-amazon.com/images/I/61Lk8Z6sBIL._SL1500_.jpg',
+        image: 'https://images.unsplash.com/photo-1598209257853-2e1cf0e3d0b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
         price: 40,
         originalPrice: 45,
         unitPrice: '₹100/kg',
@@ -2722,7 +2758,7 @@
         id: 'p8',
         title: 'Britannia Whole Wheat Bread',
         category: 'bakery',
-        image: 'https://m.media-amazon.com/images/I/61Lk8Z6sBIL._SL1500_.jpg',
+        image: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
         price: 35,
         originalPrice: 40,
         unitPrice: '₹87.5/kg',
@@ -2737,7 +2773,7 @@
         id: 'p9',
         title: 'Maggi 2-Minute Masala Noodles',
         category: 'snacks',
-        image: 'https://m.media-amazon.com/images/I/61Lk8Z6sBIL._SL1500_.jpg',
+        image: 'https://images.unsplash.com/photo-1633113215848-40f34e0c7c1b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
         price: 120,
         originalPrice: 144,
         unitPrice: '₹14.28/70g',
@@ -2752,7 +2788,7 @@
         id: 'p10',
         title: 'Lays India\'s Magic Masala',
         category: 'snacks',
-        image: 'https://m.media-amazon.com/images/I/61Lk8Z6sBIL._SL1500_.jpg',
+        image: 'https://images.unsplash.com/photo-1621447504864-d8686e12698c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
         price: 20,
         originalPrice: 25,
         unitPrice: '₹38.46/kg',
@@ -2767,7 +2803,7 @@
         id: 'p11',
         title: 'Parle-G Gold Biscuits',
         category: 'snacks',
-        image: 'https://m.media-amazon.com/images/I/61Lk8Z6sBIL._SL1500_.jpg',
+        image: 'https://images.unsplash.com/photo-1587241321921-91a834d6d191?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
         price: 10,
         originalPrice: 12,
         unitPrice: '₹100/kg',
@@ -2782,7 +2818,7 @@
         id: 'p12',
         title: 'Cadbury Dairy Milk Silk',
         category: 'snacks',
-        image: 'https://m.media-amazon.com/images/I/61Lk8Z6sBIL._SL1500_.jpg',
+        image: 'https://images.unsplash.com/photo-1575377427642-087cf684f29d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
         price: 30,
         originalPrice: 35,
         unitPrice: '₹833.33/kg',
@@ -2970,6 +3006,10 @@
       products.forEach(product => {
         const discount = Math.round((1 - product.price / product.originalPrice) * 100);
         const isInWishlist = wishlist.some(item => item.id === product.id);
+        const isInCart = cart.some(item => 
+          item.id === product.id && 
+          item.selectedWeight.value === product.weightOptions[0].value
+        );
         
         const productEl = document.createElement('div');
         productEl.className = 'product-card';
@@ -2996,7 +3036,7 @@
               <span class="original-price">₹${product.originalPrice.toLocaleString('en-IN')}</span>
               ${discount > 0 ? `<span class="discount">${discount}% OFF</span>` : ''}
             </div>
-            <button class="add-btn" onclick="addToCart('${product.id}', event)" ${product.stock === 'Out of Stock' ? 'disabled' : ''}>
+            <button class="add-btn ${isInCart ? 'added' : ''}" onclick="addToCart('${product.id}', event)" ${product.stock === 'Out of Stock' ? 'disabled' : ''}>
               ${product.stock === 'Out of Stock' ? 'OUT OF STOCK' : ''}
             </button>
           </div>
@@ -3386,11 +3426,34 @@
       localStorage.setItem('cart', JSON.stringify(cart));
       updateCartCount();
       
+      // Create confetti effect
+      createConfetti();
+      
       // Show confirmation page
-      showPage('orderConfirmation');
+      setTimeout(() => {
+        showPage('orderConfirmation');
+      }, 1000);
       
       // Update orders list
       renderOrders();
+    }
+    
+    // Create confetti effect
+    function createConfetti() {
+      const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
+      for (let i = 0; i < 150; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.style.left = Math.random() * 100 + 'vw';
+        confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.animationDuration = Math.random() * 3 + 2 + 's';
+        document.body.appendChild(confetti);
+        
+        // Remove confetti after animation completes
+        setTimeout(() => {
+          confetti.remove();
+        }, 5000);
+      }
     }
 
     // Render orders
@@ -3584,6 +3647,17 @@
       if (pageElement) {
         pageElement.style.display = 'block';
       }
+      
+      // Update specific pages when shown
+      if (page === 'cart') {
+        renderCart();
+      } else if (page === 'wishlist') {
+        renderWishlist();
+      } else if (page === 'orders') {
+        renderOrders();
+      } else if (page === 'addresses' || page === 'checkout') {
+        renderAddresses();
+      }
     }
 
     // Go back to previous page
@@ -3602,6 +3676,4 @@
     }
   </script>
 </body>
-</html>
-
-isma order nahi kar pa raha ha  ya sahi kar do aur nicha ma jo cart wa icon ha usa right side mar do , add to cart karta ha tick laga hua hi rah jata ha wa nahi laga raha sirf kuch hi second tak laga jab koe add to cart kara aur image sahi sa load ho ak image add kar dena product ka 
+</html>Jab user "Add to Cart" button pe click kare, to koi popup ya overlay na aaye. Bas button ke andar ek tick icon 1 second ke liye dikhai de, phir wo tick automatically disappear ho jaye.
