@@ -46,7 +46,7 @@
     body {
       background: var(--bg);
       color: var(--text);
-      padding-bottom: 20px;
+      padding-bottom: 80px;
       overflow-x: hidden;
     }
 
@@ -68,7 +68,7 @@
     .top-bar {
       display: flex;
       align-items: center;
-      gap: 15px;
+      gap: 10px;
     }
 
     .menu-toggle {
@@ -84,6 +84,14 @@
       color: var(--text);
     }
 
+    .sidebar-logo {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--primary);
+      white-space: nowrap;
+      margin-right: 10px;
+    }
+
     .location-selector {
       display: flex;
       align-items: center;
@@ -95,7 +103,7 @@
       font-weight: 500;
       cursor: pointer;
       white-space: nowrap;
-      flex: 1;
+      max-width: 180px;
     }
 
     .login-section {
@@ -114,35 +122,6 @@
       display: flex;
       align-items: center;
       gap: 5px;
-    }
-
-    .cart-icon-mobile {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: var(--primary-light);
-      cursor: pointer;
-      font-size: 20px;
-      color: var(--text);
-      position: relative;
-    }
-
-    .cart-count-mobile {
-      position: absolute;
-      top: -5px;
-      right: -5px;
-      background: var(--primary);
-      color: white;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      font-size: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
     .search-bar {
@@ -202,12 +181,6 @@
       border-bottom: 1px solid var(--border);
     }
 
-    .sidebar-logo {
-      font-size: 22px;
-      font-weight: 700;
-      color: var(--primary);
-    }
-
     .close-menu {
       font-size: 24px;
       cursor: pointer;
@@ -252,7 +225,7 @@
     }
 
     .section-title {
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 700;
       margin: 20px 0 15px;
       color: var(--text);
@@ -559,7 +532,7 @@
 
     /* Hero banner styles */
     .hero-slider {
-      height: 200px;
+      height: 160px;
       border-radius: 12px;
       margin: 15px 0;
       position: relative;
@@ -588,7 +561,7 @@
     }
 
     .hero-title {
-      font-size: 20px;
+      font-size: 18px;
       margin-bottom: 8px;
     }
 
@@ -895,12 +868,12 @@
     }
 
     .product-detail-title {
-      font-size: 24px;
+      font-size: 22px;
       margin-bottom: 10px;
     }
 
     .product-detail-price {
-      font-size: 22px;
+      font-size: 20px;
       font-weight: 700;
       margin-bottom: 15px;
     }
@@ -1296,7 +1269,7 @@
       }
       
       .hero-title {
-        font-size: 18px;
+        font-size: 16px;
       }
       
       .hero-subtitle {
@@ -1336,10 +1309,6 @@
     /* Desktop specific styles */
     @media (min-width: 768px) {
       .menu-toggle {
-        display: none;
-      }
-      
-      .cart-icon-mobile {
         display: none;
       }
       
@@ -1384,11 +1353,6 @@
       
       .top-bar {
         justify-content: space-between;
-      }
-      
-      .location-selector {
-        flex: 0 0 auto;
-        margin-right: auto;
       }
       
       .search-bar {
@@ -1499,6 +1463,63 @@
       border: 1px solid var(--border);
       border-radius: 8px;
     }
+    
+    /* Fixed bottom cart button for mobile */
+    .mobile-cart-btn {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      width: 60px;
+      height: 60px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      z-index: 999;
+      cursor: pointer;
+    }
+    
+    .mobile-cart-count {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background: white;
+      color: var(--primary);
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+    
+    /* Page transition animation */
+    .page {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+    
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    /* Back button navigation history */
+    .page-history {
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -1574,6 +1595,12 @@
   
   <div class="menu-overlay" onclick="toggleMenu()"></div>
 
+  <!-- Mobile floating cart button -->
+  <div class="mobile-cart-btn" onclick="showPage('cart')">
+    <i class="fas fa-shopping-cart"></i>
+    <span class="mobile-cart-count">0</span>
+  </div>
+
   <div class="container">
     <!-- Header with location and search -->
     <div class="header">
@@ -1581,19 +1608,18 @@
         <div class="menu-toggle" onclick="toggleMenu()">
           <i class="fas fa-bars"></i>
         </div>
-        <div class="location-selector">
-          <i class="fas fa-map-marker-alt"></i>
-          <span>Home</span>
-          <i class="fas fa-chevron-down"></i>
+        <div style="flex: 1; display: flex; align-items: center; gap: 10px;">
+          <div class="sidebar-logo" style="font-size: 18px; font-weight: 700; color: var(--primary);">Brixo Mart</div>
+          <div class="location-selector" style="flex: 0 1 auto; max-width: 180px;">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>Home</span>
+            <i class="fas fa-chevron-down"></i>
+          </div>
         </div>
         <div class="login-section">
           <div class="login-btn" onclick="openLogin()">
             <i class="fas fa-user"></i>
             <span>Login</span>
-          </div>
-          <div class="cart-icon-mobile" onclick="showPage('cart')">
-            <i class="fas fa-shopping-cart"></i>
-            <span class="cart-count-mobile">0</span>
           </div>
         </div>
       </div>
@@ -1604,29 +1630,43 @@
     </div>
 
     <!-- Home Page -->
-    <div id="homePage">
+    <div id="homePage" class="page">
       <!-- Hero Slider -->
       <div class="hero-slider">
         <div class="swiper">
           <div class="swiper-wrapper">
-            <div class="swiper-slide" style="background-image: linear-gradient(rgba(0,0,0,0.3), url('https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
+            <div class="swiper-slide" style="background-image: url('https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
               <div class="hero-content">
                 <h2 class="hero-title">Fresh Grocery Delivery</h2>
                 <p class="hero-subtitle">Get fresh groceries delivered in 15-30 minutes</p>
                 <button class="hero-btn">SHOP NOW</button>
               </div>
             </div>
-            <div class="swiper-slide" style="background-image: linear-gradient(rgba(0,0,0,0.3), url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
+            <div class="swiper-slide" style="background-image: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
               <div class="hero-content">
                 <h2 class="hero-title">Weekend Special Offers</h2>
                 <p class="hero-subtitle">Up to 50% off on fruits & vegetables</p>
                 <button class="hero-btn">SHOP NOW</button>
               </div>
             </div>
-            <div class="swiper-slide" style="background-image: linear-gradient(rgba(0,0,0,0.3), url('https://images.unsplash.com/photo-1490818387583-1baba5e638af?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
+            <div class="swiper-slide" style="background-image: url('https://images.unsplash.com/photo-1490818387583-1baba5e638af?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
               <div class="hero-content">
                 <h2 class="hero-title">Organic Produce</h2>
                 <p class="hero-subtitle">Farm fresh organic fruits & vegetables</p>
+                <button class="hero-btn">SHOP NOW</button>
+              </div>
+            </div>
+            <div class="swiper-slide" style="background-image: url('https://images.unsplash.com/photo-1550583724-b2692b85b150?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
+              <div class="hero-content">
+                <h2 class="hero-title">Daily Essentials</h2>
+                <p class="hero-subtitle">All your daily needs in one place</p>
+                <button class="hero-btn">SHOP NOW</button>
+              </div>
+            </div>
+            <div class="swiper-slide" style="background-image: url('https://images.unsplash.com/photo-1606787366850-de6330128bfc?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
+              <div class="hero-content">
+                <h2 class="hero-title">Healthy Snacks</h2>
+                <p class="hero-subtitle">Delicious and healthy snack options</p>
                 <button class="hero-btn">SHOP NOW</button>
               </div>
             </div>
@@ -2005,9 +2045,9 @@
     </div>
 
     <!-- Categories Page (hidden by default) -->
-    <div id="categoriesPage" style="display: none;">
+    <div id="categoriesPage" class="page">
       <div style="padding: 15px 0; display: flex; align-items: center; gap: 10px;">
-        <button class="back-btn" onclick="showPage('home')">
+        <button class="back-btn" onclick="goBack()">
           <i class="fas fa-arrow-left"></i>
         </button>
         <h1 style="font-size: 20px; font-weight: 600;">All Categories</h1>
@@ -2066,9 +2106,9 @@
     </div>
 
     <!-- Category Products Page (hidden by default) -->
-    <div id="categoryProductsPage" style="display: none;">
+    <div id="categoryProductsPage" class="page">
       <div style="padding: 15px 0; display: flex; align-items: center; gap: 10px;">
-        <button class="back-btn" onclick="showPage('categories')">
+        <button class="back-btn" onclick="goBack()">
           <i class="fas fa-arrow-left"></i>
         </button>
         <h1 id="categoryTitle" style="font-size: 20px; font-weight: 600;">Category Products</h1>
@@ -2080,7 +2120,7 @@
     </div>
 
     <!-- Product Detail Page (hidden by default) -->
-    <div id="productDetailPage" style="display: none;">
+    <div id="productDetailPage" class="page">
       <div style="padding: 15px 0; display: flex; align-items: center; gap: 10px;">
         <button class="back-btn" onclick="goBack()">
           <i class="fas fa-arrow-left"></i>
@@ -2110,9 +2150,9 @@
     </div>
 
     <!-- Cart Page (hidden by default) -->
-    <div id="cartPage" style="display: none;">
+    <div id="cartPage" class="page">
       <div style="padding: 15px 0; display: flex; align-items: center; gap: 10px;">
-        <button class="back-btn" onclick="showPage('home')">
+        <button class="back-btn" onclick="goBack()">
           <i class="fas fa-arrow-left"></i>
         </button>
         <h1 style="font-size: 20px; font-weight: 600;">My Cart</h1>
@@ -2164,9 +2204,9 @@
     </div>
 
     <!-- Checkout Page (hidden by default) -->
-    <div id="checkoutPage" style="display: none;">
+    <div id="checkoutPage" class="page">
       <div style="padding: 15px 0; display: flex; align-items: center; gap: 10px;">
-        <button class="back-btn" onclick="showPage('cart')">
+        <button class="back-btn" onclick="goBack()">
           <i class="fas fa-arrow-left"></i>
         </button>
         <h1 style="font-size: 20px; font-weight: 600;">Checkout</h1>
@@ -2176,18 +2216,7 @@
         <div class="checkout-section">
           <h3 class="section-title-checkout">Delivery Address</h3>
           <div id="addressList">
-            <div class="address-card selected" data-id="home">
-              <div class="address-name">John Doe</div>
-              <div>123 Main Street, Apartment 4B</div>
-              <div>New Delhi, 110001</div>
-              <div>+91 9876543210</div>
-            </div>
-            <div class="address-card" data-id="work">
-              <div class="address-name">Work Address</div>
-              <div>456 Business Avenue, Floor 8</div>
-              <div>Gurgaon, 122002</div>
-              <div>+91 9876543210</div>
-            </div>
+            <!-- Addresses will be inserted here -->
           </div>
           <button style="
             width: 100%;
@@ -2274,9 +2303,9 @@
     </div>
 
     <!-- Add Address Page (hidden by default) -->
-    <div id="addAddressPage" style="display: none;">
+    <div id="addAddressPage" class="page">
       <div style="padding: 15px 0; display: flex; align-items: center; gap: 10px;">
-        <button class="back-btn" onclick="showPage('checkout')">
+        <button class="back-btn" onclick="goBack()">
           <i class="fas fa-arrow-left"></i>
         </button>
         <h1 style="font-size: 20px; font-weight: 600;">Add New Address</h1>
@@ -2328,7 +2357,7 @@
     </div>
 
     <!-- Order Confirmation Page (hidden by default) -->
-    <div id="orderConfirmationPage" style="display: none; text-align: center; padding: 40px 15px;">
+    <div id="orderConfirmationPage" class="page" style="text-align: center; padding: 40px 15px;">
       <div style="font-size: 80px; color: var(--primary); margin-bottom: 20px;">
         <i class="fas fa-check-circle"></i>
       </div>
@@ -2351,9 +2380,9 @@
     </div>
 
     <!-- Account Page (hidden by default) -->
-    <div id="accountPage" style="display: none;">
+    <div id="accountPage" class="page">
       <div style="padding: 15px 0; display: flex; align-items: center; gap: 10px;">
-        <button class="back-btn" onclick="showPage('home')">
+        <button class="back-btn" onclick="goBack()">
           <i class="fas fa-arrow-left"></i>
         </button>
         <h1 style="font-size: 20px; font-weight: 600;">My Account</h1>
@@ -2441,9 +2470,9 @@
     </div>
 
     <!-- Orders Page (hidden by default) -->
-    <div id="ordersPage" style="display: none;">
+    <div id="ordersPage" class="page">
       <div style="padding: 15px 0; display: flex; align-items: center; gap: 10px;">
-        <button class="back-btn" onclick="showPage('account')">
+        <button class="back-btn" onclick="goBack()">
           <i class="fas fa-arrow-left"></i>
         </button>
         <h1 style="font-size: 20px; font-weight: 600;">My Orders</h1>
@@ -2455,27 +2484,16 @@
     </div>
 
     <!-- Addresses Page (hidden by default) -->
-    <div id="addressesPage" style="display: none;">
+    <div id="addressesPage" class="page">
       <div style="padding: 15px 0; display: flex; align-items: center; gap: 10px;">
-        <button class="back-btn" onclick="showPage('account')">
+        <button class="back-btn" onclick="goBack()">
           <i class="fas fa-arrow-left"></i>
         </button>
         <h1 style="font-size: 20px; font-weight: 600;">Saved Addresses</h1>
       </div>
       
       <div style="padding: 15px 0;" id="savedAddressesList">
-        <div class="address-card selected">
-          <div class="address-name">Home</div>
-          <div>123 Main Street, Apartment 4B</div>
-          <div>New Delhi, 110001</div>
-          <div>+91 9876543210</div>
-        </div>
-        <div class="address-card">
-          <div class="address-name">Work</div>
-          <div>456 Business Avenue, Floor 8</div>
-          <div>Gurgaon, 122002</div>
-          <div>+91 9876543210</div>
-        </div>
+        <!-- Addresses will be inserted here -->
       </div>
       <button style="
         width: 100%;
@@ -2493,9 +2511,9 @@
     </div>
 
     <!-- Wishlist Page (hidden by default) -->
-    <div id="wishlistPage" style="display: none;">
+    <div id="wishlistPage" class="page">
       <div style="padding: 15px 0; display: flex; align-items: center; gap: 10px;">
-        <button class="back-btn" onclick="showPage('account')">
+        <button class="back-btn" onclick="goBack()">
           <i class="fas fa-arrow-left"></i>
         </button>
         <h1 style="font-size: 20px; font-weight: 600;">Wishlist</h1>
@@ -2510,9 +2528,9 @@
     </div>
 
     <!-- Payments Page (hidden by default) -->
-    <div id="paymentsPage" style="display: none;">
+    <div id="paymentsPage" class="page">
       <div style="padding: 15px 0; display: flex; align-items: center; gap: 10px;">
-        <button class="back-btn" onclick="showPage('account')">
+        <button class="back-btn" onclick="goBack()">
           <i class="fas fa-arrow-left"></i>
         </button>
         <h1 style="font-size: 20px; font-weight: 600;">Payment Methods</h1>
@@ -2556,9 +2574,9 @@
     </div>
 
     <!-- Add Payment Page (hidden by default) -->
-    <div id="addPaymentPage" style="display: none;">
+    <div id="addPaymentPage" class="page">
       <div style="padding: 15px 0; display: flex; align-items: center; gap: 10px;">
-        <button class="back-btn" onclick="showPage('payments')">
+        <button class="back-btn" onclick="goBack()">
           <i class="fas fa-arrow-left"></i>
         </button>
         <h1 style="font-size: 20px; font-weight: 600;">Add Payment Method</h1>
@@ -2782,35 +2800,12 @@
     let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
     let orders = JSON.parse(localStorage.getItem('orders')) || [];
     let darkMode = localStorage.getItem('darkMode') === 'true';
-    let lastPage = 'home';
+    let pageHistory = ['home']; // Track page navigation history
     let currentCategory = 'all';
     let currentProduct = null;
     let selectedWeight = null;
     let selectedPayment = 'wallet';
-    let addresses = [
-      {
-        id: 'home',
-        name: 'John Doe',
-        street: '123 Main Street, Apartment 4B',
-        city: 'New Delhi',
-        state: 'Delhi',
-        zip: '110001',
-        phone: '+91 9876543210',
-        type: 'Home',
-        selected: true
-      },
-      {
-        id: 'work',
-        name: 'Work Address',
-        street: '456 Business Avenue, Floor 8',
-        city: 'Gurgaon',
-        state: 'Haryana',
-        zip: '122002',
-        phone: '+91 9876543210',
-        type: 'Work',
-        selected: false
-      }
-    ];
+    let addresses = [];
 
     // Initialize the app
     document.addEventListener('DOMContentLoaded', function() {
@@ -2834,6 +2829,9 @@
         },
       });
 
+      // Show home page by default
+      showPage('home');
+      
       // Update counts
       updateCartCount();
       updateWishlistCount();
@@ -3174,6 +3172,7 @@
       // Add button click animation
       if (event) {
         const btn = event.currentTarget;
+        btn.classList.add('added');
         btn.classList.add('button-click');
         setTimeout(() => {
           btn.classList.remove('button-click');
@@ -3184,13 +3183,15 @@
     // Update cart count in navigation
     function updateCartCount() {
       const count = cart.reduce((sum, item) => sum + item.quantity, 0);
-      const mobileCartCount = document.querySelector('.cart-count-mobile');
+      const floatingCartCount = document.querySelector('.mobile-cart-count');
       
       if (count > 0) {
-        mobileCartCount.textContent = count;
-        mobileCartCount.style.display = 'flex';
+        if (floatingCartCount) {
+          floatingCartCount.textContent = count;
+          floatingCartCount.style.display = 'flex';
+        }
       } else {
-        mobileCartCount.style.display = 'none';
+        if (floatingCartCount) floatingCartCount.style.display = 'none';
       }
     }
 
@@ -3345,6 +3346,12 @@
 
     // Place order
     function placeOrder() {
+      if (addresses.length === 0) {
+        showNotification('Please add a delivery address first');
+        showPage('addAddress');
+        return;
+      }
+      
       // Calculate order total
       let subtotal = 0;
       cart.forEach(item => {
@@ -3563,82 +3570,34 @@
     // Show page
     function showPage(page) {
       // Hide all pages
-      const pages = [
-        'homePage', 
-        'categoriesPage',
-        'categoryProductsPage',
-        'productDetailPage',
-        'cartPage',
-        'accountPage',
-        'checkoutPage',
-        'addAddressPage',
-        'orderConfirmationPage',
-        'ordersPage',
-        'addressesPage',
-        'wishlistPage',
-        'paymentsPage',
-        'addPaymentPage'
-      ];
-      
-      pages.forEach(pageId => {
-        document.getElementById(pageId).style.display = 'none';
+      document.querySelectorAll('.page').forEach(el => {
+        el.style.display = 'none';
       });
       
-      // Store last page for back navigation
-      if (page !== 'productDetail' && page !== 'categoryProducts' && 
-          page !== 'checkout' && page !== 'orderConfirmation' &&
-          page !== 'addAddress' && page !== 'orders' &&
-          page !== 'addresses' && page !== 'wishlist' &&
-          page !== 'payments' && page !== 'addPayment') {
-        lastPage = page;
+      // Add to page history
+      if (page !== pageHistory[pageHistory.length - 1]) {
+        pageHistory.push(page);
       }
       
-      // Show selected page
-      if (page === 'home') {
-        document.getElementById('homePage').style.display = 'block';
-      } else if (page === 'categories') {
-        document.getElementById('categoriesPage').style.display = 'block';
-      } else if (page === 'categoryProducts') {
-        document.getElementById('categoryProductsPage').style.display = 'block';
-      } else if (page === 'productDetail') {
-        document.getElementById('productDetailPage').style.display = 'block';
-      } else if (page === 'cart') {
-        document.getElementById('cartPage').style.display = 'block';
-        renderCart();
-      } else if (page === 'account') {
-        document.getElementById('accountPage').style.display = 'block';
-      } else if (page === 'checkout') {
-        document.getElementById('checkoutPage').style.display = 'block';
-      } else if (page === 'addAddress') {
-        document.getElementById('addAddressPage').style.display = 'block';
-      } else if (page === 'orderConfirmation') {
-        document.getElementById('orderConfirmationPage').style.display = 'block';
-      } else if (page === 'orders') {
-        document.getElementById('ordersPage').style.display = 'block';
-        renderOrders();
-      } else if (page === 'addresses') {
-        document.getElementById('addressesPage').style.display = 'block';
-        renderAddresses();
-      } else if (page === 'wishlist') {
-        document.getElementById('wishlistPage').style.display = 'block';
-        renderWishlist();
-      } else if (page === 'payments') {
-        document.getElementById('paymentsPage').style.display = 'block';
-      } else if (page === 'addPayment') {
-        document.getElementById('addPaymentPage').style.display = 'block';
+      // Show selected page with animation
+      const pageElement = document.getElementById(page + 'Page');
+      if (pageElement) {
+        pageElement.style.display = 'block';
       }
     }
 
     // Go back to previous page
     function goBack() {
-      if (lastPage === 'categoryProducts') {
-        showPage('categories');
-      } else if (lastPage === 'addAddress') {
-        showPage('checkout');
-      } else if (lastPage === 'addPayment') {
-        showPage('payments');
+      if (pageHistory.length > 1) {
+        // Remove current page from history
+        pageHistory.pop();
+        
+        // Go to previous page
+        const previousPage = pageHistory[pageHistory.length - 1];
+        showPage(previousPage);
       } else {
-        showPage(lastPage);
+        // If no history, go to home
+        showPage('home');
       }
     }
   </script>
