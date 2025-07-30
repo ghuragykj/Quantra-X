@@ -500,7 +500,14 @@
     }
 
     .add-btn.added::after {
-      content: "✓ ADDED";
+      content: "✓";
+      display: block;
+      animation: tickFade 1s ease;
+    }
+
+    @keyframes tickFade {
+      0% { opacity: 1; }
+      100% { opacity: 0; }
     }
 
     /* Subcategory styling */
@@ -1468,7 +1475,7 @@
     .mobile-cart-btn {
       position: fixed;
       bottom: 20px;
-      right: 20px; /* Changed from left to right */
+      right: 20px;
       width: 60px;
       height: 60px;
       background: var(--primary);
@@ -3209,14 +3216,17 @@
       // Show added to cart notification
       showNotification(`${product.title} added to cart`);
       
-      // Add button click animation
+      // Add button click animation and show tick
       if (event) {
         const btn = event.currentTarget;
         btn.classList.add('added');
         btn.classList.add('button-click');
+        
+        // Reset the button after animation completes
         setTimeout(() => {
+          btn.classList.remove('added');
           btn.classList.remove('button-click');
-        }, 300);
+        }, 1000);
       }
     }
 
@@ -3677,4 +3687,3 @@
   </script>
 </body>
 </html>
-
