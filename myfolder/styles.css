@@ -316,8 +316,9 @@
 
     .card-header {
       position: relative;
-      height: 110px;
+      height: 150px;
       background-color: var(--primary-light);
+      overflow: hidden;
     }
 
     .product-image {
@@ -501,6 +502,13 @@
 
     .add-btn.added::after {
       content: "✓ ADDED";
+      display: block;
+      animation: tickFade 1s ease;
+    }
+
+    @keyframes tickFade {
+      0% { opacity: 1; }
+      100% { opacity: 0; }
     }
 
     /* Subcategory styling */
@@ -1468,7 +1476,7 @@
     .mobile-cart-btn {
       position: fixed;
       bottom: 20px;
-      right: 20px; /* Changed from left to right */
+      right: 20px;
       width: 60px;
       height: 60px;
       background: var(--primary);
@@ -1928,7 +1936,7 @@
           <div class="card-header">
             <span class="bestseller-tag">Bestseller</span>
             <button class="wishlist-btn">♡</button>
-            <img src="https://images.unsplash.com/photo-1598209257853-2e1cf0e3d0b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Nestle Curd" class="product-image" loading="lazy">
+            <img src="https://images.unsplash.com/photo-1576186726110-34d516d6bcd6?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Nestle Curd" class="product-image" loading="lazy">
           </div>
           <div class="card-body">
             <h3 class="product-name">Nestle Classic Curd</h3>
@@ -2743,7 +2751,7 @@
         id: 'p7',
         title: 'Nestle Classic Curd',
         category: 'dairy',
-        image: 'https://images.unsplash.com/photo-1598209257853-2e1cf0e3d0b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
+        image: 'https://images.unsplash.com/photo-1576186726110-34d516d6bcd6?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
         price: 40,
         originalPrice: 45,
         unitPrice: '₹100/kg',
@@ -2871,7 +2879,41 @@
       // Update counts
       updateCartCount();
       updateWishlistCount();
+      
+      // Set up image error handlers
+      setupImageErrorHandlers();
+      
+      // Preload hero images
+      preloadHeroImages();
     });
+    
+    // Set up image error handlers
+    function setupImageErrorHandlers() {
+      document.querySelectorAll('.product-image').forEach(img => {
+        img.onerror = function() {
+          this.src = 'data:image/svg+xml;charset=UTF-8,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"%3E%3Crect fill="%23ddd" width="100" height="100"/%3E%3Ctext fill="%23aaa" font-family="sans-serif" font-size="12" dy=".35em" text-anchor="middle" x="50" y="50"%3ENo Image%3C/text%3E%3C/svg%3E';
+          this.style.objectFit = 'contain';
+          this.style.padding = '20px';
+          this.style.backgroundColor = '#f5f5f5';
+        };
+      });
+    }
+    
+    // Preload hero images
+    function preloadHeroImages() {
+      const heroImages = [
+        'https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+        'https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+        'https://images.unsplash.com/photo-1490818387583-1baba5e638af?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+        'https://images.unsplash.com/photo-1550583724-b2692b85b150?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+        'https://images.unsplash.com/photo-1606787366850-de6330128bfc?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'
+      ];
+      
+      heroImages.forEach(imgSrc => {
+        const img = new Image();
+        img.src = imgSrc;
+      });
+    }
 
     // Toggle menu
     function toggleMenu() {
@@ -3037,7 +3079,7 @@
               ${discount > 0 ? `<span class="discount">${discount}% OFF</span>` : ''}
             </div>
             <button class="add-btn ${isInCart ? 'added' : ''}" onclick="addToCart('${product.id}', event)" ${product.stock === 'Out of Stock' ? 'disabled' : ''}>
-              ${product.stock === 'Out of Stock' ? 'OUT OF STOCK' : ''}
+              ${isInCart ? 'ADDED' : 'ADD'}
             </button>
           </div>
         `;
@@ -3111,7 +3153,12 @@
       
       // Update heart icon
       const btn = event ? event.currentTarget : document.querySelector(`.wishlist-btn[onclick*="${productId}"]`);
-      if (btn) btn.classList.toggle('active');
+      if (btn) {
+        btn.classList.toggle('active');
+        btn.innerHTML = `<i class="fas fa-heart${index === -1 ? '' : '-broken'}"></i>`;
+        btn.classList.add('button-click');
+        setTimeout(() => btn.classList.remove('button-click'), 300);
+      }
       
       // If on wishlist page, refresh the view
       if (document.getElementById('wishlistPage').style.display === 'block') {
@@ -3209,11 +3256,14 @@
       // Show added to cart notification
       showNotification(`${product.title} added to cart`);
       
-      // Add button click animation
+      // Add button click animation and show tick
       if (event) {
         const btn = event.currentTarget;
         btn.classList.add('added');
+        btn.textContent = 'ADDED';
         btn.classList.add('button-click');
+        
+        // Reset the button after animation completes
         setTimeout(() => {
           btn.classList.remove('button-click');
         }, 300);
@@ -3676,4 +3726,5 @@
     }
   </script>
 </body>
-</html>Jab user "Add to Cart" button pe click kare, to koi popup ya overlay na aaye. Bas button ke andar ek tick icon 1 second ke liye dikhai de, phir wo tick automatically disappear ho jaye.
+</html>
+isma kya kya probleam ha abhi bhi 
