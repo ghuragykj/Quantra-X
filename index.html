@@ -27,7 +27,7 @@
     .dark {
       --primary: #00d563;
       --primary-light: #1a2e22;
-      --text: #f0f0f0;
+      --text: #f0f0  f0;
       --text-light: #aaaaaa;
       --bg: #121212;
       --card-bg: #1e1e1e;
@@ -496,19 +496,15 @@
 
     .add-btn::after {
       content: "ADD";
-      display: block;
+      
       transition: opacity 0.2s;
     }
 
-    .add-btn.added::after {
-      content: "✓ ADDED";
-      display: block;
-      animation: tickFade 1s ease;
-    }
+
 
     @keyframes tickFade {
-      0% { opacity: 1; }
-      100% { opacity: 0; }
+      0% { opacity: ; }
+
     }
 
     /* Subcategory styling */
@@ -522,7 +518,7 @@
     }
 
     .subcategory-title::before {
-      content: "";
+      content: "
       position: absolute;
       left: 0;
       top: 2px;
@@ -2197,7 +2193,6 @@
     <div id="cartPage" class="page">
       <div style="padding: 15px 0; display: flex; align-items: center; gap: 10px;">
         <button class="back-btn" onclick="goBack()">
-          <i class="fas fa-arrow-left"></i>
         </button>
         <h1 style="font-size: 20px; font-weight: 600;">My Cart</h1>
       </div>
@@ -3260,13 +3255,15 @@
       if (event) {
         const btn = event.currentTarget;
         btn.classList.add('added');
-        btn.textContent = 'ADDED';
+        btn.innerHTML = '✓ ADDED';
         btn.classList.add('button-click');
         
         // Reset the button after animation completes
         setTimeout(() => {
+          btn.classList.remove('added');
+          btn.innerHTML = 'ADD';
           btn.classList.remove('button-click');
-        }, 300);
+        }, 2000);
       }
     }
 
@@ -3423,7 +3420,7 @@
       }
     }
 
-    // Remove item from cart
+    // Remove iatem from cart
     function removeFromCart(productId, weightValue) {
       cart = cart.filter(item => 
         !(item.id === productId && item.selectedWeight.value === weightValue)
@@ -3438,7 +3435,7 @@
     function placeOrder() {
       if (addresses.length === 0) {
         showNotification('Please add a delivery address first');
-        showPage('addAddress');
+        showPage('  addAddress');
         return;
       }
       
