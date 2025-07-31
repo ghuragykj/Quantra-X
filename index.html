@@ -1647,21 +1647,21 @@
         </div>
         <div style="flex: 1; display: flex; align-items: center; gap: 10px;">
           <div class="sidebar-logo" style="font-size: 18px; font-weight: 700; color: var(--primary);">Brixo Mart</div>
-          <div class="location-selector" onclick="changeLocation()">
+          <div class="location-selector" style="flex: 0 1 auto; max-width: 180px;">
             <i class="fas fa-map-marker-alt"></i>
-            <span id="locationText">Home</span>
+            <span>Home</span>
             <i class="fas fa-chevron-down"></i>
           </div>
         </div>
         <div class="login-section">
           <div class="login-btn" onclick="openLogin()">
             <i class="fas fa-user"></i>
-            <span id="loginText">Login</span>
+            <span>Login</span>
           </div>
         </div>
       </div>
       <div class="search-bar">
-        <input type="text" id="searchInput" placeholder="Search for groceries..." oninput="performSearch()">
+        <input type="text" placeholder="Search for groceries..." onfocus="showPage('search')">
         <i class="fas fa-search"></i>
       </div>
     </div>
@@ -1771,7 +1771,103 @@
         <span class="view-all" onclick="showCategoryProducts('top-deals')">View All</span>
       </h2>
       <div class="product-row" id="topDeals">
-        <!-- Products will be rendered dynamically -->
+        <div class="product-card">
+          <div class="card-header">
+            <span class="bestseller-tag">Bestseller</span>
+            <button class="wishlist-btn">♡</button>
+            <img src="https://images.unsplash.com/photo-1592924687770-8c9c8d6d6c5d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Basmati Rice" class="product-image" loading="lazy">
+          </div>
+          <div class="card-body">
+            <h3 class="product-name">India Gate Basmati Rice - Premium</h3>
+            <p class="product-weight">1kg</p>
+            <div class="rating">
+              <span class="stars">★★★★☆</span>
+              <span class="review-count">(4.2k)</span>
+            </div>
+            <p class="delivery-time">22 MINS</p>
+          </div>
+          <div class="card-footer">
+            <div class="price">
+              <span class="current-price">₹125</span>
+              <span class="original-price">₹145</span>
+              <span class="discount">14% OFF</span>
+            </div>
+            <button class="add-btn" onclick="addToCart('p1', event)"></button>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="card-header">
+            <button class="wishlist-btn">♡</button>
+            <img src="https://images.unsplash.com/photo-1587049633312-d628ae50a8ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Fortune Sunflower Oil" class="product-image" loading="lazy">
+          </div>
+          <div class="card-body">
+            <h3 class="product-name">Fortune Sunflower Oil</h3>
+            <p class="product-weight">1L</p>
+            <div class="rating">
+              <span class="stars">★★★★☆</span>
+              <span class="review-count">(3.8k)</span>
+            </div>
+            <p class="delivery-time">18 MINS</p>
+          </div>
+          <div class="card-footer">
+            <div class="price">
+              <span class="current-price">₹175</span>
+              <span class="original-price">₹195</span>
+              <span class="discount">10% OFF</span>
+            </div>
+            <button class="add-btn" onclick="addToCart('p2', event)"></button>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="card-header">
+            <span class="bestseller-tag">Bestseller</span>
+            <button class="wishlist-btn">♡</button>
+            <img src="https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Tata Salt" class="product-image" loading="lazy">
+          </div>
+          <div class="card-body">
+            <h3 class="product-name">Tata Salt - Iodized</h3>
+            <p class="product-weight">1kg</p>
+            <div class="rating">
+              <span class="stars">★★★★☆</span>
+              <span class="review-count">(5.1k)</span>
+            </div>
+            <p class="delivery-time">15 MINS</p>
+          </div>
+          <div class="card-footer">
+            <div class="price">
+              <span class="current-price">₹25</span>
+              <span class="original-price">₹30</span>
+              <span class="discount">17% OFF</span>
+            </div>
+            <button class="add-btn" onclick="addToCart('p3', event)"></button>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="card-header">
+            <button class="wishlist-btn">♡</button>
+            <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Aashirvaad Atta" class="product-image" loading="lazy">
+          </div>
+          <div class="card-body">
+            <h3 class="product-name">Aashirvaad Whole Wheat Atta</h3>
+            <p class="product-weight">5kg</p>
+            <div class="rating">
+              <span class="stars">★★★★☆</span>
+              <span class="review-count">(6.3k)</span>
+            </div>
+            <p class="delivery-time">20 MINS</p>
+          </div>
+          <div class="card-footer">
+            <div class="price">
+              <span class="current-price">₹225</span>
+              <span class="original-price">₹250</span>
+              <span class="discount">10% OFF</span>
+            </div>
+            <button class="add-btn" onclick="addToCart('p4', event)"></button>
+          </div>
+        </div>
       </div>
 
       <!-- Daily Essentials Section -->
@@ -1780,7 +1876,103 @@
         <span class="view-all" onclick="showCategoryProducts('daily-essentials')">View All</span>
       </h2>
       <div class="product-row" id="dailyEssentials">
-        <!-- Products will be rendered dynamically -->
+        <div class="product-card">
+          <div class="card-header">
+            <span class="bestseller-tag">Bestseller</span>
+            <button class="wishlist-btn">♡</button>
+            <img src="https://images.unsplash.com/photo-1563636619-e9143da7973b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Amul Milk" class="product-image" loading="lazy">
+          </div>
+          <div class="card-body">
+            <h3 class="product-name">Amul Taaza Homogenized Toned Milk</h3>
+            <p class="product-weight">1L</p>
+            <div class="rating">
+              <span class="stars">★★★★☆</span>
+              <span class="review-count">(4.5k)</span>
+            </div>
+            <p class="delivery-time">10 MINS</p>
+          </div>
+          <div class="card-footer">
+            <div class="price">
+              <span class="current-price">₹58</span>
+              <span class="original-price">₹62</span>
+              <span class="discount">6% OFF</span>
+            </div>
+            <button class="add-btn" onclick="addToCart('p5', event)"></button>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="card-header">
+            <button class="wishlist-btn">♡</button>
+            <img src="https://images.unsplash.com/photo-1598209257853-2e1cf0e3d0b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Amul Butter" class="product-image" loading="lazy">
+          </div>
+          <div class="card-body">
+            <h3 class="product-name">Amul Salted Butter</h3>
+            <p class="product-weight">100g</p>
+            <div class="rating">
+              <span class="stars">★★★★☆</span>
+              <span class="review-count">(3.9k)</span>
+            </div>
+            <p class="delivery-time">12 MINS</p>
+          </div>
+          <div class="card-footer">
+            <div class="price">
+              <span class="current-price">₹50</span>
+              <span class="original-price">₹55</span>
+              <span class="discount">9% OFF</span>
+            </div>
+            <button class="add-btn" onclick="addToCart('p6', event)"></button>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="card-header">
+            <span class="bestseller-tag">Bestseller</span>
+            <button class="wishlist-btn">♡</button>
+            <img src="https://images.unsplash.com/photo-1576186726110-34d516d6bcd6?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Nestle Curd" class="product-image" loading="lazy">
+          </div>
+          <div class="card-body">
+            <h3 class="product-name">Nestle Classic Curd</h3>
+            <p class="product-weight">400g</p>
+            <div class="rating">
+              <span class="stars">★★★★☆</span>
+              <span class="review-count">(4.1k)</span>
+            </div>
+            <p class="delivery-time">15 MINS</p>
+          </div>
+          <div class="card-footer">
+            <div class="price">
+              <span class="current-price">₹40</span>
+              <span class="original-price">₹45</span>
+              <span class="discount">11% OFF</span>
+            </div>
+            <button class="add-btn" onclick="addToCart('p7', event)"></button>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="card-header">
+            <button class="wishlist-btn">♡</button>
+            <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Britannia Bread" class="product-image" loading="lazy">
+          </div>
+          <div class="card-body">
+            <h3 class="product-name">Britannia Whole Wheat Bread</h3>
+            <p class="product-weight">400g</p>
+            <div class="rating">
+              <span class="stars">★★★★☆</span>
+              <span class="review-count">(3.7k)</span>
+            </div>
+            <p class="delivery-time">18 MINS</p>
+          </div>
+          <div class="card-footer">
+            <div class="price">
+              <span class="current-price">₹35</span>
+              <span class="original-price">₹40</span>
+              <span class="discount">13% OFF</span>
+            </div>
+            <button class="add-btn" onclick="addToCart('p8', event)"></button>
+          </div>
+        </div>
       </div>
 
       <!-- Frequently Bought Section -->
@@ -1789,24 +1981,103 @@
         <span class="view-all" onclick="showCategoryProducts('frequently-bought')">View All</span>
       </h2>
       <div class="product-row" id="frequentlyBought">
-        <!-- Products will be rendered dynamically -->
-      </div>
-    </div>
+        <div class="product-card">
+          <div class="card-header">
+            <span class="bestseller-tag">Bestseller</span>
+            <button class="wishlist-btn">♡</button>
+            <img src="https://images.unsplash.com/photo-1633113215848-40f34e0c7c1b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Maggi Noodles" class="product-image" loading="lazy">
+          </div>
+          <div class="card-body">
+            <h3 class="product-name">Maggi 2-Minute Masala Noodles</h3>
+            <p class="product-weight">70g (Pack of 12)</p>
+            <div class="rating">
+              <span class="stars">★★★★☆</span>
+              <span class="review-count">(8.2k)</span>
+            </div>
+            <p class="delivery-time">15 MINS</p>
+          </div>
+          <div class="card-footer">
+            <div class="price">
+              <span class="current-price">₹120</span>
+              <span class="original-price">₹144</span>
+              <span class="discount">17% OFF</span>
+            </div>
+            <button class="add-btn" onclick="addToCart('p9', event)"></button>
+          </div>
+        </div>
 
-    <!-- Search Results Page -->
-    <div id="searchPage" class="page">
-      <div style="padding: 15px 0; display: flex; align-items: center; gap: 10px;">
-        <button class="back-btn" onclick="goBack()">
-          <i class="fas fa-arrow-left"></i>
-        </button>
-        <h1 style="font-size: 20px; font-weight: 600;">Search Results</h1>
-      </div>
-      
-      <div id="searchResults" class="product-grid">
-        <!-- Search results will be inserted here -->
-      </div>
-      <div id="noResults" style="text-align: center; padding: 40px 0; display: none;">
-        <p>No products found matching your search</p>
+        <div class="product-card">
+          <div class="card-header">
+            <button class="wishlist-btn">♡</button>
+            <img src="https://images.unsplash.com/photo-1621447504864-d8686e12698c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Lays Chips" class="product-image" loading="lazy">
+          </div>
+          <div class="card-body">
+            <h3 class="product-name">Lays India's Magic Masala</h3>
+            <p class="product-weight">52g</p>
+            <div class="rating">
+              <span class="stars">★★★★☆</span>
+              <span class="review-count">(5.7k)</span>
+            </div>
+            <p class="delivery-time">12 MINS</p>
+          </div>
+          <div class="card-footer">
+            <div class="price">
+              <span class="current-price">₹20</span>
+              <span class="original-price">₹25</span>
+              <span class="discount">20% OFF</span>
+            </div>
+            <button class="add-btn" onclick="addToCart('p10', event)"></button>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="card-header">
+            <span class="bestseller-tag">Bestseller</span>
+            <button class="wishlist-btn">♡</button>
+            <img src="https://images.unsplash.com/photo-1587241321921-91a834d6d191?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Parle-G Biscuits" class="product-image" loading="lazy">
+          </div>
+          <div class="card-body">
+            <h3 class="product-name">Parle-G Gold Biscuits</h3>
+            <p class="product-weight">100g</p>
+            <div class="rating">
+              <span class="stars">★★★★☆</span>
+              <span class="review-count">(9.3k)</span>
+            </div>
+            <p class="delivery-time">10 MINS</p>
+          </div>
+          <div class="card-footer">
+            <div class="price">
+              <span class="current-price">₹10</span>
+              <span class="original-price">₹12</span>
+              <span class="discount">17% OFF</span>
+            </div>
+            <button class="add-btn" onclick="addToCart('p11', event)"></button>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="card-header">
+            <button class="wishlist-btn">♡</button>
+            <img src="https://images.unsplash.com/photo-1575377427642-087cf684f29d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Cadbury Dairy Milk" class="product-image" loading="lazy">
+          </div>
+          <div class="card-body">
+            <h3 class="product-name">Cadbury Dairy Milk Silk</h3>
+            <p class="product-weight">36g</p>
+            <div class="rating">
+              <span class="stars">★★★★☆</span>
+              <span class="review-count">(7.5k)</span>
+            </div>
+            <p class="delivery-time">15 MINS</p>
+          </div>
+          <div class="card-footer">
+            <div class="price">
+              <span class="current-price">₹30</span>
+              <span class="original-price">₹35</span>
+              <span class="discount">14% OFF</span>
+            </div>
+            <button class="add-btn" onclick="addToCart('p12', event)"></button>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -1880,7 +2151,7 @@
         <h1 id="categoryTitle" style="font-size: 20px; font-weight: 600;">Category Products</h1>
       </div>
       
-      <div class="product-grid" id="categoryProductsGrid">
+      <div class="product-row" id="categoryProductsGrid">
         <!-- Products will be loaded here -->
       </div>
     </div>
@@ -2001,22 +2272,36 @@
         
         <div class="checkout-section">
           <h3 class="section-title-checkout">Payment Method</h3>
-          <div id="paymentMethodsContainer">
-            <!-- Payment methods will be inserted here -->
+          <div class="payment-method" onclick="selectPayment('wallet')" id="walletPayment">
+            <div class="payment-icon">
+              <i class="fas fa-wallet"></i>
+            </div>
+            <div class="payment-details">
+              <div class="payment-title">Wallet</div>
+              <div class="payment-desc">Pay using your QuickMart wallet</div>
+            </div>
+            <div class="payment-radio selected"></div>
           </div>
-          <button style="
-            width: 100%;
-            padding: 10px;
-            margin-top: 15px;
-            background: none;
-            border: 1px dashed var(--primary);
-            color: var(--primary);
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-          " onclick="showPage('addPayment')">
-            + Add New Payment Method
-          </button>
+          <div class="payment-method" onclick="selectPayment('card')" id="cardPayment">
+            <div class="payment-icon">
+              <i class="fas fa-credit-card"></i>
+            </div>
+            <div class="payment-details">
+              <div class="payment-title">Credit/Debit Card</div>
+              <div class="payment-desc">Pay using your card</div>
+            </div>
+            <div class="payment-radio"></div>
+          </div>
+          <div class="payment-method" onclick="selectPayment('cod')" id="codPayment">
+            <div class="payment-icon">
+              <i class="fas fa-money-bill-wave"></i>
+            </div>
+            <div class="payment-details">
+              <div class="payment-title">Cash on Delivery</div>
+              <div class="payment-desc">Pay when you receive</div>
+            </div>
+            <div class="payment-radio"></div>
+          </div>
         </div>
         
         <div class="checkout-section">
@@ -2211,7 +2496,7 @@
             </div>
             <span>Payment Methods</span>
           </div>
-          <div class="account-item" style="color: var(--danger);" onclick="logout()">
+          <div class="account-item" style="color: var(--danger);">
             <div class="account-icon">
               <i class="fas fa-sign-out-alt"></i>
             </div>
@@ -2271,7 +2556,7 @@
         <h1 style="font-size: 20px; font-weight: 600;">Wishlist</h1>
       </div>
       
-      <div class="product-grid" id="wishlistItems">
+      <div class="product-row" id="wishlistItems">
         <!-- Wishlist items will be inserted here -->
       </div>
       <div id="wishlistEmpty" class="wishlist-empty">
@@ -2288,22 +2573,41 @@
         <h1 style="font-size: 20px; font-weight: 600;">Payment Methods</h1>
       </div>
       
-      <div style="padding: 15px 0;" id="paymentMethodsList">
-        <!-- Payment methods will be inserted here -->
+      <div style="padding: 15px 0;">
+        <div class="payment-method">
+          <div class="payment-icon">
+            <i class="fas fa-credit-card"></i>
+          </div>
+          <div class="payment-details">
+            <div class="payment-title">VISA **** 1234</div>
+            <div class="payment-desc">Expires 12/25</div>
+          </div>
+          <div class="payment-radio selected"></div>
+        </div>
+        <div class="payment-method">
+          <div class="payment-icon">
+            <i class="fas fa-credit-card"></i>
+          </div>
+          <div class="payment-details">
+            <div class="payment-title">Mastercard **** 5678</div>
+            <div class="payment-desc">Expires 06/24</div>
+          </div>
+          <div class="payment-radio"></div>
+        </div>
+        <button style="
+          width: 100%;
+          padding: 10px;
+          margin-top: 15px;
+          background: none;
+          border: 1px dashed var(--primary);
+          color: var(--primary);
+          border-radius: 8px;
+          font-weight: 600;
+          cursor: pointer;
+        " onclick="showPage('addPayment')">
+          + Add New Payment Method
+        </button>
       </div>
-      <button style="
-        width: 100%;
-        padding: 10px;
-        margin-top: 15px;
-        background: none;
-        border: 1px dashed var(--primary);
-        color: var(--primary);
-        border-radius: 8px;
-        font-weight: 600;
-        cursor: pointer;
-      " onclick="showPage('addPayment')">
-        + Add New Payment Method
-      </button>
     </div>
 
     <!-- Add Payment Page (hidden by default) -->
@@ -2317,25 +2621,21 @@
       
       <div style="padding: 15px 0;">
         <div class="form-group">
-          <label class="form-label">Card Number *</label>
-          <input type="text" class="form-input" id="cardNumber" placeholder="Enter card number" required>
-          <
+          <label class="form-label">Card Number</label>
+          <input type="text" class="form-input" placeholder="Enter card number">
         </div>
         <div class="form-group">
-          <label class="form-label">Cardholder Name *</label>
-          <input type="text" class="form-input" id="cardName" placeholder="Enter name on card" required>
-          <div class="form-error">Please enter cardholder name</div>
+          <label class="form-label">Cardholder Name</label>
+          <input type="text" class="form-input" placeholder="Enter name on card">
         </div>
         <div style="display: flex; gap: 15px;">
-         
-            <label class="form-label">Expiry Date *</label>
-            <input type="text" class="form-input" id="cardExpiry" placeholder="MM/YY" required>
-            <div class="form-error">Please enter expiry date</div>
+          <div class="form-group" style="flex: 1;">
+            <label class="form-label">Expiry Date</label>
+            <input type="text" class="form-input" placeholder="MM/YY">
           </div>
           <div class="form-group" style="flex: 1;">
-            <label class="form-label">CVV *</label>
-            <input type="text" class="form-input" id="cardCvv" placeholder="CVV" required>
-            <div class="form-error">Please enter CVV</div>
+            <label class="form-label">CVV</label>
+            <input type="text" class="form-input" placeholder="CVV">
           </div>
         </div>
         <button class="save-btn" onclick="savePayment()">Save Card</button>
@@ -2541,13 +2841,8 @@
     let currentCategory = 'all';
     let currentProduct = null;
     let selectedWeight = null;
-    let selectedPayment = null;
-    let addresses = JSON.parse(localStorage.getItem('addresses')) || [];
-    let paymentMethods = JSON.parse(localStorage.getItem('paymentMethods')) || [];
-    let locations = ['Home', 'Work', 'Other Location'];
-    let currentLocation = localStorage.getItem('location') || 'Home';
-    let isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-    let userName = localStorage.getItem('userName') || '';
+    let selectedPayment = 'wallet';
+    let addresses = [];
 
     // Initialize the app
     document.addEventListener('DOMContentLoaded', function() {
@@ -2577,23 +2872,7 @@
       // Update counts
       updateCartCount();
       updateWishlistCount();
-      
-      // Set current location
-      document.getElementById('locationText').textContent = currentLocation;
-      
-      // Update login state
-      updateLoginState();
-      
-      // Render home sections
-      renderHomeSections();
     });
-    
-    // Render home page sections
-    function renderHomeSections() {
-      renderProductSection('topDeals', getTopDeals());
-      renderProductSection('dailyEssentials', getDailyEssentials());
-      renderProductSection('frequentlyBought', getFrequentlyBought());
-    }
     
     // Toggle menu
     function toggleMenu() {
@@ -2604,10 +2883,6 @@
     
     // Open login modal
     function openLogin() {
-      if (isLoggedIn) {
-        showPage('account');
-        return;
-      }
       document.getElementById('loginModal').classList.add('active');
     }
     
@@ -2632,74 +2907,9 @@
     // Verify OTP
     function verifyOTP() {
       // Simulate OTP verification
-      isLoggedIn = true;
-      userName = 'User';
-      localStorage.setItem('isLoggedIn', 'true');
-      localStorage.setItem('userName', userName);
-      
       showNotification('Login successful!');
       closeLogin();
-      updateLoginState();
-    }
-    
-    // Logout
-    function logout() {
-      isLoggedIn = false;
-      userName = '';
-      localStorage.setItem('isLoggedIn', 'false');
-      localStorage.removeItem('userName');
-      updateLoginState();
-      showNotification('Logged out successfully');
-      showPage('home');
-    }
-    
-    // Update login state in UI
-    function updateLoginState() {
-      const loginBtn = document.querySelector('.login-btn span');
-      const loginText = document.getElementById('loginText');
-      
-      if (isLoggedIn) {
-        loginBtn.textContent = `Hi, ${userName}`;
-        if (loginText) loginText.textContent = `Hi, ${userName}`;
-      } else {
-        loginBtn.textContent = 'Login';
-        if (loginText) loginText.textContent = 'Login';
-      }
-    }
-
-    // Change delivery location
-    function changeLocation() {
-      const locationText = document.getElementById('locationText');
-      const currentIndex = locations.indexOf(currentLocation);
-      const nextIndex = (currentIndex + 1) % locations.length;
-      currentLocation = locations[nextIndex];
-      locationText.textContent = currentLocation;
-      localStorage.setItem('location', currentLocation);
-      showNotification(`Delivery location set to ${currentLocation}`);
-    }
-
-    // Perform search
-    function performSearch() {
-      const query = document.getElementById('searchInput').value.toLowerCase();
-      if (query.length < 2) return;
-      
-      const results = products.filter(product => 
-        product.title.toLowerCase().includes(query)
-      );
-      
-      const resultsContainer = document.getElementById('searchResults');
-      const noResults = document.getElementById('noResults');
-      
-      resultsContainer.innerHTML = '';
-      
-      if (results.length === 0) {
-        noResults.style.display = 'block';
-        return;
-      }
-      
-      noResults.style.display = 'none';
-      renderProductSection('searchResults', results);
-      showPage('search');
+      document.querySelector('.login-btn span').textContent = 'Hi, User';
     }
 
     // Filter products by category
@@ -2779,7 +2989,7 @@
     function getDailyEssentials() {
       return products.filter(product => 
         ['staples', 'dairy', 'eggs-meat'].includes(product.category)
-      ).slice(0, 4);
+      );
     }
 
     // Get frequently bought (random selection)
@@ -2792,8 +3002,6 @@
     // Render product section
     function renderProductSection(sectionId, products) {
       const section = document.getElementById(sectionId);
-      if (!section) return;
-      
       section.innerHTML = '';
       
       products.forEach(product => {
@@ -2805,13 +3013,7 @@
         );
         
         const productEl = document.createElement('div');
-        productEl.className = sectionId.includes('Grid') ? 'product-card' : 'product-card';
-        
-        if (sectionId.includes('Grid')) {
-          productEl.style.width = 'auto';
-          productEl.style.minWidth = 'auto';
-        }
-        
+        productEl.className = 'product-card';
         productEl.innerHTML = `
           <div class="card-header">
             ${discount > 15 ? '<span class="bestseller-tag">Bestseller</span>' : ''}
@@ -2861,7 +3063,6 @@
       selectedWeight = product.weightOptions[0];
       
       document.getElementById('detailImage').src = product.image;
-      document.getElementById('detailImage').alt = product.title;
       document.getElementById('detailTitle').textContent = product.title;
       document.getElementById('detailPrice').textContent = `₹${selectedWeight.price.toLocaleString('en-IN')}`;
       document.getElementById('detailStock').textContent = product.stock;
@@ -2913,7 +3114,7 @@
       const btn = event ? event.currentTarget : document.querySelector(`.wishlist-btn[onclick*="${productId}"]`);
       if (btn) {
         btn.classList.toggle('active');
-        btn.innerHTML = `<i class="fas fa-heart"></i>`;
+        btn.innerHTML = `<i class="fas fa-heart${index === -1 ? '' : '-broken'}"></i>`;
         btn.classList.add('button-click');
         setTimeout(() => btn.classList.remove('button-click'), 300);
       }
@@ -3202,11 +3403,6 @@
         return;
       }
       
-      if (!selectedPayment) {
-        showNotification('Please select a payment method');
-        return;
-      }
-      
       // Calculate order total
       let subtotal = 0;
       cart.forEach(item => {
@@ -3324,7 +3520,6 @@
       addresses.forEach(address => {
         address.selected = address.id === addressId;
       });
-      localStorage.setItem('addresses', JSON.stringify(addresses));
       renderAddresses();
     }
 
@@ -3394,7 +3589,6 @@
       // Unselect all other addresses
       addresses.forEach(address => address.selected = false);
       addresses.push(newAddress);
-      localStorage.setItem('addresses', JSON.stringify(addresses));
       
       // Render addresses
       renderAddresses();
@@ -3403,65 +3597,27 @@
       showPage('checkout');
     }
 
-    // Render payment methods
-    function renderPaymentMethods() {
-      const paymentContainer = document.getElementById('paymentMethodsList');
-      if (!paymentContainer) return;
-      
-      paymentContainer.innerHTML = '';
-      
-      paymentMethods.forEach(payment => {
-        const paymentEl = document.createElement('div');
-        paymentEl.className = 'payment-method';
-        paymentEl.onclick = () => selectPayment(payment.id);
-        paymentEl.innerHTML = `
-          <div class="payment-icon">
-            <i class="fas fa-credit-card"></i>
-          </div>
-          <div class="payment-details">
-            <div class="payment-title">${payment.title}</div>
-            <div class="payment-desc">${payment.desc}</div>
-          </div>
-          <div class="payment-radio ${selectedPayment === payment.id ? 'selected' : ''}"></div>
-        `;
-        paymentContainer.appendChild(paymentEl);
-      });
-    }
-    
     // Select payment method
-    function selectPayment(paymentId) {
-      selectedPayment = paymentId;
-      renderPaymentMethods();
+    function selectPayment(method) {
+      selectedPayment = method;
+      
+      // Update UI
+      document.querySelectorAll('.payment-method').forEach(el => {
+        el.classList.remove('active');
+      });
+      document.querySelectorAll('.payment-radio').forEach(el => {
+        el.classList.remove('selected');
+      });
+      
+      const methodEl = document.getElementById(method + 'Payment');
+      if (methodEl) {
+        methodEl.classList.add('active');
+        methodEl.querySelector('.payment-radio').classList.add('selected');
+      }
     }
 
     // Save payment method
     function savePayment() {
-      const cardNumber = document.getElementById('cardNumber').value;
-      const cardName = document.getElementById('cardName').value;
-      const cardExpiry = document.getElementById('cardExpiry').value;
-      const cardCvv = document.getElementById('cardCvv').value;
-      
-      // Basic validation
-      if (!cardNumber || !cardName || !cardExpiry || !cardCvv) {
-        showNotification('Please fill all required fields');
-        return;
-      }
-      
-      const newPayment = {
-        id: 'pay_' + Date.now(),
-        title: `Card **** ${cardNumber.slice(-4)}`,
-        desc: `Expires ${cardExpiry}`,
-        cardNumber,
-        cardName,
-        cardExpiry,
-        cardCvv
-      };
-      
-      paymentMethods.push(newPayment);
-      localStorage.setItem('paymentMethods', JSON.stringify(paymentMethods));
-      
-      selectedPayment = newPayment.id;
-      
       showNotification('Payment method saved successfully');
       showPage('payments');
     }
@@ -3512,10 +3668,6 @@
         renderOrders();
       } else if (page === 'addresses' || page === 'checkout') {
         renderAddresses();
-      } else if (page === 'payments') {
-        renderPaymentMethods();
-      } else if (page === 'home') {
-        renderHomeSections();
       }
     }
 
@@ -3536,3 +3688,7 @@
   </script>
 </body>
 </html>
+
+
+
+
