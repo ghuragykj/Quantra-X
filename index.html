@@ -1557,6 +1557,140 @@
         opacity: 0;
       }
     }
+
+    /* Hot Deals Section Styles */
+    .hot-deals-section {
+      margin: 20px 0;
+    }
+
+    .hot-deals-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .hot-deals-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .hot-deals-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    .hot-deal-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 15px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hot-deal-image-container {
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+
+    .hot-deal-image {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    .hot-deal-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 5px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .hot-deal-weight {
+      font-size: 12px;
+      color: var(--text-light);
+      margin-bottom: 8px;
+    }
+
+    .hot-deal-price {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .hot-deal-current-price {
+      font-weight: bold;
+      font-size: 16px;
+      color: var(--text);
+    }
+
+    .hot-deal-original-price {
+      font-size: 13px;
+      color: var(--text-light);
+      text-decoration: line-through;
+    }
+
+    .hot-deal-discount {
+      font-size: 12px;
+      color: var(--success);
+      font-weight: 600;
+      background: var(--primary-light);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .hot-deal-delivery {
+      font-size: 12px;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .hot-deal-delivery::before {
+      content: "🛵";
+      margin-right: 4px;
+      font-size: 10px;
+    }
+
+    .hot-deal-add-btn {
+      width: 100%;
+      background: transparent;
+      border: 1px solid var(--primary);
+      color: var(--primary);
+      border-radius: 20px;
+      padding: 8px 0;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .hot-deal-add-btn:hover {
+      background: rgba(0, 177, 79, 0.1);
+    }
+
+    .hot-deal-add-btn.added {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    @media (min-width: 768px) {
+      .hot-deals-container {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
   </style>
 </head>
 <body>
@@ -1711,7 +1845,78 @@
           <div class="swiper-pagination"></div>
         </div>
       </div>
-      
+
+      <!-- Hot Deals Section -->
+      <div class="hot-deals-section">
+        <div class="hot-deals-header">
+          <h2 class="hot-deals-title">Hot Deals</h2>
+        </div>
+        <div class="hot-deals-container">
+          <!-- Dairy Factory Ice Cream -->
+          <div class="hot-deal-card">
+            <div class="hot-deal-image-container">
+              <img src="https://images.unsplash.com/photo-1576506295286-5cda18df43e7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Vanilla Ice Cream" class="hot-deal-image">
+            </div>
+            <h3 class="hot-deal-title">Dairy Factory Vanilla Ice Cream</h3>
+            <p class="hot-deal-weight">700 ml</p>
+            <div class="hot-deal-price">
+              <span class="hot-deal-current-price">₹120</span>
+              <span class="hot-deal-original-price">₹160</span>
+              <span class="hot-deal-discount">25% OFF</span>
+            </div>
+            <p class="hot-deal-delivery">Delivery in 20 min</p>
+            <button class="hot-deal-add-btn" onclick="addToCart('hd1', event)">ADD</button>
+          </div>
+          
+          <!-- Fruit Juice -->
+          <div class="hot-deal-card">
+            <div class="hot-deal-image-container">
+              <img src="https://images.unsplash.com/photo-1603569283847-aa295f0d016a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Mixed Fruit Juice" class="hot-deal-image">
+            </div>
+            <h3 class="hot-deal-title">Real Fruit Power Masala Juice</h3>
+            <p class="hot-deal-weight">1 ltr</p>
+            <div class="hot-deal-price">
+              <span class="hot-deal-current-price">₹76</span>
+              <span class="hot-deal-original-price">₹160</span>
+              <span class="hot-deal-discount">53% OFF</span>
+            </div>
+            <p class="hot-deal-delivery">Delivery in 20 min</p>
+            <button class="hot-deal-add-btn" onclick="addToCart('hd2', event)">ADD</button>
+          </div>
+          
+          <!-- Green Cucumber -->
+          <div class="hot-deal-card">
+            <div class="hot-deal-image-container">
+              <img src="https://images.unsplash.com/photo-1604977046806-9cac1b1ee734?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Green Cucumber" class="hot-deal-image">
+            </div>
+            <h3 class="hot-deal-title">Green Cucumber (Kheera)</h3>
+            <p class="hot-deal-weight">(500-700) g</p>
+            <div class="hot-deal-price">
+              <span class="hot-deal-current-price">₹25</span>
+              <span class="hot-deal-original-price">₹34</span>
+              <span class="hot-deal-discount">26% OFF</span>
+            </div>
+            <p class="hot-deal-delivery">Delivery in 20 min</p>
+            <button class="hot-deal-add-btn" onclick="addToCart('hd3', event)">ADD</button>
+          </div>
+          
+          <!-- Cherry Tomatoes -->
+          <div class="hot-deal-card">
+            <div class="hot-deal-image-container">
+              <img src="https://images.unsplash.com/photo-1594282417922-6e538e7a5e2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Cherry Tomatoes" class="hot-deal-image">
+            </div>
+            <h3 class="hot-deal-title">Mix Cherry Tomatoes</h3>
+            <p class="hot-deal-weight">100 g</p>
+            <div class="hot-deal-price">
+              <span class="hot-deal-current-price">₹54</span>
+              <span class="hot-deal-original-price">₹69</span>
+              <span class="hot-deal-discount">22% OFF</span>
+            </div>
+            <p class="hot-deal-delivery">Delivery in 20 min</p>
+            <button class="hot-deal-add-btn" onclick="addToCart('hd4', event)">ADD</button>
+          </div>
+        </div>
+      </div>
 
       <!-- Category Bar -->
       <div class="category-scroll">
@@ -2829,6 +3034,63 @@
           { value: 36, text: '36g', price: 30 },
           { value: 72, text: '36g (Pack of 2)', price: 55 }
         ]
+      },
+      // Hot deals products
+      {
+        id: 'hd1',
+        title: 'Dairy Factory Vanilla Ice Cream',
+        category: 'dairy',
+        image: 'https://images.unsplash.com/photo-1576506295286-5cda18df43e7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
+        price: 120,
+        originalPrice: 160,
+        unitPrice: '₹171.43/L',
+        stock: 'In Stock',
+        deliveryTime: 'Delivery in 20 min',
+        weightOptions: [
+          { value: 700, text: '700ml', price: 120 }
+        ]
+      },
+      {
+        id: 'hd2',
+        title: 'Real Fruit Power Masala Juice',
+        category: 'beverages',
+        image: 'https://images.unsplash.com/photo-1603569283847-aa295f0d016a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
+        price: 76,
+        originalPrice: 160,
+        unitPrice: '₹76/L',
+        stock: 'In Stock',
+        deliveryTime: 'Delivery in 20 min',
+        weightOptions: [
+          { value: 1000, text: '1L', price: 76 }
+        ]
+      },
+      {
+        id: 'hd3',
+        title: 'Green Cucumber (Kheera)',
+        category: 'vegetables',
+        image: 'https://images.unsplash.com/photo-1604977046806-9cac1b1ee734?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
+        price: 25,
+        originalPrice: 34,
+        unitPrice: '₹41.67/kg',
+        stock: 'In Stock',
+        deliveryTime: 'Delivery in 20 min',
+        weightOptions: [
+          { value: 600, text: '(500-700)g', price: 25 }
+        ]
+      },
+      {
+        id: 'hd4',
+        title: 'Mix Cherry Tomatoes',
+        category: 'vegetables',
+        image: 'https://images.unsplash.com/photo-1594282417922-6e538e7a5e2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
+        price: 54,
+        originalPrice: 69,
+        unitPrice: '₹540/kg',
+        stock: 'In Stock',
+        deliveryTime: 'Delivery in 20 min',
+        weightOptions: [
+          { value: 100, text: '100g', price: 54 }
+        ]
       }
     ];
 
@@ -3688,7 +3950,3 @@
   </script>
 </body>
 </html>
-
-
-
-
