@@ -1242,10 +1242,12 @@
       transition: transform 0.3s ease;
       max-width: 90%;
       text-align: center;
+      opacity: 0;
     }
     
     .notification.show {
       transform: translateX(-50%) translateY(0);
+      opacity: 1;
     }
     
     /* Scrollbar styles */
@@ -3643,6 +3645,7 @@
         localStorage.setItem('cart', JSON.stringify(cart));
         updateCartCount();
         renderCart();
+        showNotification('Cart updated');
       }
     }
 
